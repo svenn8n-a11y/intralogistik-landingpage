@@ -1,0 +1,17 @@
+# System-Dateien
+.DS_Store
+Thumbs.db
+
+# Editor-Dateien
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporäre Dateien
+*.tmp
+*.temp
