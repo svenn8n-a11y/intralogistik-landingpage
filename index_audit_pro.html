@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intralogistik-Audit | Professionelle Analyse</title>
+    <style>
+        :root {
+            --primary: #16A085;
+            --secondary: #2C3E50;
+            --accent: #34495E;
+            --background: #F8F9FA;
+            --surface: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.95), rgba(44, 62, 80, 0.95)),
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .step-container {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #E0E0E0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .step-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #F5F5F5;
+            border-color: var(--primary);
+        }
+
+        .checkbox-item input {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #138D75;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 2px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background: #F5F5F5;
+        }
+
+        .results-header {
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.9), rgba(44, 62, 80, 0.9)),
+                        url('https://plus.unsplash.com/premium_photo-1733266897023-8ef16ad9350a?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--primary);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .recommendations {
+            margin-top: 2rem;
+        }
+
+        .recommendation-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--success);
+        }
+
+        .recommendation-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateX(4px);
+        }
+
+        .recommendation-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .recommendation-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .recommendation-number {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .problems-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            background: #F8F9FA;
+        }
+
+        .problem-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 1rem;
+            white-space: nowrap;
+        }
+
+        .badge-critical {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .badge-warning {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .badge-info {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .problem-text {
+            flex: 1;
+        }
+
+        .problem-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .problem-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-top: 2rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero" id="heroSection">
+        <div class="hero-content">
+            <h1>Intralogistik-Audit</h1>
+            <p>Systematische Analyse Ihrer Materialfluss- und Lagerprozesse. Ermitteln Sie datenbasiert Ihr Optimierungspotenzial und identifizieren Sie konkrete Handlungsfelder für mehr Effizienz, geringere Kosten und höhere Produktivität.</p>
+            <button class="cta-button" onclick="startAudit()">Analyse starten</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container hidden" id="mainContent">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <div class="step-container" id="stepContainer">
+            <!-- Steps will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="container hidden" id="resultsSection">
+        <div class="results-header">
+            <div class="score-circle">
+                <svg width="180" height="180">
+                    <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="12"/>
+                    <circle id="scoreCircle" cx="90" cy="90" r="80" fill="none" stroke="white" stroke-width="12" 
+                            stroke-dasharray="502" stroke-dashoffset="502" transform="rotate(-90 90 90)"
+                            style="transition: stroke-dashoffset 1s ease;"/>
+                </svg>
+                <div class="score-value" id="scoreValue">0</div>
+            </div>
+            <div class="score-label" id="scoreLabel">Optimierungspotenzial</div>
+        </div>
+
+        <div class="step-container">
+            <h2 class="step-title">Ihre Potenziale</h2>
+            <div class="metrics-grid" id="metricsGrid"></div>
+
+            <div class="problems-section">
+                <h3 style="margin-bottom: 1.5rem;">Identifizierte Problemfelder</h3>
+                <div id="problemsContainer"></div>
+            </div>
+
+            <div class="recommendations">
+                <h3 style="margin-bottom: 1.5rem;">Handlungsempfehlungen</h3>
+                <div id="recommendationsContainer"></div>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="margin-bottom: 1.5rem;">Kostenfreie Detailanalyse anfragen</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label">Firma</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ansprechpartner</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-Mail</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefon</label>
+                        <input type="tel" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Wunschtermin</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bevorzugte Kontaktart</label>
+                        <select class="form-control">
+                            <option>Telefonisch</option>
+                            <option>Per E-Mail</option>
+                            <option>Vor-Ort-Termin</option>
+                            <option>Videokonferenz</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Beratungstermin anfragen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formData = {};
+        let currentStep = 0;
+
+        const steps = [
+            {
+                title: "Unternehmensdaten",
+                fields: [
+                    { name: "branche", label: "Branche", type: "select", options: ["Zerspanende Fertigung", "Metallverarbeitung", "Automobilzulieferer", "Maschinenbau", "Handwerk/Metallbau", "Werkzeugbau", "Holzbau/Holzverarbeitung", "Fensterbau", "Möbelindustrie", "Sonstige"] },
+                    { name: "mitarbeiter", label: "Anzahl Mitarbeiter", type: "select", options: ["1-20", "21-50", "51-100", "101-250", "251-500", "über 500"] },
+                    { name: "schichtbetrieb", label: "Schichtbetrieb", type: "select", options: ["1-Schicht", "2-Schicht", "3-Schicht", "24/7"] }
+                ]
+            },
+            {
+                title: "Aktuelle Lagersituation",
+                fields: [
+                    { name: "lagerflaeche", label: "Lagerfläche (m²)", type: "number" },
+                    { name: "anzahl_skus", label: "Anzahl unterschiedlicher Artikel (SKUs)", type: "number" },
+                    { name: "picks_pro_tag", label: "Entnahmen pro Tag", type: "number" },
+                    { name: "lagersystem", label: "Aktuelles Lagersystem", type: "select", options: ["Offene Regale", "Fachbodenregale", "Schubladenschränke", "Palettenregale", "Hochregallager", "Vertikallift/Karussell", "Gemischt"] }
+                ]
+            },
+            {
+                title: "Herausforderungen",
+                fields: [
+                    { name: "painpoints", label: "Aktuelle Herausforderungen", type: "checkbox", options: ["Platzmangel", "Lange Suchzeiten", "Hohe Personalkosten", "Fehlerhafte Kommissionierung", "Produktionsstillstände", "Fehlende Transparenz", "Unübersichtliche Bestände", "Schwierige Inventur"] }
+                ]
+            },
+            {
+                title: "Materialtypen & Sortiment",
+                fields: [
+                    { name: "materialtypen", label: "Gelagerte Materialtypen", type: "checkbox", options: ["Werkzeuge (Bohrer, Fräser, Sägen)", "Ersatzteile", "Normteile (Schrauben, Beschläge)", "Rohmaterial/Halbzeuge Metall", "Konstruktionshölzer/Holzbauteile", "Holzplatten/Furniere", "Kleinteile/Verbindungselemente", "Verbrauchsmaterial", "Betriebsmittel"] }
+                ]
+            },
+            {
+                title: "Digitalisierung & Vernetzung",
+                fields: [
+                    { name: "lagerverwaltung", label: "Lagerverwaltungssystem", type: "select", options: ["Keine digitale Verwaltung", "Excel/Tabellen", "Einfaches LVS", "Professionelles WMS", "ERP-integriertes System"] },
+                    { name: "nachbestellung", label: "Nachbestellprozess", type: "select", options: ["Manuell", "Excel-basiert", "Teilautomatisiert", "Automatische Bestellvorschläge", "Vollautomatisch mit KI"] },
+                    { name: "materialentnahme", label: "Auftragsbezogene Materialentnahme", type: "select", options: ["Keine Zuordnung", "Manuelle Dokumentation", "Excel-Listen", "Digitale Erfassung", "Vollautomatisch ERP-integriert"] }
+                ]
+            },
+            {
+                title: "Maschinenpark & Produktion",
+                fields: [
+                    { name: "cnc_maschinen", label: "Anzahl CNC-Maschinen (0 falls keine)", type: "number" },
+                    { name: "automatisierung", label: "Automatisierungsgrad", type: "select", options: ["Weitgehend manuell", "Teilautomatisiert", "Hochautomatisiert", "Vollautomatisch"] },
+                    { name: "materialversorgung", label: "Materialversorgung", type: "select", options: ["Manuell durch Mitarbeiter", "Routenzug/Milkrun", "AGV/Fahrerlose Systeme", "Vollautomatisch"] }
+                ]
+            },
+            {
+                title: "Ziele & Prioritäten",
+                fields: [
+                    { name: "hauptziele", label: "Ihre Hauptziele", type: "checkbox", options: ["Platzeinsparung", "Kostenreduktion", "Fehlerminimierung", "Schnellere Prozesse", "Bessere Übersicht", "Mitarbeiterentlastung", "Höhere Produktivität", "Digitalisierung", "Rückverfolgbarkeit", "Automatische Nachbestellung"] },
+                    { name: "roi_erwartung", label: "ROI-Erwartung", type: "select", options: ["unter 1 Jahr", "1-2 Jahre", "2-3 Jahre", "3-5 Jahre", "über 5 Jahre"] }
+                ]
+            }
+        ];
+
+        function startAudit() {
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            renderStep();
+        }
+
+        function renderStep() {
+            const step = steps[currentStep];
+            const container = document.getElementById('stepContainer');
+            
+            let html = `<h2 class="step-title">${step.title}</h2>`;
+            
+            step.fields.forEach(field => {
+                html += `<div class="form-group">`;
+                html += `<label class="form-label">${field.label}</label>`;
+                
+                if (field.type === 'select') {
+                    html += `<select class="form-control" id="${field.name}">`;
+                    field.options.forEach(opt => {
+                        html += `<option>${opt}</option>`;
+                    });
+                    html += `</select>`;
+                } else if (field.type === 'number') {
+                    html += `<input type="number" class="form-control" id="${field.name}" min="0">`;
+                } else if (field.type === 'checkbox') {
+                    html += `<div class="checkbox-group">`;
+                    field.options.forEach(opt => {
+                        html += `
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="${field.name}" value="${opt}">
+                                <span>${opt}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+                
+                html += `</div>`;
+            });
+            
+            html += `<div class="button-group">`;
+            if (currentStep > 0) {
+                html += `<button class="btn btn-secondary" onclick="previousStep()">Zurück</button>`;
+            }
+            if (currentStep < steps.length - 1) {
+                html += `<button class="btn btn-primary" onclick="nextStep()">Weiter</button>`;
+            } else {
+                html += `<button class="btn btn-primary" onclick="showResults()">Ergebnisse anzeigen</button>`;
+            }
+            html += `</div>`;
+            
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep + 1) / steps.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextStep() {
+            saveCurrentStep();
+            currentStep++;
+            renderStep();
+        }
+
+        function previousStep() {
+            saveCurrentStep();
+            currentStep--;
+            renderStep();
+        }
+
+        function saveCurrentStep() {
+            const step = steps[currentStep];
+            step.fields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    const checked = [];
+                    document.querySelectorAll(`input[name="${field.name}"]:checked`).forEach(cb => {
+                        checked.push(cb.value);
+                    });
+                    formData[field.name] = checked;
+                } else {
+                    const element = document.getElementById(field.name);
+                    if (element) {
+                        formData[field.name] = element.value;
+                    }
+                }
+            });
+        }
+
+        function calculateScore() {
+            let score = 0;
+            
+            // Painpoints
+            if (formData.painpoints) {
+                score += formData.painpoints.length * 8;
+            }
+            
+            // SKUs
+            const skus = parseInt(formData.anzahl_skus) || 0;
+            if (skus > 5000) score += 20;
+            else if (skus > 2000) score += 15;
+            else if (skus > 1000) score += 10;
+            
+            // Picks
+            const picks = parseInt(formData.picks_pro_tag) || 0;
+            if (picks > 1000) score += 15;
+            else if (picks > 500) score += 10;
+            else if (picks > 200) score += 5;
+            
+            // Schichtbetrieb
+            if (formData.schichtbetrieb === '3-Schicht' || formData.schichtbetrieb === '24/7') score += 15;
+            
+            // Digitalisierung
+            if (formData.lagerverwaltung === 'Keine digitale Verwaltung' || formData.lagerverwaltung === 'Excel/Tabellen') score += 20;
+            if (formData.nachbestellung === 'Manuell' || formData.nachbestellung === 'Excel-basiert') score += 15;
+            if (formData.materialentnahme === 'Keine Zuordnung' || formData.materialentnahme === 'Manuelle Dokumentation') score += 15;
+            
+            return Math.min(score, 100);
+        }
+
+        function showResults() {
+            saveCurrentStep();
+            
+            const score = calculateScore();
+            const flaeche = parseInt(formData.lagerflaeche) || 100;
+            const flaechenEinsparung = Math.round(flaeche * 0.7);
+            const kostenEinsparung = Math.round(flaechenEinsparung * 60 * 12);
+            const zeitEinsparung = Math.round((parseInt(formData.picks_pro_tag) || 100) * 0.5 * 260 / 60);
+            
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            
+            // Animate score
+            setTimeout(() => {
+                document.getElementById('scoreValue').textContent = score;
+                const circumference = 2 * Math.PI * 80;
+                const offset = circumference - (score / 100) * circumference;
+                document.getElementById('scoreCircle').style.strokeDashoffset = offset;
+            }, 100);
+            
+            // Score label
+            let label = 'Geringes Optimierungspotenzial';
+            if (score > 70) label = 'Sehr hohes Optimierungspotenzial';
+            else if (score > 50) label = 'Hohes Optimierungspotenzial';
+            else if (score > 30) label = 'Mittleres Optimierungspotenzial';
+            document.getElementById('scoreLabel').textContent = label;
+            
+            // Metrics
+            const metrics = [
+                { label: 'Geschätzte Flächeneinsparung', value: `~${flaechenEinsparung} m²` },
+                { label: 'Potenzielle Kosteneinsparung/Jahr', value: `~${kostenEinsparung.toLocaleString('de-DE')} €` },
+                { label: 'Zeiteinsparung/Jahr', value: `~${zeitEinsparung} h` },
+                { label: 'Geschätzte Amortisation', value: '1,8-3 Jahre' }
+            ];
+            
+            document.getElementById('metricsGrid').innerHTML = metrics.map(m => `
+                <div class="metric-card">
+                    <div class="metric-label">${m.label}</div>
+                    <div class="metric-value">${m.value}</div>
+                </div>
+            `).join('');
+            
+            // Problems
+            const problems = [];
+            if (formData.painpoints && formData.painpoints.includes('Platzmangel')) {
+                problems.push({ level: 'critical', title: 'Platzmangel', description: 'Kritischer Engpass bei Lagerfläche identifiziert. Vertikallift-Systeme können bis zu 90% Fläche einsparen.' });
+            }
+            if (formData.lagerverwaltung === 'Keine digitale Verwaltung') {
+                problems.push({ level: 'critical', title: 'Fehlende Digitalisierung', description: 'Ohne Lagerverwaltungssystem fehlt die Basis für Effizienz und Transparenz.' });
+            }
+            if (formData.painpoints && formData.painpoints.includes('Lange Suchzeiten')) {
+                problems.push({ level: 'warning', title: 'Ineffiziente Kommissionierung', description: 'Hoher Zeitverlust durch Suchen. Automatisierte Systeme reduzieren Suchzeiten um bis zu 80%.' });
+            }
+            
+            document.getElementById('problemsContainer').innerHTML = problems.map(p => `
+                <div class="problem-item">
+                    <span class="problem-badge badge-${p.level}">${p.level === 'critical' ? 'Kritisch' : 'Warnung'}</span>
+                    <div class="problem-text">
+                        <div class="problem-title">${p.title}</div>
+                        <div class="problem-description">${p.description}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Recommendations
+            const recommendations = [
+                { title: 'Vertikallift-System (Modula)', text: `Durch ein automatisches Vertikallagersystem können Sie bis zu <span class="recommendation-number">${flaechenEinsparung} m²</span> Fläche einsparen und die Kommissionierzeit um <span class="recommendation-number">70%</span> reduzieren.` },
+                { title: 'Digitales Lagerverwaltungssystem', text: 'Ein professionelles WMS schafft Transparenz, reduziert Fehler um <span class="recommendation-number">65%</span> und ermöglicht automatische Nachbestellungen.' },
+                { title: 'Automatisierte Materialfluss-Steuerung', text: 'Durch Integration von AGV-Systemen und automatisierter Versorgung können Personalkosten um <span class="recommendation-number">50-60%</span> gesenkt werden.' }
+            ];
+            
+            if (formData.materialentnahme !== 'Vollautomatisch ERP-integriert') {
+                recommendations.push({ title: 'ERP-Integration für auftragsbezogene Entnahmen', text: 'Vollständige Rückverfolgbarkeit und automatische Kostenzuordnung steigern Effizienz um <span class="recommendation-number">40%</span>.' });
+            }
+            
+            document.getElementById('recommendationsContainer').innerHTML = recommendations.map(r => `
+                <div class="recommendation-card">
+                    <div class="recommendation-title">${r.title}</div>
+                    <div class="recommendation-text">${r.text}</div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Vielen Dank! Wir melden uns in Kürze bei Ihnen.');
+        });
+    </script>
+</body>
+</html>

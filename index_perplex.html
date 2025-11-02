@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maßgeschneiderte Intralogistik-Lösungen | Ihr Partner für Effizienz</title>
+    <style>
+        :root {
+            --primary: #16A085;
+            --secondary: #2C3E50;
+            --accent: #34495E;
+            --background: #F8F9FA;
+            --surface: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --success: #27AE60;
+            --warning: #F39C12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Hero Section with Video Background Effect */
+        .hero {
+            min-height: 90vh;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.93), rgba(44, 62, 80, 0.93)),
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(22, 160, 133, 0.2) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-headline {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1.125rem 2.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cta-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+
+        .cta-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Logo Marquee */
+        .logo-marquee {
+            background: var(--secondary);
+            padding: 2.5rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-marquee::before,
+        .logo-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .logo-marquee::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--secondary) 0%, transparent 100%);
+        }
+
+        .logo-marquee::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--secondary) 0%, transparent 100%);
+        }
+
+        .marquee-container {
+            display: flex;
+            width: 200%;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            width: 100%;
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            height: 70px;
+            width: 200px;
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            z-index: 10000;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Problem/Solution Section */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-eyebrow {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 4px solid var(--warning);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(243, 156, 18, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--warning);
+            font-size: 1.5rem;
+        }
+
+        .problem-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .problem-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Solution Section with Zigzag Layout */
+        .solution-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .solution-item:nth-child(even) .solution-content {
+            order: 2;
+        }
+
+        .solution-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .solution-tag {
+            display: inline-block;
+            background: rgba(22, 160, 133, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .solution-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .solution-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .solution-benefits {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .solution-benefits li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+        }
+
+        .solution-benefits li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M50 0v100M0 50h100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        /* Video Marquee */
+        .video-marquee-section {
+            background: var(--background);
+            padding: 6rem 2rem;
+            overflow: hidden;
+        }
+
+        .video-marquee-container {
+            display: flex;
+            gap: 2rem;
+            animation: videoScroll 60s linear infinite;
+        }
+
+        @keyframes videoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .video-card {
+            flex-shrink: 0;
+            width: 480px;
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Modular System Section */
+        .modular-section {
+            background: var(--background);
+        }
+
+        .modular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .modular-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+
+        .modular-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .modular-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modular-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .modular-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 64px;
+            bottom: -48px;
+            width: 2px;
+            background: var(--primary);
+            opacity: 0.3;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-number {
+            flex-shrink: 0;
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.95), rgba(44, 62, 80, 0.95)),
+                        url('https://plus.unsplash.com/premium_photo-1733266897023-8ef16ad9350a?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(22, 160, 133, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: #138D75;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.3);
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .testimonial-card {
+            background: var(--background);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .author-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .solution-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .solution-item:nth-child(even) .solution-content {
+                order: 1;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-primary, .cta-secondary {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .video-card {
+                width: 320px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-headline">Maßgeschneiderte Intralogistik-Lösungen, die mit Ihnen wachsen</h1>
+            <p class="hero-subheadline">Modulare Systeme. Maximale Effizienz. Nachweisbare Einsparungen von bis zu 90% Fläche und 60% Kosten.</p>
+            <div class="hero-cta-group">
+                <button class="cta-primary" onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'})">
+                    <span>Kostenfreie Beratung</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/></svg>
+                </button>
+                <a href="#audit" class="cta-secondary">
+                    <span>Potenzial analysieren</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Marquee -->
+    <section class="logo-marquee">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <div class="logo-item">
+                    <img src="logos/Logo Modula.png" alt="Modula">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Walter Logo.png" alt="Walter Tools">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Precitool.png" alt="Precitool">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Toolbase.png" alt="Toolbase">
+                </div>
+            </div>
+            <div class="marquee-track">
+                <div class="logo-item">
+                    <img src="logos/Logo Modula.png" alt="Modula">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Walter Logo.png" alt="Walter Tools">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Precitool.png" alt="Precitool">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Toolbase.png" alt="Toolbase">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-eyebrow">Herausforderungen</div>
+            <h2 class="section-title">Kennen Sie diese Probleme?</h2>
+            <p class="section-subtitle">Ineffiziente Prozesse kosten Sie täglich Geld, Zeit und Wettbewerbsfähigkeit.</p>
+        </div>
+
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">⚠️</div>
+                <h3 class="problem-title">Platzmangel & teure Lagerflächen</h3>
+                <p class="problem-text">Konventionelle Lager belegen das 2-3-fache an Fläche. Steigende Immobilienkosten bremsen Ihr Wachstum.</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-icon">🔍</div>
+                <h3 class="problem-title">Lange Suchzeiten</h3>
+                <p class="problem-text">80% der Kommissionierzeit geht durch Suchen verloren. Produktionsstillstände durch fehlende Teile.</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-icon">👥</div>
+                <h3 class="problem-title">Fachkräftemangel</h3>
+                <p class="problem-text">Wertvolles Personal wird für manuelle Transporte statt wertschöpfende Tätigkeiten eingesetzt.</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-icon">📊</div>
+                <h3 class="problem-title">Fehlende Transparenz</h3>
+                <p class="problem-text">Ohne digitales System keine Übersicht über Bestände, Lagerorte oder Materialflüsse.</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-icon">❌</div>
+                <h3 class="problem-title">Hohe Fehlerquoten</h3>
+                <p class="problem-text">Bis zu 3% Fehlerquote bei manueller Kommissionierung verursachen massive Folgekosten.</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-icon">⏸️</div>
+                <h3 class="problem-title">Produktionsstillstände</h3>
+                <p class="problem-text">Fehlende Werkzeuge oder Materialien sorgen für ungeplante Ausfallzeiten und Terminverzug.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section" style="background: var(--background);">
+        <div class="section-header">
+            <div class="section-eyebrow">Unsere Lösung</div>
+            <h2 class="section-title">Maßgeschneiderte Systeme für Ihre Anforderungen</h2>
+            <p class="section-subtitle">Wir analysieren Ihre Prozesse und entwickeln modulare Lösungen, die perfekt zu Ihnen passen.</p>
+        </div>
+
+        <div class="solution-item">
+            <div class="solution-content">
+                <span class="solution-tag">Automatische Lagersysteme</span>
+                <h3 class="solution-title">Vertikallift-Systeme: Bis zu 90% Platzeinsparung</h3>
+                <p class="solution-description">Moderne Vertikallifte von Modula nutzen die Raumhöhe optimal und bringen Waren automatisch zum Kommissionierer. Das Ware-zur-Person-Prinzip eliminiert Laufwege komplett.</p>
+                <ul class="solution-benefits">
+                    <li>60-90% weniger Lagerfläche bei gleicher Kapazität</li>
+                    <li>Bis zu 140 Entnahmen pro Stunde</li>
+                    <li>Fehlerquote unter 1% durch digitale Steuerung</li>
+                    <li>Modular erweiterbar für zukünftiges Wachstum</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                    <rect x="50" y="50" width="120" height="300" fill="#16A085" opacity="0.9" rx="8"/>
+                    <rect x="190" y="80" width="120" height="270" fill="#16A085" opacity="0.85" rx="8"/>
+                    <rect x="330" y="100" width="120" height="250" fill="#16A085" opacity="0.8" rx="8"/>
+                    <rect x="470" y="130" width="80" height="220" fill="#2C3E50" opacity="0.9" rx="8"/>
+                    <text x="300" y="380" font-family="Arial" font-size="16" fill="#2C3E50" text-anchor="middle" font-weight="bold">Modulares Vertikallift-System</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="solution-item">
+            <div class="solution-content">
+                <span class="solution-tag">Digitale Vernetzung</span>
+                <h3 class="solution-title">Intelligente Lagerverwaltung & ERP-Integration</h3>
+                <p class="solution-description">Professionelle Warehouse-Management-Systeme schaffen vollständige Transparenz und ermöglichen automatische Nachbestellungen, auftragsbezogene Entnahmen und lückenlose Rückverfolgbarkeit.</p>
+                <ul class="solution-benefits">
+                    <li>Echtzeit-Übersicht über alle Bestände und Lagerorte</li>
+                    <li>Automatische Nachbestellung bei Mindestbestand</li>
+                    <li>Auftragsbezogene Materialzuordnung für präzise Kalkulation</li>
+                    <li>Nahtlose Integration in bestehende ERP-Systeme</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                    <rect x="80" y="80" width="440" height="240" fill="white" stroke="#16A085" stroke-width="3" rx="12"/>
+                    <rect x="100" y="100" width="120" height="80" fill="#16A085" opacity="0.2" rx="8"/>
+                    <rect x="240" y="100" width="120" height="80" fill="#16A085" opacity="0.3" rx="8"/>
+                    <rect x="380" y="100" width="120" height="80" fill="#16A085" opacity="0.4" rx="8"/>
+                    <rect x="100" y="200" width="180" height="100" fill="#2C3E50" opacity="0.15" rx="8"/>
+                    <rect x="320" y="200" width="180" height="100" fill="#2C3E50" opacity="0.15" rx="8"/>
+                    <circle cx="300" cy="50" r="30" fill="#16A085"/>
+                    <text x="300" y="58" font-family="Arial" font-size="24" fill="white" text-anchor="middle" font-weight="bold">☁</text>
+                    <text x="300" y="360" font-family="Arial" font-size="16" fill="#2C3E50" text-anchor="middle" font-weight="bold">Cloud-basiertes Lagerverwaltungssystem</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="solution-item">
+            <div class="solution-content">
+                <span class="solution-tag">Tool Management</span>
+                <h3 class="solution-title">Ausgabeschränke: Intelligente Werkzeugverwaltung</h3>
+                <p class="solution-description">Automatische Ausgabesysteme sorgen für kontrollierte Entnahme, lückenlose Dokumentation und automatische Nachbestellung von Werkzeugen und Verbrauchsmaterialien.</p>
+                <ul class="solution-benefits">
+                    <li>Automatische Bestandserfassung bei jeder Entnahme</li>
+                    <li>Auftragsbezogene Kostenzuordnung</li>
+                    <li>Personalisierte Zugriffskontrolle</li>
+                    <li>Integration mit ERP und Lagerverwaltung</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                    <rect x="100" y="50" width="400" height="300" fill="#2C3E50" opacity="0.15" rx="12" stroke="#16A085" stroke-width="3"/>
+                    <rect x="140" y="100" width="100" height="80" fill="#16A085" opacity="0.3" rx="6"/>
+                    <rect x="260" y="100" width="100" height="80" fill="#16A085" opacity="0.4" rx="6"/>
+                    <rect x="380" y="100" width="80" height="80" fill="#16A085" opacity="0.5" rx="6"/>
+                    <rect x="140" y="200" width="100" height="80" fill="#16A085" opacity="0.25" rx="6"/>
+                    <rect x="260" y="200" width="100" height="80" fill="#16A085" opacity="0.35" rx="6"/>
+                    <rect x="380" y="200" width="80" height="80" fill="#16A085" opacity="0.45" rx="6"/>
+                    <text x="300" y="380" font-family="Arial" font-size="16" fill="#2C3E50" text-anchor="middle" font-weight="bold">Intelligente Werkzeugausgabe</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="solution-item">
+            <div class="solution-content">
+                <span class="solution-tag">Automatisierte Materialflüsse</span>
+                <h3 class="solution-title">Fahrerlose Transportsysteme & Routenzüge</h3>
+                <p class="solution-description">AGVs und intelligente Routenzugsysteme versorgen Ihre Produktion vollautomatisch. Von der Warenannahme bis zur Maschine – ohne manuellen Eingriff.</p>
+                <ul class="solution-benefits">
+                    <li>24/7-Betrieb ohne Personalkosten für Transport</li>
+                    <li>Exakte Positionierung mit ±1mm Genauigkeit</li>
+                    <li>Flexible Anpassung an Layout-Änderungen</li>
+                    <li>Skalierbar von 1 bis 50+ Fahrzeugen</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                    <path d="M 100 200 Q 200 100, 300 200 T 500 200" stroke="#16A085" stroke-width="4" fill="none" stroke-dasharray="10,5"/>
+                    <rect x="150" y="180" width="80" height="40" fill="#2C3E50" rx="8"/>
+                    <circle cx="165" cy="225" r="8" fill="#16A085"/>
+                    <circle cx="215" cy="225" r="8" fill="#16A085"/>
+                    <rect x="350" y="180" width="80" height="40" fill="#2C3E50" rx="8"/>
+                    <circle cx="365" cy="225" r="8" fill="#16A085"/>
+                    <circle cx="415" cy="225" r="8" fill="#16A085"/>
+                    <rect x="80" y="280" width="100" height="80" fill="#16A085" opacity="0.3" rx="8"/>
+                    <rect x="250" y="280" width="100" height="80" fill="#16A085" opacity="0.3" rx="8"/>
+                    <rect x="420" y="280" width="100" height="80" fill="#16A085" opacity="0.3" rx="8"/>
+                    <text x="300" y="380" font-family="Arial" font-size="16" fill="#2C3E50" text-anchor="middle" font-weight="bold">Automatisierte Materialversorgung</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="section-header" style="margin-bottom: 3rem;">
+            <h2 class="section-title" style="color: white;">Nachweisbare Ergebnisse</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Echte Daten aus realisierten Projekten</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">60-90%</span>
+                <span class="stat-label">Flächeneinsparung</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50-60%</span>
+                <span class="stat-label">Kostensenkung</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">70-85%</span>
+                <span class="stat-label">Schnellere Kommissionierung</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">1,8-3</span>
+                <span class="stat-label">Jahre ROI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modular Approach -->
+    <section class="section modular-section">
+        <div class="section-header">
+            <div class="section-eyebrow">Modularer Ansatz</div>
+            <h2 class="section-title">Systeme, die mit Ihnen wachsen</h2>
+            <p class="section-subtitle">Starten Sie klein, erweitern Sie nach Bedarf. Unsere Lösungen sind von Anfang an auf Skalierbarkeit ausgelegt.</p>
+        </div>
+
+        <div class="modular-grid">
+            <div class="modular-card">
+                <div class="modular-number">1</div>
+                <h3 class="modular-title">Basis-Modul</h3>
+                <p class="modular-text">Starten Sie mit einem einzelnen Vertikallift oder Lagerverwaltungssystem. Bereits ab 120.000€ realisierbar, sofortige Effizienzsteigerung.</p>
+            </div>
+
+            <div class="modular-card">
+                <div class="modular-number">2</div>
+                <h3 class="modular-title">Erweiterung</h3>
+                <p class="modular-text">Ergänzen Sie weitere Lifte, integrieren Sie AGVs oder erweitern Sie Ihr WMS. Jedes Modul fügt sich nahtlos in Ihr bestehendes System ein.</p>
+            </div>
+
+            <div class="modular-card">
+                <div class="modular-number">3</div>
+                <h3 class="modular-title">Vollautomatisierung</h3>
+                <p class="modular-text">Vernetzen Sie alle Komponenten zu einem hochautomatisierten Gesamtsystem. Von der Warenannahme bis zum Versand – komplett automatisch.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section" style="background: white;">
+        <div class="section-header">
+            <div class="section-eyebrow">Unser Prozess</div>
+            <h2 class="section-title">Von der Analyse zur Umsetzung</h2>
+            <p class="section-subtitle">In 5 Schritten zu Ihrer maßgeschneiderten Lösung</p>
+        </div>
+
+        <div class="process-timeline">
+            <div class="timeline-item">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content">
+                    <h4 class="timeline-title">Kostenfreie Analyse</h4>
+                    <p class="timeline-description">Wir analysieren Ihre aktuelle Situation, erfassen Ihre Anforderungen und identifizieren Optimierungspotenziale. Nutzen Sie unser Online-Audit-Tool oder vereinbaren Sie einen Vor-Ort-Termin.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content">
+                    <h4 class="timeline-title">Maßgeschneidertes Konzept</h4>
+                    <p class="timeline-description">Basierend auf Ihren Bedürfnissen entwickeln wir ein individuelles Konzept. Wir zeigen Ihnen konkrete Lösungen von Modula, E/D/E, Precitool und weiteren Partnern – modular und erweiterbar.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content">
+                    <h4 class="timeline-title">ROI-Kalkulation</h4>
+                    <p class="timeline-description">Sie erhalten eine detaillierte Wirtschaftlichkeitsberechnung mit konkreten Einsparpotenzialen, Investitionskosten und realistischer Amortisationszeit.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content">
+                    <h4 class="timeline-title">Professionelle Umsetzung</h4>
+                    <p class="timeline-description">Unsere Experten koordinieren Installation, Integration und Inbetriebnahme. Wir garantieren reibungslose Abläufe und minimale Ausfallzeiten.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-number">5</div>
+                <div class="timeline-content">
+                    <h4 class="timeline-title">Langfristige Partnerschaft</h4>
+                    <p class="timeline-description">Service, Wartung und kontinuierliche Optimierung. Wir begleiten Sie langfristig und sorgen dafür, dass Ihr System mit Ihren Anforderungen mitwächst.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="section-header">
+            <div class="section-eyebrow">Referenzen</div>
+            <h2 class="section-title">Was unsere Kunden sagen</h2>
+        </div>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Durch das Modula-System haben wir 75% unserer Lagerfläche eingespart. Die Amortisation war nach nur 1,8 Jahren erreicht. Die Kommissionierzeiten haben sich halbiert."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MK</div>
+                    <div class="author-info">
+                        <div class="author-name">Martin Klein</div>
+                        <div class="author-title">Geschäftsführer, Metallverarbeitung</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Die Integration des Lagerverwaltungssystems in unser ERP war nahtlos. Wir haben jetzt vollständige Transparenz und können auftragsbezogen Material zuordnen. Das war ein Gamechanger."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SB</div>
+                    <div class="author-info">
+                        <div class="author-name">Stefan Bauer</div>
+                        <div class="author-title">Produktionsleiter, Holzbau</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Besonders beeindruckt hat uns die modulare Erweiterbarkeit. Wir sind mit einem Lift gestartet und haben inzwischen drei weitere ergänzt. Das System wächst perfekt mit uns."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JM</div>
+                    <div class="author-info">
+                        <div class="author-name">Julia Müller</div>
+                        <div class="author-title">Logistikleiterin, Maschinenbau</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Marquee -->
+    <section class="video-marquee-section">
+        <div class="section-header">
+            <div class="section-eyebrow">Systeme in Aktion</div>
+            <h2 class="section-title">Sehen Sie unsere Lösungen im Einsatz</h2>
+            <p class="section-subtitle">Praxisbeispiele von führenden Unternehmen weltweit</p>
+        </div>
+        <div class="video-marquee-container">
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audit CTA -->
+    <section class="cta-section" id="audit">
+        <div class="cta-content">
+            <h2 class="cta-title">Bereit für den nächsten Schritt?</h2>
+            <p class="cta-text">Starten Sie jetzt mit unserer kostenfreien Analyse und entdecken Sie Ihr Einsparpotenzial.</p>
+            <button class="cta-primary" onclick="window.location.href='index_audit_pro.html'" style="margin-top: 2rem; font-size: 1.25rem;">
+                <span>Jetzt Audit starten</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="section" style="background: var(--background);">
+        <div class="section-header">
+            <div class="section-eyebrow">Kontakt</div>
+            <h2 class="section-title">Lassen Sie uns sprechen</h2>
+            <p class="section-subtitle">Vereinbaren Sie ein kostenloses Beratungsgespräch mit unseren Intralogistik-Experten</p>
+        </div>
+
+        <div class="contact-form" id="contactForm">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label">Firma *</label>
+                        <input type="text" class="form-control" required placeholder="Ihr Firmenname">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ansprechpartner *</label>
+                        <input type="text" class="form-control" required placeholder="Vor- und Nachname">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">E-Mail *</label>
+                        <input type="email" class="form-control" required placeholder="ihre@email.de">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Telefon *</label>
+                        <input type="tel" class="form-control" required placeholder="+49 ...">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ihre größte Herausforderung</label>
+                        <select class="form-control">
+                            <option>Platzmangel</option>
+                            <option>Hohe Kosten</option>
+                            <option>Lange Suchzeiten</option>
+                            <option>Fehlende Digitalisierung</option>
+                            <option>Produktionsstillstände</option>
+                            <option>Sonstiges</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-button">Kostenfreie Beratung anfordern</button>
+                </form>
+            </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>IntraLogistik Pro</h3>
+                <p>Ihr Partner für moderne Intralogistik-Lösungen. Vertikallift-Systeme, Lagerverwaltung und intelligente Automatisierung aus einer Hand.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#home">Start</a></li>
+                    <li><a href="#solutions">Lösungen</a></li>
+                    <li><a href="#audit">Audit</a></li>
+                    <li><a href="#contactForm">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Lösungen</h4>
+                <ul>
+                    <li><a href="#solutions">Vertikallift-Systeme</a></li>
+                    <li><a href="#solutions">Lagerverwaltung</a></li>
+                    <li><a href="#solutions">Ausgabeschränke</a></li>
+                    <li><a href="#solutions">Fahrerlose Transportsysteme</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="#impressum">Impressum</a></li>
+                    <li><a href="#datenschutz">Datenschutz</a></li>
+                    <li><a href="#agb">AGB</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 IntraLogistik Pro. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Vielen Dank für Ihre Anfrage! Wir melden uns innerhalb von 24 Stunden bei Ihnen.');
+        }
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        }, { passive: true });
+
+        // 3D Tilt Effect for Cards
+        const tiltCards = document.querySelectorAll('.problem-card, .modular-card, .testimonial-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+
+        // Magnetic Buttons
+        const magneticButtons = document.querySelectorAll('.cta-primary, .cta-secondary');
+        magneticButtons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Parallax Effect
+        let parallaxElements = [];
+
+        // Hero section parallax
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+            parallaxElements.push({ element: heroSection, speed: 0.5 });
+        }
+
+        // Stats section parallax
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            parallaxElements.push({ element: statsSection, speed: 0.3 });
+        }
+
+        window.addEventListener('scroll', () => {
+            parallaxElements.forEach(item => {
+                const scrolled = window.pageYOffset;
+                const rect = item.element.getBoundingClientRect();
+                const elementTop = rect.top + scrolled;
+                const elementHeight = rect.height;
+
+                if (scrolled + window.innerHeight > elementTop && scrolled < elementTop + elementHeight) {
+                    const yPos = -(scrolled - elementTop) * item.speed;
+                    item.element.style.backgroundPosition = `center ${yPos}px`;
+                }
+            });
+        }, { passive: true });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.problem-card, .solution-item, .modular-card, .timeline-item, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Pause video marquee on hover
+        const videoMarquee = document.querySelector('.video-marquee-container');
+        if (videoMarquee) {
+            videoMarquee.addEventListener('mouseenter', () => {
+                videoMarquee.style.animationPlayState = 'paused';
+            });
+            videoMarquee.addEventListener('mouseleave', () => {
+                videoMarquee.style.animationPlayState = 'running';
+            });
+        }
+
+        // Pause logo marquee on hover
+        const logoMarquee = document.querySelector('.marquee-container');
+        if (logoMarquee) {
+            logoMarquee.addEventListener('mouseenter', () => {
+                logoMarquee.style.animationPlayState = 'paused';
+            });
+            logoMarquee.addEventListener('mouseleave', () => {
+                logoMarquee.style.animationPlayState = 'running';
+            });
+        }
+    </script>
+</body>
+</html>
