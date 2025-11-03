@@ -145,7 +145,7 @@
         /* Logo Marquee */
         .logo-marquee {
             background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 4rem 0;
+            padding: 6rem 0;
             overflow: hidden;
             position: relative;
         }
@@ -558,36 +558,35 @@
             background: var(--background);
             padding: 6rem 2rem;
             position: relative;
-            overflow: hidden;
         }
 
         .video-marquee-wrapper {
-            overflow: visible;
+            overflow-x: auto;
             position: relative;
             width: 100%;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         .video-marquee-container {
             display: flex;
             gap: 2rem;
             padding: 1rem 0;
-            width: 200%;
-            animation: videoMarquee 60s linear infinite;
-        }
-
-        @keyframes videoMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .video-marquee-container:hover {
-            animation-play-state: paused;
-        }
-
-        .video-marquee-track {
-            display: flex;
-            gap: 2rem;
-            width: 100%;
+            width: max-content;
         }
 
         .video-card {
@@ -1872,48 +1871,24 @@
         </div>
         <div class="video-marquee-wrapper">
             <div class="video-marquee-container">
-                <div class="video-marquee-track">
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="video-marquee-track">
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-embed">
-                            <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -2277,7 +2252,52 @@
             console.error('Stats section NOT found!');
         }
 
-        // Video marquee animation is handled by CSS
+        // Video auto-scroll with mouse control
+        const videoWrapper = document.querySelector('.video-marquee-wrapper');
+        if (videoWrapper) {
+            let scrollInterval;
+            let isUserInteracting = false;
+
+            const startAutoScroll = () => {
+                if (!isUserInteracting) {
+                    scrollInterval = setInterval(() => {
+                        if (!isUserInteracting && videoWrapper.scrollLeft < videoWrapper.scrollWidth - videoWrapper.clientWidth) {
+                            videoWrapper.scrollLeft += 1;
+                        } else if (!isUserInteracting) {
+                            videoWrapper.scrollLeft = 0; // Loop back to start
+                        }
+                    }, 30);
+                }
+            };
+
+            const stopAutoScroll = () => {
+                clearInterval(scrollInterval);
+            };
+
+            videoWrapper.addEventListener('mouseenter', () => {
+                isUserInteracting = true;
+                stopAutoScroll();
+            });
+
+            videoWrapper.addEventListener('mouseleave', () => {
+                isUserInteracting = false;
+                startAutoScroll();
+            });
+
+            videoWrapper.addEventListener('touchstart', () => {
+                isUserInteracting = true;
+                stopAutoScroll();
+            });
+
+            videoWrapper.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    isUserInteracting = false;
+                    startAutoScroll();
+                }, 2000);
+            });
+
+            startAutoScroll();
+        }
 
         // Pause logo marquee on hover
         const logoMarquee = document.querySelector('.marquee-container');
