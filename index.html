@@ -196,18 +196,24 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            filter: brightness(0) invert(1) opacity(0.85);
+            position: relative;
+            z-index: 3;
         }
 
         .logo-item:hover {
             transform: scale(1.15);
-            filter: brightness(0) invert(1) opacity(1);
         }
 
         .logo-item img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            filter: brightness(0) invert(1) opacity(0.85);
+            transition: filter 0.3s ease;
+        }
+
+        .logo-item:hover img {
+            filter: brightness(0) invert(1) opacity(1);
         }
 
         /* Scroll Progress Bar */
@@ -260,54 +266,122 @@
         /* Problem Cards */
         .problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .problem-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-left: 4px solid var(--warning);
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+            padding: 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(22, 160, 133, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .problem-card:hover::before {
+            transform: scaleX(1);
         }
 
         .problem-card:hover {
-            transform: translateY(-10px) rotateX(2deg);
-            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(22, 160, 133, 0.15);
+            border-color: rgba(22, 160, 133, 0.3);
         }
 
         .problem-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(243, 156, 18, 0.1);
-            border-radius: 12px;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--success));
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--warning);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transition: transform 0.6s ease;
+        }
+
+        .problem-card:hover .problem-icon::before {
+            transform: translate(-25%, -25%);
         }
 
         .problem-icon svg {
-            width: 28px;
-            height: 28px;
+            width: 48px;
+            height: 48px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .problem-content {
+            padding: 2rem;
         }
 
         .problem-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             color: var(--secondary);
+            line-height: 1.4;
         }
 
         .problem-text {
             color: var(--text-secondary);
             line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .problem-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .problem-list li::before {
+            content: '→';
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
         /* Solution Section with Zigzag Layout */
@@ -450,22 +524,70 @@
             opacity: 0.9;
         }
 
+        .stats-disclaimer {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-disclaimer svg {
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
         /* Video Marquee */
         .video-marquee-section {
             background: var(--background);
             padding: 6rem 2rem;
-            overflow: hidden;
+            position: relative;
+        }
+
+        .video-marquee-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) #E0E0E0;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .video-marquee-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-track {
+            background: #E0E0E0;
+            border-radius: 4px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--success);
         }
 
         .video-marquee-container {
             display: flex;
             gap: 2rem;
-            animation: videoScroll 60s linear infinite;
-        }
-
-        @keyframes videoScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            padding: 1rem 0;
         }
 
         .video-card {
@@ -823,6 +945,20 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .problem-icon {
+                height: 100px;
+            }
+
+            .problem-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+
             .solution-item {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -926,13 +1062,15 @@
                         <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
                 </div>
-                <h3 class="problem-title">Optimierungspotenzial bei der Materialbereitstellung</h3>
-                <p class="problem-text">Bis zu 30% der Arbeitszeit geht durch Suchen verloren. Wenn die Bereitstellung von Werkzeugen und Betriebsmitteln einen signifikanten Anteil der Arbeitszeit beansprucht, kann eine Automatisierung die Wertschöpfung deutlich erhöhen.</p>
-                <ul style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); list-style: none; padding-left: 0;">
-                    <li style="padding: 0.3rem 0;">• Lange Wege zwischen Lager und Produktion</li>
-                    <li style="padding: 0.3rem 0;">• Zeitaufwändige Suchvorgänge bei großem Teilespektrum</li>
-                    <li style="padding: 0.3rem 0;">• Hoher manueller Aufwand in der Kommissionierung</li>
-                </ul>
+                <div class="problem-content">
+                    <h3 class="problem-title">Optimierungspotenzial bei der Materialbereitstellung</h3>
+                    <p class="problem-text">Bis zu 30% der Arbeitszeit geht durch Suchen verloren. Wenn die Bereitstellung von Werkzeugen und Betriebsmitteln einen signifikanten Anteil der Arbeitszeit beansprucht, kann eine Automatisierung die Wertschöpfung deutlich erhöhen.</p>
+                    <ul class="problem-list">
+                        <li>Lange Wege zwischen Lager und Produktion</li>
+                        <li>Zeitaufwändige Suchvorgänge bei großem Teilespektrum</li>
+                        <li>Hoher manueller Aufwand in der Kommissionierung</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="problem-card">
@@ -942,13 +1080,15 @@
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </div>
-                <h3 class="problem-title">Begrenzte Lagerfläche bei wachsenden Anforderungen</h3>
-                <p class="problem-text">Steigende Teilevarianz und Bestandsanforderungen erfordern flexible Lagerlösungen, die sich an verfügbare Räumlichkeiten anpassen.</p>
-                <ul style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); list-style: none; padding-left: 0;">
-                    <li style="padding: 0.3rem 0;">• Begrenzte Raumkapazitäten bei steigenden Bestandsanforderungen</li>
-                    <li style="padding: 0.3rem 0;">• Wachsende Teilevarianz erfordert mehr Lagerplätze</li>
-                    <li style="padding: 0.3rem 0;">• Keine Möglichkeit zur baulichen Erweiterung</li>
-                </ul>
+                <div class="problem-content">
+                    <h3 class="problem-title">Begrenzte Lagerfläche bei wachsenden Anforderungen</h3>
+                    <p class="problem-text">Steigende Teilevarianz und Bestandsanforderungen erfordern flexible Lagerlösungen, die sich an verfügbare Räumlichkeiten anpassen.</p>
+                    <ul class="problem-list">
+                        <li>Begrenzte Raumkapazitäten bei steigenden Bestandsanforderungen</li>
+                        <li>Wachsende Teilevarianz erfordert mehr Lagerplätze</li>
+                        <li>Keine Möglichkeit zur baulichen Erweiterung</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="problem-card">
@@ -961,13 +1101,15 @@
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
                 </div>
-                <h3 class="problem-title">Rückverfolgbarkeit und Prozesstransparenz</h3>
-                <p class="problem-text">Dokumentationspflichten und Qualitätsstandards erfordern lückenlose Nachweisbarkeit bei Werkzeugentnahmen, Lagermanagement und Messmittelverwaltung.</p>
-                <ul style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); list-style: none; padding-left: 0;">
-                    <li style="padding: 0.3rem 0;">• Dokumentationspflichten für Werkzeuge und Messmittel</li>
-                    <li style="padding: 0.3rem 0;">• Fehlende Übersicht über aktuelle Bestände</li>
-                    <li style="padding: 0.3rem 0;">• Schwierige Nachvollziehbarkeit von Entnahmen</li>
-                </ul>
+                <div class="problem-content">
+                    <h3 class="problem-title">Rückverfolgbarkeit und Prozesstransparenz</h3>
+                    <p class="problem-text">Dokumentationspflichten und Qualitätsstandards erfordern lückenlose Nachweisbarkeit bei Werkzeugentnahmen, Lagermanagement und Messmittelverwaltung.</p>
+                    <ul class="problem-list">
+                        <li>Dokumentationspflichten für Werkzeuge und Messmittel</li>
+                        <li>Fehlende Übersicht über aktuelle Bestände</li>
+                        <li>Schwierige Nachvollziehbarkeit von Entnahmen</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -1511,21 +1653,29 @@
         </div>
         <div class="stats-grid">
             <div class="stat-item">
-                <span class="stat-number" data-start="60" data-end="90" data-suffix="%">0%</span>
+                <span class="stat-number" data-start="60" data-end="90" data-suffix="%">60-90%</span>
                 <span class="stat-label">Flächeneinsparung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="50" data-end="60" data-suffix="%">0%</span>
+                <span class="stat-number" data-start="50" data-end="60" data-suffix="%">50-60%</span>
                 <span class="stat-label">Kostensenkung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="70" data-end="85" data-suffix="%">0%</span>
+                <span class="stat-number" data-start="70" data-end="85" data-suffix="%">70-85%</span>
                 <span class="stat-label">Schnellere Kommissionierung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="1.8" data-end="3" data-suffix="">0</span>
-                <span class="stat-label">Jahre ROI</span>
+                <span class="stat-number" data-start="1.8" data-end="3" data-suffix=" Jahre">1,8-3 Jahre</span>
+                <span class="stat-label">ROI-Zeitraum</span>
             </div>
+        </div>
+        <div class="stats-disclaimer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>* Die dargestellten Ergebnisse basieren auf einem standardisierten Berechnungsmodell und repräsentieren Durchschnittswerte aus realisierten Projekten. Tatsächliche Einsparungen können je nach individueller Ausgangssituation, Branche und Systemkonfiguration variieren. Alle Angaben verstehen sich als unverbindliche Richtwerte ohne Gewähr.</span>
         </div>
     </section>
 
@@ -1659,35 +1809,37 @@
             <h2 class="section-title">Sehen Sie unsere Lösungen im Einsatz</h2>
             <p class="section-subtitle">Praxisbeispiele von führenden Unternehmen weltweit</p>
         </div>
-        <div class="video-marquee-container">
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-marquee-wrapper">
+            <div class="video-marquee-container">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card">
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1992,14 +2144,49 @@
             statsObserver.observe(statsSection);
         }
 
-        // Pause video marquee on hover
-        const videoMarquee = document.querySelector('.video-marquee-container');
-        if (videoMarquee) {
-            videoMarquee.addEventListener('mouseenter', () => {
-                videoMarquee.style.animationPlayState = 'paused';
+        // Drag to scroll for video marquee
+        const videoWrapper = document.querySelector('.video-marquee-wrapper');
+        if (videoWrapper) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            videoWrapper.addEventListener('mousedown', (e) => {
+                isDown = true;
+                videoWrapper.classList.add('active');
+                startX = e.pageX - videoWrapper.offsetLeft;
+                scrollLeft = videoWrapper.scrollLeft;
             });
-            videoMarquee.addEventListener('mouseleave', () => {
-                videoMarquee.style.animationPlayState = 'running';
+
+            videoWrapper.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+
+            videoWrapper.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+
+            videoWrapper.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - videoWrapper.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll speed multiplier
+                videoWrapper.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch support for mobile
+            let touchStartX;
+            let touchScrollLeft;
+
+            videoWrapper.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].pageX - videoWrapper.offsetLeft;
+                touchScrollLeft = videoWrapper.scrollLeft;
+            });
+
+            videoWrapper.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - videoWrapper.offsetLeft;
+                const walk = (x - touchStartX) * 2;
+                videoWrapper.scrollLeft = touchScrollLeft - walk;
             });
         }
 
