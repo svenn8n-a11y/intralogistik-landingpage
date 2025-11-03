@@ -208,12 +208,12 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            filter: brightness(0) invert(1) opacity(0.85);
-            transition: filter 0.3s ease;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
         }
 
         .logo-item:hover img {
-            filter: brightness(0) invert(1) opacity(1);
+            opacity: 1;
         }
 
         /* Scroll Progress Bar */
@@ -684,15 +684,10 @@
             gap: 2rem;
             margin-bottom: 3rem;
             position: relative;
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .timeline-item:not(.animated) {
             opacity: 0;
             transform: translateY(60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .timeline-item.animated {
@@ -1023,30 +1018,42 @@
         <div class="marquee-container">
             <div class="marquee-track">
                 <div class="logo-item">
-                    <img src="logos/Logo Modula.png" alt="Modula">
+                    <img src="logos/Logo Modula.svg" alt="Modula">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Walter Logo.png" alt="Walter Tools">
+                    <img src="logos/Logo Walter.svg" alt="Walter Tools">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Logo Precitool.png" alt="Precitool">
+                    <img src="logos/Logo Precitool.svg" alt="Precitool">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Logo Toolbase.png" alt="Toolbase">
+                    <img src="logos/Logo Toolbase.svg" alt="Toolbase">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo EDE.svg" alt="EDE">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Thurmetall.svg" alt="Thurmetall">
                 </div>
             </div>
             <div class="marquee-track">
                 <div class="logo-item">
-                    <img src="logos/Logo Modula.png" alt="Modula">
+                    <img src="logos/Logo Modula.svg" alt="Modula">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Walter Logo.png" alt="Walter Tools">
+                    <img src="logos/Logo Walter.svg" alt="Walter Tools">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Logo Precitool.png" alt="Precitool">
+                    <img src="logos/Logo Precitool.svg" alt="Precitool">
                 </div>
                 <div class="logo-item">
-                    <img src="logos/Logo Toolbase.png" alt="Toolbase">
+                    <img src="logos/Logo Toolbase.svg" alt="Toolbase">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo EDE.svg" alt="EDE">
+                </div>
+                <div class="logo-item">
+                    <img src="logos/Logo Thurmetall.svg" alt="Thurmetall">
                 </div>
             </div>
         </div>
@@ -2134,7 +2141,7 @@
                         const start = parseFloat(stat.dataset.start) || 0;
                         const end = parseFloat(stat.dataset.end) || 0;
                         const suffix = stat.dataset.suffix || '';
-                        const isDecimal = stat.dataset.start.includes('.');
+                        const isDecimal = stat.dataset.start && stat.dataset.start.includes('.');
 
                         // Stagger the animations slightly
                         setTimeout(() => {
