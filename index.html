@@ -284,7 +284,7 @@
             overflow: hidden;
             position: relative;
             opacity: 0;
-            transform: translateX(-100px);
+            transform: translateX(100px);
         }
 
         .problem-card.animated {
@@ -558,44 +558,36 @@
             background: var(--background);
             padding: 6rem 2rem;
             position: relative;
+            overflow: hidden;
         }
 
         .video-marquee-wrapper {
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) #E0E0E0;
-            cursor: grab;
-            user-select: none;
-        }
-
-        .video-marquee-wrapper:active {
-            cursor: grabbing;
-        }
-
-        .video-marquee-wrapper::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .video-marquee-wrapper::-webkit-scrollbar-track {
-            background: #E0E0E0;
-            border-radius: 4px;
-        }
-
-        .video-marquee-wrapper::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        .video-marquee-wrapper::-webkit-scrollbar-thumb:hover {
-            background: var(--success);
+            overflow: visible;
+            position: relative;
+            width: 100%;
         }
 
         .video-marquee-container {
             display: flex;
             gap: 2rem;
             padding: 1rem 0;
+            width: 200%;
+            animation: videoMarquee 60s linear infinite;
+        }
+
+        @keyframes videoMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .video-marquee-container:hover {
+            animation-play-state: paused;
+        }
+
+        .video-marquee-track {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
         }
 
         .video-card {
@@ -756,8 +748,13 @@
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transition-delay: 0.15s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.15);
         }
 
         .timeline-item:not(.animated) .timeline-content {
@@ -780,6 +777,20 @@
         .timeline-description {
             color: var(--text-secondary);
             line-height: 1.7;
+        }
+
+        .timeline-link {
+            color: var(--success);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .timeline-link:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
         }
 
         /* CTA Section */
@@ -1771,7 +1782,7 @@
                 <div class="timeline-number">1</div>
                 <div class="timeline-content">
                     <h4 class="timeline-title">Kostenfreie Analyse</h4>
-                    <p class="timeline-description">Wir analysieren Ihre aktuelle Situation, erfassen Ihre Anforderungen und identifizieren Optimierungspotenziale. Nutzen Sie unser Online-Audit-Tool oder vereinbaren Sie einen Vor-Ort-Termin.</p>
+                    <p class="timeline-description">Wir analysieren Ihre aktuelle Situation, erfassen Ihre Anforderungen und identifizieren Optimierungspotenziale. Nutzen Sie unser <a href="index_audit_pro.html" class="timeline-link">Online-Audit-Tool</a> oder vereinbaren Sie ein <a href="#contactForm" class="timeline-link" onclick="event.preventDefault(); document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'});">Erstgespräch</a>.</p>
                 </div>
             </div>
 
@@ -1861,34 +1872,48 @@
         </div>
         <div class="video-marquee-wrapper">
             <div class="video-marquee-container">
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-marquee-track">
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-marquee-track">
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-embed">
-                        <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2252,51 +2277,7 @@
             console.error('Stats section NOT found!');
         }
 
-        // Drag to scroll for video marquee
-        const videoWrapper = document.querySelector('.video-marquee-wrapper');
-        if (videoWrapper) {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            videoWrapper.addEventListener('mousedown', (e) => {
-                isDown = true;
-                videoWrapper.classList.add('active');
-                startX = e.pageX - videoWrapper.offsetLeft;
-                scrollLeft = videoWrapper.scrollLeft;
-            });
-
-            videoWrapper.addEventListener('mouseleave', () => {
-                isDown = false;
-            });
-
-            videoWrapper.addEventListener('mouseup', () => {
-                isDown = false;
-            });
-
-            videoWrapper.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - videoWrapper.offsetLeft;
-                const walk = (x - startX) * 2; // Scroll speed multiplier
-                videoWrapper.scrollLeft = scrollLeft - walk;
-            });
-
-            // Touch support for mobile
-            let touchStartX;
-            let touchScrollLeft;
-
-            videoWrapper.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].pageX - videoWrapper.offsetLeft;
-                touchScrollLeft = videoWrapper.scrollLeft;
-            });
-
-            videoWrapper.addEventListener('touchmove', (e) => {
-                const x = e.touches[0].pageX - videoWrapper.offsetLeft;
-                const walk = (x - touchStartX) * 2;
-                videoWrapper.scrollLeft = touchScrollLeft - walk;
-            });
-        }
+        // Video marquee animation is handled by CSS
 
         // Pause logo marquee on hover
         const logoMarquee = document.querySelector('.marquee-container');
