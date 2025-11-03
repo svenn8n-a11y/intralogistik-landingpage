@@ -144,7 +144,7 @@
 
         /* Logo Marquee */
         .logo-marquee {
-            background: var(--secondary);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             padding: 4rem 0;
             overflow: hidden;
             position: relative;
@@ -162,12 +162,12 @@
 
         .logo-marquee::before {
             left: 0;
-            background: linear-gradient(90deg, var(--secondary) 0%, transparent 100%);
+            background: linear-gradient(90deg, #f8f9fa 0%, transparent 100%);
         }
 
         .logo-marquee::after {
             right: 0;
-            background: linear-gradient(270deg, var(--secondary) 0%, transparent 100%);
+            background: linear-gradient(270deg, #f8f9fa 0%, transparent 100%);
         }
 
         .marquee-container {
@@ -2018,9 +2018,9 @@
         }
 
         // Stats section parallax
-        const statsSection = document.querySelector('.stats-section');
-        if (statsSection) {
-            parallaxElements.push({ element: statsSection, speed: 0.3 });
+        const statsSectionParallax = document.querySelector('.stats-section');
+        if (statsSectionParallax) {
+            parallaxElements.push({ element: statsSectionParallax, speed: 0.3 });
         }
 
         window.addEventListener('scroll', () => {
