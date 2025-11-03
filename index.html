@@ -2075,19 +2075,24 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const timelineItems = entry.target.querySelectorAll('.timeline-item');
+                    console.log('Timeline in view, found items:', timelineItems.length);
                     timelineItems.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.add('animated');
+                            console.log('Animated timeline item', index);
                         }, index * 150); // Stagger by 150ms
                     });
                     timelineObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
 
         const processTimeline = document.querySelector('.process-timeline');
         if (processTimeline) {
+            console.log('Process timeline found, observing...');
             timelineObserver.observe(processTimeline);
+        } else {
+            console.error('Process timeline NOT found!');
         }
 
         // Counter Animation for Stats
@@ -2133,28 +2138,35 @@
         // Observe stats section for counter animation
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                console.log('Stats section intersection:', entry.isIntersecting, 'Already animated:', entry.target.dataset.animated);
                 if (entry.isIntersecting && !entry.target.dataset.animated) {
                     entry.target.dataset.animated = 'true';
 
                     const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    console.log('Found stat numbers:', statNumbers.length);
                     statNumbers.forEach((stat, index) => {
                         const start = parseFloat(stat.dataset.start) || 0;
                         const end = parseFloat(stat.dataset.end) || 0;
                         const suffix = stat.dataset.suffix || '';
                         const isDecimal = stat.dataset.start && stat.dataset.start.includes('.');
+                        console.log(`Stat ${index}: start=${start}, end=${end}, suffix=${suffix}, isDecimal=${isDecimal}`);
 
                         // Stagger the animations slightly
                         setTimeout(() => {
+                            console.log(`Starting animation for stat ${index}`);
                             animateCounter(stat, 0, end, 2000, suffix, isDecimal);
                         }, index * 100);
                     });
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.2 });
 
         const statsSection = document.querySelector('.stats-section');
         if (statsSection) {
+            console.log('Stats section found, observing...');
             statsObserver.observe(statsSection);
+        } else {
+            console.error('Stats section NOT found!');
         }
 
         // Drag to scroll for video marquee
