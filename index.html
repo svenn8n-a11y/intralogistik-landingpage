@@ -513,10 +513,11 @@
         }
 
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             display: block;
+            line-height: 1.2;
         }
 
         .stat-label {
@@ -683,13 +684,18 @@
             gap: 2rem;
             margin-bottom: 3rem;
             position: relative;
-            opacity: 0;
-            transform: translateY(60px);
+            opacity: 1;
+            transform: translateY(0);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
                         transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .timeline-item.visible {
+        .timeline-item:not(.animated) {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .timeline-item.animated {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1653,19 +1659,19 @@
         </div>
         <div class="stats-grid">
             <div class="stat-item">
-                <span class="stat-number" data-start="60" data-end="90" data-suffix="%">60-90%</span>
+                <span class="stat-number" data-start="60" data-end="90" data-suffix="%">0%</span>
                 <span class="stat-label">Flächeneinsparung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="50" data-end="60" data-suffix="%">50-60%</span>
+                <span class="stat-number" data-start="50" data-end="60" data-suffix="%">0%</span>
                 <span class="stat-label">Kostensenkung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="70" data-end="85" data-suffix="%">70-85%</span>
+                <span class="stat-number" data-start="70" data-end="85" data-suffix="%">0%</span>
                 <span class="stat-label">Schnellere Kommissionierung</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-start="1.8" data-end="3" data-suffix=" Jahre">1,8-3 Jahre</span>
+                <span class="stat-number" data-start="1.8" data-end="3" data-suffix=" Jahre">0</span>
                 <span class="stat-label">ROI-Zeitraum</span>
             </div>
         </div>
@@ -2064,7 +2070,7 @@
                     const timelineItems = entry.target.querySelectorAll('.timeline-item');
                     timelineItems.forEach((item, index) => {
                         setTimeout(() => {
-                            item.classList.add('visible');
+                            item.classList.add('animated');
                         }, index * 150); // Stagger by 150ms
                     });
                     timelineObserver.unobserve(entry.target);
