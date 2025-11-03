@@ -145,7 +145,7 @@
         /* Logo Marquee */
         .logo-marquee {
             background: var(--secondary);
-            padding: 2.5rem 0;
+            padding: 4rem 0;
             overflow: hidden;
             position: relative;
         }
@@ -184,26 +184,24 @@
         .marquee-track {
             display: flex;
             align-items: center;
-            gap: 4rem;
+            gap: 6rem;
             width: 100%;
         }
 
         .logo-item {
             flex-shrink: 0;
-            height: 70px;
-            width: 200px;
-            background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
+            height: 120px;
+            width: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            filter: brightness(0) invert(1) opacity(0.85);
         }
 
         .logo-item:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            filter: brightness(0) invert(1) opacity(1);
         }
 
         .logo-item img {
@@ -284,8 +282,8 @@
         }
 
         .problem-icon {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             background: rgba(243, 156, 18, 0.1);
             border-radius: 12px;
             display: flex;
@@ -293,7 +291,11 @@
             justify-content: center;
             margin-bottom: 1.5rem;
             color: var(--warning);
-            font-size: 1.5rem;
+        }
+
+        .problem-icon svg {
+            width: 28px;
+            height: 28px;
         }
 
         .problem-title {
@@ -899,43 +901,77 @@
     <section class="section">
         <div class="section-header">
             <div class="section-eyebrow">Herausforderungen</div>
-            <h2 class="section-title">Kennen Sie diese Probleme?</h2>
-            <p class="section-subtitle">Ineffiziente Prozesse kosten Sie täglich Geld, Zeit und Wettbewerbsfähigkeit.</p>
+            <h2 class="section-title">Typische Herausforderungen in der modernen Fertigung</h2>
+            <p class="section-subtitle">Ineffiziente Prozesse binden Ressourcen und beeinträchtigen die Wettbewerbsfähigkeit Ihres Unternehmens.</p>
         </div>
 
         <div class="problem-grid">
             <div class="problem-card">
-                <div class="problem-icon">⚠️</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Platzmangel & teure Lagerflächen</h3>
                 <p class="problem-text">Konventionelle Lager belegen das 2-3-fache an Fläche. Steigende Immobilienkosten bremsen Ihr Wachstum.</p>
             </div>
 
             <div class="problem-card">
-                <div class="problem-icon">🔍</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Lange Suchzeiten</h3>
                 <p class="problem-text">80% der Kommissionierzeit geht durch Suchen verloren. Produktionsstillstände durch fehlende Teile.</p>
             </div>
 
             <div class="problem-card">
-                <div class="problem-icon">👥</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Fachkräftemangel</h3>
                 <p class="problem-text">Wertvolles Personal wird für manuelle Transporte statt wertschöpfende Tätigkeiten eingesetzt.</p>
             </div>
 
             <div class="problem-card">
-                <div class="problem-icon">📊</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Fehlende Transparenz</h3>
                 <p class="problem-text">Ohne digitales System keine Übersicht über Bestände, Lagerorte oder Materialflüsse.</p>
             </div>
 
             <div class="problem-card">
-                <div class="problem-icon">❌</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Hohe Fehlerquoten</h3>
                 <p class="problem-text">Bis zu 3% Fehlerquote bei manueller Kommissionierung verursachen massive Folgekosten.</p>
             </div>
 
             <div class="problem-card">
-                <div class="problem-icon">⏸️</div>
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
                 <h3 class="problem-title">Produktionsstillstände</h3>
                 <p class="problem-text">Fehlende Werkzeuge oder Materialien sorgen für ungeplante Ausfallzeiten und Terminverzug.</p>
             </div>
