@@ -191,7 +191,7 @@
         .logo-item {
             flex-shrink: 0;
             height: 120px;
-            width: 300px;
+            width: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,11 +265,11 @@
 
         /* Problem Cards */
         .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 3rem;
             margin-top: 4rem;
-            max-width: 1200px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -283,6 +283,13 @@
             border: 1px solid rgba(22, 160, 133, 0.1);
             overflow: hidden;
             position: relative;
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        .problem-card.animated {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .problem-card::before {
@@ -638,11 +645,18 @@
             padding: 2.5rem;
             border-radius: 12px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             border-top: 4px solid var(--primary);
+            opacity: 0;
+            transform: translateY(60px);
         }
 
-        .modular-card:hover {
+        .modular-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modular-card.animated:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
@@ -723,6 +737,17 @@
             font-weight: 700;
             font-size: 1.5rem;
             box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .timeline-item:not(.animated) .timeline-number {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .timeline-item.animated .timeline-number {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .timeline-content {
@@ -731,6 +756,18 @@
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0.15s;
+        }
+
+        .timeline-item:not(.animated) .timeline-content {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .timeline-item.animated .timeline-content {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .timeline-title {
@@ -1704,19 +1741,19 @@
             <div class="modular-card">
                 <div class="modular-number">1</div>
                 <h3 class="modular-title">Basis-Modul</h3>
-                <p class="modular-text">Starten Sie mit einem einzelnen Vertikallift oder Lagerverwaltungssystem. Bereits ab 120.000€ realisierbar, sofortige Effizienzsteigerung.</p>
+                <p class="modular-text">Starten Sie mit einem einzelnen Vertikallift oder Lagerverwaltungssystem. Bereits ab 16.000€ realisierbar, sofortige Effizienzsteigerung.</p>
             </div>
 
             <div class="modular-card">
                 <div class="modular-number">2</div>
                 <h3 class="modular-title">Erweiterung</h3>
-                <p class="modular-text">Ergänzen Sie weitere Lifte, integrieren Sie AGVs oder erweitern Sie Ihr WMS. Jedes Modul fügt sich nahtlos in Ihr bestehendes System ein.</p>
+                <p class="modular-text">Ergänzen Sie weitere Lifte, integrieren Sie AGVs (Automated Guided Vehicles - fahrerlose Transportsysteme) oder erweitern Sie Ihr WMS (Warehouse Management System - Lagerverwaltungssoftware). Module verschiedener Hersteller passen nicht immer nahtlos zusammen – genau hier kommen wir ins Spiel: Wir arbeiten eng mit Herstellerspezialisten zusammen und sorgen dafür, dass alle Komponenten reibungslos funktionieren.</p>
             </div>
 
             <div class="modular-card">
                 <div class="modular-number">3</div>
                 <h3 class="modular-title">Vollautomatisierung</h3>
-                <p class="modular-text">Vernetzen Sie alle Komponenten zu einem hochautomatisierten Gesamtsystem. Von der Warenannahme bis zum Versand – komplett automatisch.</p>
+                <p class="modular-text">Vernetzen Sie alle Komponenten zu einem hochautomatisierten Gesamtsystem. Von der Warenannahme bis zum Versand – komplett automatisch. Sie profitieren sofort von messbar höherer Effizienz und sichern sich gleichzeitig die Flexibilität, Ihr System mit zukünftigem Wachstum und neuen Anforderungen Schritt für Schritt zu erweitern.</p>
             </div>
         </div>
     </section>
@@ -1861,10 +1898,10 @@
     <!-- Audit CTA -->
     <section class="cta-section" id="audit">
         <div class="cta-content">
-            <h2 class="cta-title">Bereit für den nächsten Schritt?</h2>
-            <p class="cta-text">Starten Sie jetzt mit unserer kostenfreien Analyse und entdecken Sie Ihr Einsparpotenzial.</p>
+            <h2 class="cta-title">Ermitteln Sie selbst Ihr Einsparpotenzial</h2>
+            <p class="cta-text">Nutzen Sie unser Online-Audit-Tool und erhalten Sie in wenigen Minuten eine erste Einschätzung – schnell, unverbindlich und kostenfrei. Sie führen die Analyse eigenständig durch und sehen Ihre Ergebnisse sofort.</p>
             <button class="cta-primary" onclick="window.location.href='index_audit_pro.html'" style="margin-top: 2rem; font-size: 1.25rem;">
-                <span>Jetzt Audit starten</span>
+                <span>Jetzt Self-Service-Tool starten</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/></svg>
             </button>
         </div>
@@ -2069,6 +2106,52 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+        // Observer for problem cards with staggered left-to-center animation
+        const problemCardsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const problemCards = entry.target.querySelectorAll('.problem-card');
+                    console.log('Problem cards in view, found:', problemCards.length);
+                    problemCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                            console.log('Animated problem card', index);
+                        }, index * 200); // Stagger by 200ms
+                    });
+                    problemCardsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const problemGrid = document.querySelector('.problem-grid');
+        if (problemGrid) {
+            console.log('Problem grid found, observing...');
+            problemCardsObserver.observe(problemGrid);
+        }
+
+        // Observer for modular cards with bottom-to-top animation
+        const modularCardsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const modularCards = entry.target.querySelectorAll('.modular-card');
+                    console.log('Modular cards in view, found:', modularCards.length);
+                    modularCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                            console.log('Animated modular card', index);
+                        }, index * 150); // Stagger by 150ms
+                    });
+                    modularCardsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const modularGrid = document.querySelector('.modular-grid');
+        if (modularGrid) {
+            console.log('Modular grid found, observing...');
+            modularCardsObserver.observe(modularGrid);
+        }
 
         // Special observer for timeline items with staggered animation
         const timelineObserver = new IntersectionObserver((entries) => {
