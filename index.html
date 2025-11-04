@@ -475,6 +475,130 @@
             font-weight: bold;
         }
 
+        /* SVG Animation Styles */
+        /* Vertikallift - Greifer Bewegung */
+        @keyframes liftGreifer {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-80px); }
+            50% { transform: translateY(-80px); }
+            75% { transform: translateY(0); }
+        }
+
+        #greifer {
+            animation: liftGreifer 8s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        /* Lagerverwaltung - Cloud Pulsing */
+        @keyframes cloudPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.03); }
+        }
+
+        #cloud-system {
+            animation: cloudPulse 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        /* Lagerverwaltung - Datenfluss Animation */
+        @keyframes dataFlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        #data-flow path,
+        #data-flow text {
+            animation: dataFlow 2s ease-in-out infinite;
+        }
+
+        /* Lagerverwaltung - Status LED Blinken */
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        #status circle {
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        /* Lagerverwaltung - Dashboard Gauges */
+        @keyframes dashboardUpdate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        #dashboard circle,
+        #dashboard path {
+            transform-origin: center;
+            animation: dashboardUpdate 4s ease-in-out infinite;
+        }
+
+        /* Ausgabeschrank - Highlight aktives Fach */
+        @keyframes drawerHighlight {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        #row1 rect:nth-child(9) {
+            animation: drawerHighlight 2.5s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        /* Ausgabeschrank - Status LED */
+        @keyframes ledPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        #ausgabeschrank circle[fill="#27AE60"] {
+            animation: ledPulse 1.5s ease-in-out infinite;
+        }
+
+        /* Pfeile Animation für Vertikallift */
+        @keyframes arrowMove {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 0.8; transform: translateY(-5px); }
+        }
+
+        svg g[opacity="0.5"] path {
+            animation: arrowMove 2s ease-in-out infinite;
+        }
+
+        /* ERP System Module Highlight */
+        @keyframes moduleHighlight {
+            0%, 100% { opacity: 0.2; }
+            33% { opacity: 0.5; }
+        }
+
+        #erp-system rect[fill="#16A085"] {
+            animation: moduleHighlight 6s ease-in-out infinite;
+        }
+
+        #erp-system rect:nth-child(3) { animation-delay: 0s; }
+        #erp-system rect:nth-child(5) { animation-delay: 1.5s; }
+        #erp-system rect:nth-child(7) { animation-delay: 3s; }
+        #erp-system rect:nth-child(9) { animation-delay: 4.5s; }
+
+        /* Warehouse Scanner Animation */
+        @keyframes scannerActive {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        #warehouse rect[fill="#F39C12"] {
+            animation: scannerActive 2s ease-in-out infinite;
+        }
+
+        /* Verbindungslinien Animation */
+        @keyframes connectionFlow {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        svg line[stroke-dasharray] {
+            animation: connectionFlow 3s linear infinite;
+        }
+
         /* Stats Section */
         .stats-section {
             background: linear-gradient(135deg, rgba(22, 160, 133, 0.95), rgba(44, 62, 80, 0.95)),
