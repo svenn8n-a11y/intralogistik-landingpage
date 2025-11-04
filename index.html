@@ -145,7 +145,7 @@
         /* Logo Marquee */
         .logo-marquee {
             background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 6rem 0;
+            padding: 8rem 0;
             overflow: hidden;
             position: relative;
         }
@@ -158,6 +158,7 @@
             width: 300px;
             height: 100%;
             z-index: 2;
+            pointer-events: none;
         }
 
         .logo-marquee::before {
@@ -174,7 +175,7 @@
             display: flex;
             width: 200%;
             animation: marquee 30s linear infinite;
-            padding: 0 4rem;
+            padding: 2rem 5rem;
         }
 
         @keyframes marquee {
@@ -185,7 +186,7 @@
         .marquee-track {
             display: flex;
             align-items: center;
-            gap: 6rem;
+            gap: 8rem;
             width: 100%;
         }
 
@@ -197,12 +198,11 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 3;
+            padding: 1rem;
         }
 
         .logo-item:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .logo-item img {
