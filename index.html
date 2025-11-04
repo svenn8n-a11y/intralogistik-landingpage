@@ -533,86 +533,44 @@
             animation: dashboardUpdate 4s ease-in-out infinite;
         }
 
-        /* Ausgabeschrank - Highlight aktives Fach */
-        @keyframes drawerHighlight {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
-
-        #row1 rect:nth-child(9) {
-            animation: drawerHighlight 2.5s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        /* Ausgabeschrank - Status LED */
+        /* Ausgabeschrank - Status LED (subtil) */
         @keyframes ledPulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.6; }
         }
 
         #ausgabeschrank circle[fill="#27AE60"] {
-            animation: ledPulse 1.5s ease-in-out infinite;
+            animation: ledPulse 2s ease-in-out infinite;
         }
 
-        /* Ausgabeschrank - Werkzeug-Pulsing */
-        @keyframes toolPulse {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        #row1 circle[fill="#E67E22"],
-        #row1 circle[fill="#16A085"],
-        #row1 circle[fill="#3498DB"] {
-            animation: toolPulse 3s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        #row1 circle:nth-child(5) { animation-delay: 0s; }
-        #row1 circle:nth-child(6) { animation-delay: 0.3s; }
-        #row1 circle:nth-child(7) { animation-delay: 0.6s; }
-        #row1 circle:nth-child(8) { animation-delay: 0.9s; }
-
-        /* Ausgabeschrank - Benachrichtigung Animation */
-        @keyframes notificationBounce {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            50% { transform: scale(0.95); }
-            75% { transform: scale(1.05); }
-        }
-
-        #notification {
-            animation: notificationBounce 2s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        /* Ausgabeschrank - RFID Scanner Glow */
-        @keyframes rfidGlow {
-            0%, 100% { opacity: 0.2; filter: drop-shadow(0 0 0px #F39C12); }
-            50% { opacity: 0.6; filter: drop-shadow(0 0 8px #F39C12); }
-        }
-
-        #reader rect[fill="#F39C12"] {
-            animation: rfidGlow 2s ease-in-out infinite;
-        }
-
-        /* Ausgabeschrank - Datenfluss Animation */
+        /* Ausgabeschrank - Datenfluss Animation (dezent) */
         @keyframes dataflowPulse {
-            0%, 100% { opacity: 0.5; stroke-dashoffset: 0; }
-            50% { opacity: 1; stroke-dashoffset: 6; }
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         #dataflow path {
-            animation: dataflowPulse 2s linear infinite;
+            animation: dataflowPulse 3s ease-in-out infinite;
         }
 
-        /* Ausgabeschrank - Touchscreen Display Blink */
-        @keyframes displayBlink {
-            0%, 90%, 100% { opacity: 0.8; }
-            95% { opacity: 0.3; }
+        /* Ausgabeschrank - Touchscreen Display (subtiles Flackern) */
+        @keyframes displayActive {
+            0%, 95%, 100% { opacity: 0.8; }
+            97% { opacity: 0.7; }
         }
 
         #ausgabeschrank rect[x="365"][y="65"] {
-            animation: displayBlink 4s ease-in-out infinite;
+            animation: displayActive 5s ease-in-out infinite;
+        }
+
+        /* Ausgabeschrank - Warnung bei niedrigem Bestand */
+        @keyframes warningPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        #row1 text[fill="#E67E22"] {
+            animation: warningPulse 2s ease-in-out infinite;
         }
 
         /* Pfeile Animation für Vertikallift */
@@ -660,37 +618,51 @@
             animation: connectionFlow 3s linear infinite;
         }
 
-        /* AGV Fahrzeuge Animation - Bewegung entlang der Route */
+        /* AGV Fahrzeuge Animation - Bewegung entlang der gelben Linie */
+        /* Route: Start (50,200) -> (200,200) -> (200,100) -> (400,100) -> (400,200) -> (550,200) -> (550,300) -> (200,300) -> zurück */
+
         @keyframes agv1Move {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(30px, 0); }
-            50% { transform: translate(30px, 100px); }
-            75% { transform: translate(150px, 100px); }
+            0% { transform: translate(0, 0); }
+            15% { transform: translate(150px, 0); }
+            30% { transform: translate(150px, -100px); }
+            45% { transform: translate(350px, -100px); }
+            60% { transform: translate(350px, 0); }
+            75% { transform: translate(500px, 0); }
+            85% { transform: translate(500px, 100px); }
+            100% { transform: translate(0, 100px); }
         }
 
         @keyframes agv2Move {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(100px, 0); }
-            50% { transform: translate(100px, 20px); }
-            75% { transform: translate(180px, 20px); }
+            0% { transform: translate(150px, -100px); }
+            15% { transform: translate(350px, -100px); }
+            30% { transform: translate(350px, 0); }
+            45% { transform: translate(500px, 0); }
+            60% { transform: translate(500px, 100px); }
+            75% { transform: translate(150px, 100px); }
+            85% { transform: translate(150px, 0); }
+            100% { transform: translate(150px, -100px); }
         }
 
         @keyframes agv3Move {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(-30px, -10px); }
-            66% { transform: translate(-30px, 20px); }
+            0% { transform: translate(350px, 0); }
+            20% { transform: translate(500px, 0); }
+            40% { transform: translate(500px, 100px); }
+            60% { transform: translate(150px, 100px); }
+            75% { transform: translate(150px, 0); }
+            90% { transform: translate(150px, -100px); }
+            100% { transform: translate(350px, -100px); }
         }
 
         #agv1 {
-            animation: agv1Move 12s ease-in-out infinite;
+            animation: agv1Move 20s linear infinite;
         }
 
         #agv2 {
-            animation: agv2Move 10s ease-in-out infinite;
+            animation: agv2Move 20s linear infinite;
         }
 
         #agv3 {
-            animation: agv3Move 8s ease-in-out infinite;
+            animation: agv3Move 20s linear infinite;
         }
 
         /* AGV Sensor Blinken */
@@ -2040,6 +2012,278 @@
                     <text x="300" y="385" font-family="Arial" font-size="14" fill="#2C3E50" text-anchor="middle" font-weight="bold">Fahrerlose Transportsysteme (AGV) mit Flottenmanagement</text>
                 </svg>
             </div>
+        </div>
+    </section>
+
+    <!-- System Integration Cycle -->
+    <section class="section" style="background: var(--background);">
+        <div class="section-header">
+            <div class="section-eyebrow">Vernetzung</div>
+            <h2 class="section-title">Intelligente Systemvernetzung im Kreislauf</h2>
+            <p class="section-subtitle">Alle Komponenten arbeiten nahtlos zusammen – von der Warenannahme bis zur Produktion</p>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 3rem;">
+            <svg width="800" height="800" viewBox="0 0 800 800" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                <!-- Zentrale Steuerung (3D Würfel) -->
+                <g id="central-control">
+                    <!-- 3D Box Effekt - Hinterseite -->
+                    <path d="M 320 280 L 400 240 L 480 280 L 480 360 L 400 400 L 320 360 Z"
+                          fill="#2C3E50" opacity="0.3"/>
+
+                    <!-- 3D Box - Vorderseite -->
+                    <path d="M 320 280 L 400 240 L 400 320 L 320 360 Z"
+                          fill="#16A085" opacity="0.8"/>
+                    <path d="M 400 240 L 480 280 L 480 360 L 400 320 Z"
+                          fill="#16A085" opacity="0.6"/>
+                    <path d="M 320 360 L 400 320 L 480 360 L 400 400 Z"
+                          fill="#16A085" opacity="0.9"/>
+
+                    <!-- Icon & Text -->
+                    <text x="400" y="300" font-family="Arial" font-size="48" fill="white" text-anchor="middle">☁</text>
+                    <text x="400" y="340" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Zentrale</text>
+                    <text x="400" y="358" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Steuerung</text>
+                </g>
+
+                <!-- Kreislauf-Pfade (3D-Rohre) -->
+                <defs>
+                    <linearGradient id="pipeGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#16A085;stop-opacity:0.6" />
+                        <stop offset="50%" style="stop-color:#1ABC9C;stop-opacity:0.9" />
+                        <stop offset="100%" style="stop-color:#16A085;stop-opacity:0.6" />
+                    </linearGradient>
+
+                    <!-- Animierter Datenfluss -->
+                    <linearGradient id="dataFlow1">
+                        <stop offset="0%" style="stop-color:#F39C12;stop-opacity:0">
+                            <animate attributeName="offset" values="0;1" dur="3s" repeatCount="indefinite"/>
+                        </stop>
+                        <stop offset="50%" style="stop-color:#F39C12;stop-opacity:1">
+                            <animate attributeName="offset" values="0.5;1.5" dur="3s" repeatCount="indefinite"/>
+                        </stop>
+                        <stop offset="100%" style="stop-color:#F39C12;stop-opacity:0">
+                            <animate attributeName="offset" values="1;2" dur="3s" repeatCount="indefinite"/>
+                        </stop>
+                    </linearGradient>
+                </defs>
+
+                <!-- System 1: Wareneingang (oben) -->
+                <g id="system-wareneingang">
+                    <!-- 3D Box -->
+                    <path d="M 320 80 L 380 50 L 440 80 L 440 130 L 380 160 L 320 130 Z"
+                          fill="#E67E22" opacity="0.3"/>
+                    <path d="M 320 80 L 380 50 L 380 100 L 320 130 Z"
+                          fill="#E67E22" opacity="0.7"/>
+                    <path d="M 380 50 L 440 80 L 440 130 L 380 100 Z"
+                          fill="#E67E22" opacity="0.5"/>
+                    <path d="M 320 130 L 380 100 L 440 130 L 380 160 Z"
+                          fill="#E67E22" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="380" y="110" font-family="Arial" font-size="28" fill="white" text-anchor="middle">📦</text>
+                    <text x="380" y="145" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Wareneingang</text>
+
+                    <!-- Verbindung zur Zentrale -->
+                    <path d="M 380 160 Q 390 200 400 240"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 380 160 Q 390 200 400 240"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 2: Vertikallift (rechts oben) -->
+                <g id="system-vertikallift">
+                    <!-- 3D Box -->
+                    <path d="M 540 140 L 600 110 L 660 140 L 660 190 L 600 220 L 540 190 Z"
+                          fill="#3498DB" opacity="0.3"/>
+                    <path d="M 540 140 L 600 110 L 600 160 L 540 190 Z"
+                          fill="#3498DB" opacity="0.7"/>
+                    <path d="M 600 110 L 660 140 L 660 190 L 600 160 Z"
+                          fill="#3498DB" opacity="0.5"/>
+                    <path d="M 540 190 L 600 160 L 660 190 L 600 220 Z"
+                          fill="#3498DB" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="600" y="170" font-family="Arial" font-size="28" fill="white" text-anchor="middle">⬍</text>
+                    <text x="600" y="205" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Vertikallift</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 540 165 Q 480 220 450 270"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 540 165 Q 480 220 450 270"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 3: AGV (rechts) -->
+                <g id="system-agv">
+                    <!-- 3D Box -->
+                    <path d="M 580 320 L 640 290 L 700 320 L 700 370 L 640 400 L 580 370 Z"
+                          fill="#9B59B6" opacity="0.3"/>
+                    <path d="M 580 320 L 640 290 L 640 340 L 580 370 Z"
+                          fill="#9B59B6" opacity="0.7"/>
+                    <path d="M 640 290 L 700 320 L 700 370 L 640 340 Z"
+                          fill="#9B59B6" opacity="0.5"/>
+                    <path d="M 580 370 L 640 340 L 700 370 L 640 400 Z"
+                          fill="#9B59B6" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="640" y="350" font-family="Arial" font-size="28" fill="white" text-anchor="middle">🚛</text>
+                    <text x="640" y="385" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">AGV</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 580 345 Q 520 340 480 330"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 580 345 Q 520 340 480 330"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 4: Produktion (rechts unten) -->
+                <g id="system-produktion">
+                    <!-- 3D Box -->
+                    <path d="M 540 460 L 600 430 L 660 460 L 660 510 L 600 540 L 540 510 Z"
+                          fill="#E74C3C" opacity="0.3"/>
+                    <path d="M 540 460 L 600 430 L 600 480 L 540 510 Z"
+                          fill="#E74C3C" opacity="0.7"/>
+                    <path d="M 600 430 L 660 460 L 660 510 L 600 480 Z"
+                          fill="#E74C3C" opacity="0.5"/>
+                    <path d="M 540 510 L 600 480 L 660 510 L 600 540 Z"
+                          fill="#E74C3C" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="600" y="490" font-family="Arial" font-size="28" fill="white" text-anchor="middle">⚙</text>
+                    <text x="600" y="525" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Produktion</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 540 485 Q 480 420 450 370"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 540 485 Q 480 420 450 370"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 5: Ausgabeschrank (unten) -->
+                <g id="system-ausgabe">
+                    <!-- 3D Box -->
+                    <path d="M 320 520 L 380 490 L 440 520 L 440 570 L 380 600 L 320 570 Z"
+                          fill="#F39C12" opacity="0.3"/>
+                    <path d="M 320 520 L 380 490 L 380 540 L 320 570 Z"
+                          fill="#F39C12" opacity="0.7"/>
+                    <path d="M 380 490 L 440 520 L 440 570 L 380 540 Z"
+                          fill="#F39C12" opacity="0.5"/>
+                    <path d="M 320 570 L 380 540 L 440 570 L 380 600 Z"
+                          fill="#F39C12" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="380" y="550" font-family="Arial" font-size="28" fill="white" text-anchor="middle">🔧</text>
+                    <text x="380" y="585" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Werkzeugausgabe</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 380 490 Q 390 440 400 400"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 380 490 Q 390 440 400 400"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 6: ERP (links unten) -->
+                <g id="system-erp">
+                    <!-- 3D Box -->
+                    <path d="M 100 460 L 160 430 L 220 460 L 220 510 L 160 540 L 100 510 Z"
+                          fill="#27AE60" opacity="0.3"/>
+                    <path d="M 100 460 L 160 430 L 160 480 L 100 510 Z"
+                          fill="#27AE60" opacity="0.7"/>
+                    <path d="M 160 430 L 220 460 L 220 510 L 160 480 Z"
+                          fill="#27AE60" opacity="0.5"/>
+                    <path d="M 100 510 L 160 480 L 220 510 L 160 540 Z"
+                          fill="#27AE60" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="160" y="490" font-family="Arial" font-size="28" fill="white" text-anchor="middle">💼</text>
+                    <text x="160" y="525" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">ERP-System</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 220 485 Q 280 420 320 370"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 220 485 Q 280 420 320 370"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 7: Lagerverwaltung (links) -->
+                <g id="system-lager">
+                    <!-- 3D Box -->
+                    <path d="M 60 320 L 120 290 L 180 320 L 180 370 L 120 400 L 60 370 Z"
+                          fill="#16A085" opacity="0.3"/>
+                    <path d="M 60 320 L 120 290 L 120 340 L 60 370 Z"
+                          fill="#16A085" opacity="0.7"/>
+                    <path d="M 120 290 L 180 320 L 180 370 L 120 340 Z"
+                          fill="#16A085" opacity="0.5"/>
+                    <path d="M 60 370 L 120 340 L 180 370 L 120 400 Z"
+                          fill="#16A085" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="120" y="350" font-family="Arial" font-size="28" fill="white" text-anchor="middle">📊</text>
+                    <text x="120" y="385" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Lagerverwaltung</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 180 345 Q 240 340 320 330"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 180 345 Q 240 340 320 330"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- System 8: Qualitätskontrolle (links oben) -->
+                <g id="system-qualitaet">
+                    <!-- 3D Box -->
+                    <path d="M 100 140 L 160 110 L 220 140 L 220 190 L 160 220 L 100 190 Z"
+                          fill="#C0392B" opacity="0.3"/>
+                    <path d="M 100 140 L 160 110 L 160 160 L 100 190 Z"
+                          fill="#C0392B" opacity="0.7"/>
+                    <path d="M 160 110 L 220 140 L 220 190 L 160 160 Z"
+                          fill="#C0392B" opacity="0.5"/>
+                    <path d="M 100 190 L 160 160 L 220 190 L 160 220 Z"
+                          fill="#C0392B" opacity="0.8"/>
+
+                    <!-- Icon -->
+                    <text x="160" y="170" font-family="Arial" font-size="28" fill="white" text-anchor="middle">✓</text>
+                    <text x="160" y="205" font-family="Arial" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Qualitätskontrolle</text>
+
+                    <!-- Verbindung -->
+                    <path d="M 220 165 Q 280 220 320 270"
+                          stroke="url(#pipeGradient1)" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 220 165 Q 280 220 320 270"
+                          stroke="url(#dataFlow1)" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- Zentrale Datenfluss-Indikatoren -->
+                <g id="data-indicators">
+                    <circle cx="400" cy="320" r="80" fill="none" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.3">
+                        <animate attributeName="r" values="80;95;80" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="400" cy="320" r="110" fill="none" stroke="#16A085" stroke-width="1" stroke-dasharray="3,3" opacity="0.2">
+                        <animate attributeName="r" values="110;125;110" dur="4s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.2;0.05;0.2" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                </g>
+
+                <!-- Legende -->
+                <g id="legend">
+                    <rect x="250" y="680" width="300" height="80" fill="white" opacity="0.9" rx="10"/>
+
+                    <circle cx="270" cy="705" r="6" fill="#F39C12"/>
+                    <text x="285" y="710" font-family="Arial" font-size="11" fill="#2C3E50">Echtzeit-Datenfluss</text>
+
+                    <rect x="264" y="725" width="12" height="12" fill="#16A085" opacity="0.7"/>
+                    <text x="285" y="735" font-family="Arial" font-size="11" fill="#2C3E50">Systemkomponente</text>
+
+                    <path d="M 420 705 L 440 705" stroke="#1ABC9C" stroke-width="8" stroke-linecap="round"/>
+                    <text x="450" y="710" font-family="Arial" font-size="11" fill="#2C3E50">Verbindungsleitung</text>
+
+                    <circle cx="426" cy="731" r="4" fill="none" stroke="#16A085" stroke-width="1.5" stroke-dasharray="2,2"/>
+                    <text x="450" y="735" font-family="Arial" font-size="11" fill="#2C3E50">Funkverbindung</text>
+                </g>
+
+                <!-- Titel -->
+                <text x="400" y="35" font-family="Arial" font-size="20" fill="#2C3E50" text-anchor="middle" font-weight="bold">Intelligenter Materialfluss-Kreislauf</text>
+                <text x="400" y="55" font-family="Arial" font-size="12" fill="#16A085" text-anchor="middle">Alle Systeme kommunizieren in Echtzeit über die zentrale Steuerungseinheit</text>
+            </svg>
         </div>
     </section>
 
