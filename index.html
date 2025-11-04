@@ -599,6 +599,81 @@
             animation: connectionFlow 3s linear infinite;
         }
 
+        /* AGV Fahrzeuge Animation - Bewegung entlang der Route */
+        @keyframes agv1Move {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(30px, 0); }
+            50% { transform: translate(30px, 100px); }
+            75% { transform: translate(150px, 100px); }
+        }
+
+        @keyframes agv2Move {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 0); }
+            50% { transform: translate(100px, 20px); }
+            75% { transform: translate(180px, 20px); }
+        }
+
+        @keyframes agv3Move {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(-30px, -10px); }
+            66% { transform: translate(-30px, 20px); }
+        }
+
+        #agv1 {
+            animation: agv1Move 12s ease-in-out infinite;
+        }
+
+        #agv2 {
+            animation: agv2Move 10s ease-in-out infinite;
+        }
+
+        #agv3 {
+            animation: agv3Move 8s ease-in-out infinite;
+        }
+
+        /* AGV Sensor Blinken */
+        @keyframes sensorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        #agv1 circle[fill="#F39C12"],
+        #agv2 circle[fill="#F39C12"],
+        #agv3 circle[fill="#F39C12"] {
+            animation: sensorBlink 1s ease-in-out infinite;
+        }
+
+        /* Vehicle Status Animation */
+        @keyframes statusUpdate {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        #vehicle-status circle {
+            animation: statusUpdate 2s ease-in-out infinite;
+        }
+
+        /* Wireless Signal Animation */
+        @keyframes wirelessPulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        #wireless path {
+            animation: wirelessPulse 3s ease-in-out infinite;
+        }
+
+        /* Fahrspur Animation */
+        @keyframes trackFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 25; }
+        }
+
+        #fahrspur path {
+            animation: trackFlow 2s linear infinite;
+        }
+
         /* Stats Section */
         .stats-section {
             background: linear-gradient(135deg, rgba(22, 160, 133, 0.95), rgba(44, 62, 80, 0.95)),
@@ -1469,130 +1544,6 @@
 
         <div class="solution-item">
             <div class="solution-content">
-                <span class="solution-tag">Digitale Vernetzung</span>
-                <h3 class="solution-title">Intelligente Lagerverwaltung & ERP-Integration</h3>
-                <p class="solution-description">Professionelle Warehouse-Management-Systeme schaffen vollständige Transparenz und ermöglichen automatische Nachbestellungen, auftragsbezogene Entnahmen und lückenlose Rückverfolgbarkeit.</p>
-                <ul class="solution-benefits">
-                    <li>Echtzeit-Übersicht über alle Bestände und Lagerorte</li>
-                    <li>Automatische Nachbestellung bei Mindestbestand</li>
-                    <li>Auftragsbezogene Materialzuordnung für präzise Kalkulation</li>
-                    <li>Nahtlose Integration in bestehende ERP-Systeme</li>
-                </ul>
-            </div>
-            <div class="solution-image">
-                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
-                    <!-- Cloud System oben -->
-                    <g id="cloud-system">
-                        <!-- Cloud Form -->
-                        <ellipse cx="250" cy="60" rx="40" ry="25" fill="#16A085"/>
-                        <ellipse cx="280" cy="55" rx="35" ry="28" fill="#16A085"/>
-                        <ellipse cx="310" cy="60" rx="38" ry="26" fill="#16A085"/>
-                        <ellipse cx="340" cy="62" rx="32" ry="24" fill="#16A085"/>
-                        <rect x="250" y="60" width="90" height="25" fill="#16A085"/>
-
-                        <!-- Server Icons in Cloud -->
-                        <rect x="275" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
-                        <rect x="290" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
-                        <rect x="305" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
-                        <circle cx="281" cy="62" r="1.5" fill="#16A085"/>
-                        <circle cx="296" cy="62" r="1.5" fill="#16A085"/>
-                        <circle cx="311" cy="62" r="1.5" fill="#16A085"/>
-
-                        <text x="295" y="50" font-family="Arial" font-size="11" fill="#2C3E50" text-anchor="middle" font-weight="bold">WMS Cloud</text>
-                    </g>
-
-                    <!-- Verbindungslinien von Cloud zu Systemen -->
-                    <line x1="295" y1="85" x2="150" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
-                    <line x1="295" y1="85" x2="300" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
-                    <line x1="295" y1="85" x2="450" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
-
-                    <!-- ERP System links -->
-                    <g id="erp-system">
-                        <rect x="50" y="130" width="200" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
-                        <rect x="55" y="135" width="190" height="30" fill="#2C3E50" opacity="0.9" rx="4"/>
-                        <text x="150" y="155" font-family="Arial" font-size="13" fill="white" text-anchor="middle" font-weight="bold">ERP System</text>
-
-                        <!-- ERP Module -->
-                        <rect x="65" y="175" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
-                        <text x="105" y="193" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Aufträge</text>
-                        <rect x="155" y="175" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
-                        <text x="195" y="193" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Kalkulation</text>
-                        <rect x="65" y="210" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
-                        <text x="105" y="228" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Einkauf</text>
-                        <rect x="155" y="210" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
-                        <text x="195" y="228" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Produktion</text>
-                    </g>
-
-                    <!-- Warehouse Dashboard Mitte -->
-                    <g id="dashboard">
-                        <rect x="265" y="130" width="200" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
-                        <rect x="270" y="135" width="190" height="30" fill="#16A085" opacity="0.9" rx="4"/>
-                        <text x="365" y="155" font-family="Arial" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Live Dashboard</text>
-
-                        <!-- Gauges/Charts -->
-                        <circle cx="310" cy="195" r="22" fill="none" stroke="#16A085" stroke-width="3"/>
-                        <path d="M 310 173 L 310 195 L 325 185" stroke="#F39C12" stroke-width="2" fill="none"/>
-                        <text x="310" y="225" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Auslastung</text>
-
-                        <rect x="350" y="175" width="100" height="8" fill="#E0E0E0" rx="4"/>
-                        <rect x="350" y="175" width="75" height="8" fill="#27AE60" rx="4"/>
-                        <text x="400" y="195" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Verfügbarkeit 85%</text>
-
-                        <rect x="350" y="205" width="100" height="8" fill="#E0E0E0" rx="4"/>
-                        <rect x="350" y="205" width="60" height="8" fill="#16A085" rx="4"/>
-                        <text x="400" y="225" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Bestand 60%</text>
-                    </g>
-
-                    <!-- Lager/Scanner rechts -->
-                    <g id="warehouse">
-                        <rect x="480" y="130" width="90" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
-                        <rect x="485" y="135" width="80" height="30" fill="#2C3E50" opacity="0.9" rx="4"/>
-                        <text x="525" y="155" font-family="Arial" font-size="11" fill="white" text-anchor="middle" font-weight="bold">Scanner</text>
-
-                        <!-- Barcode Scanner Icon -->
-                        <rect x="500" y="180" width="50" height="40" fill="#F39C12" opacity="0.2" rx="4"/>
-                        <line x1="510" y1="190" x2="510" y2="210" stroke="#2C3E50" stroke-width="1"/>
-                        <line x1="515" y1="190" x2="515" y2="210" stroke="#2C3E50" stroke-width="2"/>
-                        <line x1="520" y1="190" x2="520" y2="210" stroke="#2C3E50" stroke-width="1"/>
-                        <line x1="525" y1="190" x2="525" y2="210" stroke="#2C3E50" stroke-width="1"/>
-                        <line x1="530" y1="190" x2="530" y2="210" stroke="#2C3E50" stroke-width="2"/>
-                        <line x1="535" y1="190" x2="535" y2="210" stroke="#2C3E50" stroke-width="1"/>
-                        <line x1="540" y1="190" x2="540" y2="210" stroke="#2C3E50" stroke-width="2"/>
-
-                        <!-- Status LED -->
-                        <circle cx="525" cy="230" r="6" fill="#27AE60"/>
-                    </g>
-
-                    <!-- Datenfluss Pfeile unten -->
-                    <g id="data-flow">
-                        <path d="M 140 260 L 180 280 L 140 300" fill="#16A085" opacity="0.5"/>
-                        <text x="120" y="285" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="end">Bestellungen</text>
-
-                        <path d="M 365 260 L 365 290 L 355 280 M 365 290 L 375 280" stroke="#16A085" stroke-width="3" fill="none" opacity="0.6"/>
-                        <text x="365" y="310" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="middle">Echtzeit-Sync</text>
-
-                        <path d="M 520 260 L 480 280 L 520 300" fill="#16A085" opacity="0.5"/>
-                        <text x="540" y="285" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="start">Entnahmen</text>
-                    </g>
-
-                    <!-- Status Indikatoren -->
-                    <g id="status" opacity="0.8">
-                        <circle cx="30" cy="340" r="6" fill="#27AE60"/>
-                        <text x="45" y="345" font-family="Arial" font-size="11" fill="#2C3E50">Online</text>
-
-                        <rect x="120" y="335" width="30" height="10" fill="#E0E0E0" rx="5"/>
-                        <rect x="120" y="335" width="25" height="10" fill="#27AE60" rx="5"/>
-                        <text x="160" y="345" font-family="Arial" font-size="11" fill="#2C3E50">Sync 95%</text>
-                    </g>
-
-                    <!-- Label -->
-                    <text x="300" y="385" font-family="Arial" font-size="14" fill="#2C3E50" text-anchor="middle" font-weight="bold">Integrierte Lagerverwaltung mit ERP-Anbindung</text>
-                </svg>
-            </div>
-        </div>
-
-        <div class="solution-item">
-            <div class="solution-content">
                 <span class="solution-tag">Tool Management</span>
                 <h3 class="solution-title">Ausgabeschränke: Intelligente Werkzeugverwaltung</h3>
                 <p class="solution-description">Automatische Ausgabesysteme sorgen für kontrollierte Entnahme, lückenlose Dokumentation und automatische Nachbestellung von Werkzeugen und Verbrauchsmaterialien.</p>
@@ -1743,6 +1694,130 @@
 
                     <!-- Label -->
                     <text x="300" y="385" font-family="Arial" font-size="14" fill="#2C3E50" text-anchor="middle" font-weight="bold">Intelligente Werkzeugausgabe mit Bestandsmanagement</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="solution-item">
+            <div class="solution-content">
+                <span class="solution-tag">Digitale Vernetzung</span>
+                <h3 class="solution-title">Intelligente Lagerverwaltung & ERP-Integration</h3>
+                <p class="solution-description">Professionelle Warehouse-Management-Systeme schaffen vollständige Transparenz und ermöglichen automatische Nachbestellungen, auftragsbezogene Entnahmen und lückenlose Rückverfolgbarkeit.</p>
+                <ul class="solution-benefits">
+                    <li>Echtzeit-Übersicht über alle Bestände und Lagerorte</li>
+                    <li>Automatische Nachbestellung bei Mindestbestand</li>
+                    <li>Auftragsbezogene Materialzuordnung für präzise Kalkulation</li>
+                    <li>Nahtlose Integration in bestehende ERP-Systeme</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <svg width="600" height="400" viewBox="0 0 600 400" style="background: linear-gradient(135deg, #E8F5F2, #D5EDE7);">
+                    <!-- Cloud System oben -->
+                    <g id="cloud-system">
+                        <!-- Cloud Form -->
+                        <ellipse cx="250" cy="60" rx="40" ry="25" fill="#16A085"/>
+                        <ellipse cx="280" cy="55" rx="35" ry="28" fill="#16A085"/>
+                        <ellipse cx="310" cy="60" rx="38" ry="26" fill="#16A085"/>
+                        <ellipse cx="340" cy="62" rx="32" ry="24" fill="#16A085"/>
+                        <rect x="250" y="60" width="90" height="25" fill="#16A085"/>
+
+                        <!-- Server Icons in Cloud -->
+                        <rect x="275" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
+                        <rect x="290" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
+                        <rect x="305" y="58" width="12" height="16" fill="white" opacity="0.9" rx="2"/>
+                        <circle cx="281" cy="62" r="1.5" fill="#16A085"/>
+                        <circle cx="296" cy="62" r="1.5" fill="#16A085"/>
+                        <circle cx="311" cy="62" r="1.5" fill="#16A085"/>
+
+                        <text x="295" y="50" font-family="Arial" font-size="11" fill="#2C3E50" text-anchor="middle" font-weight="bold">WMS Cloud</text>
+                    </g>
+
+                    <!-- Verbindungslinien von Cloud zu Systemen -->
+                    <line x1="295" y1="85" x2="150" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+                    <line x1="295" y1="85" x2="300" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+                    <line x1="295" y1="85" x2="450" y2="130" stroke="#16A085" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+                    <!-- ERP System links -->
+                    <g id="erp-system">
+                        <rect x="50" y="130" width="200" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
+                        <rect x="55" y="135" width="190" height="30" fill="#2C3E50" opacity="0.9" rx="4"/>
+                        <text x="150" y="155" font-family="Arial" font-size="13" fill="white" text-anchor="middle" font-weight="bold">ERP System</text>
+
+                        <!-- ERP Module -->
+                        <rect x="65" y="175" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
+                        <text x="105" y="193" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Aufträge</text>
+                        <rect x="155" y="175" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
+                        <text x="195" y="193" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Kalkulation</text>
+                        <rect x="65" y="210" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
+                        <text x="105" y="228" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Einkauf</text>
+                        <rect x="155" y="210" width="80" height="30" fill="#16A085" opacity="0.2" rx="4"/>
+                        <text x="195" y="228" font-family="Arial" font-size="9" fill="#2C3E50" text-anchor="middle">Produktion</text>
+                    </g>
+
+                    <!-- Warehouse Dashboard Mitte -->
+                    <g id="dashboard">
+                        <rect x="265" y="130" width="200" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
+                        <rect x="270" y="135" width="190" height="30" fill="#16A085" opacity="0.9" rx="4"/>
+                        <text x="365" y="155" font-family="Arial" font-size="13" fill="white" text-anchor="middle" font-weight="bold">Live Dashboard</text>
+
+                        <!-- Gauges/Charts -->
+                        <circle cx="310" cy="195" r="22" fill="none" stroke="#16A085" stroke-width="3"/>
+                        <path d="M 310 173 L 310 195 L 325 185" stroke="#F39C12" stroke-width="2" fill="none"/>
+                        <text x="310" y="225" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Auslastung</text>
+
+                        <rect x="350" y="175" width="100" height="8" fill="#E0E0E0" rx="4"/>
+                        <rect x="350" y="175" width="75" height="8" fill="#27AE60" rx="4"/>
+                        <text x="400" y="195" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Verfügbarkeit 85%</text>
+
+                        <rect x="350" y="205" width="100" height="8" fill="#E0E0E0" rx="4"/>
+                        <rect x="350" y="205" width="60" height="8" fill="#16A085" rx="4"/>
+                        <text x="400" y="225" font-family="Arial" font-size="8" fill="#2C3E50" text-anchor="middle">Bestand 60%</text>
+                    </g>
+
+                    <!-- Lager/Scanner rechts -->
+                    <g id="warehouse">
+                        <rect x="480" y="130" width="90" height="120" fill="white" stroke="#2C3E50" stroke-width="2" rx="8"/>
+                        <rect x="485" y="135" width="80" height="30" fill="#2C3E50" opacity="0.9" rx="4"/>
+                        <text x="525" y="155" font-family="Arial" font-size="11" fill="white" text-anchor="middle" font-weight="bold">Scanner</text>
+
+                        <!-- Barcode Scanner Icon -->
+                        <rect x="500" y="180" width="50" height="40" fill="#F39C12" opacity="0.2" rx="4"/>
+                        <line x1="510" y1="190" x2="510" y2="210" stroke="#2C3E50" stroke-width="1"/>
+                        <line x1="515" y1="190" x2="515" y2="210" stroke="#2C3E50" stroke-width="2"/>
+                        <line x1="520" y1="190" x2="520" y2="210" stroke="#2C3E50" stroke-width="1"/>
+                        <line x1="525" y1="190" x2="525" y2="210" stroke="#2C3E50" stroke-width="1"/>
+                        <line x1="530" y1="190" x2="530" y2="210" stroke="#2C3E50" stroke-width="2"/>
+                        <line x1="535" y1="190" x2="535" y2="210" stroke="#2C3E50" stroke-width="1"/>
+                        <line x1="540" y1="190" x2="540" y2="210" stroke="#2C3E50" stroke-width="2"/>
+
+                        <!-- Status LED -->
+                        <circle cx="525" cy="230" r="6" fill="#27AE60"/>
+                    </g>
+
+                    <!-- Datenfluss Pfeile unten -->
+                    <g id="data-flow">
+                        <path d="M 140 260 L 180 280 L 140 300" fill="#16A085" opacity="0.5"/>
+                        <text x="120" y="285" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="end">Bestellungen</text>
+
+                        <path d="M 365 260 L 365 290 L 355 280 M 365 290 L 375 280" stroke="#16A085" stroke-width="3" fill="none" opacity="0.6"/>
+                        <text x="365" y="310" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="middle">Echtzeit-Sync</text>
+
+                        <path d="M 520 260 L 480 280 L 520 300" fill="#16A085" opacity="0.5"/>
+                        <text x="540" y="285" font-family="Arial" font-size="10" fill="#2C3E50" text-anchor="start">Entnahmen</text>
+                    </g>
+
+                    <!-- Status Indikatoren -->
+                    <g id="status" opacity="0.8">
+                        <circle cx="30" cy="340" r="6" fill="#27AE60"/>
+                        <text x="45" y="345" font-family="Arial" font-size="11" fill="#2C3E50">Online</text>
+
+                        <rect x="120" y="335" width="30" height="10" fill="#E0E0E0" rx="5"/>
+                        <rect x="120" y="335" width="25" height="10" fill="#27AE60" rx="5"/>
+                        <text x="160" y="345" font-family="Arial" font-size="11" fill="#2C3E50">Sync 95%</text>
+                    </g>
+
+                    <!-- Label -->
+                    <text x="300" y="385" font-family="Arial" font-size="14" fill="#2C3E50" text-anchor="middle" font-weight="bold">Integrierte Lagerverwaltung mit ERP-Anbindung</text>
                 </svg>
             </div>
         </div>
