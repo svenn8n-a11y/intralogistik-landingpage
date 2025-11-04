@@ -554,6 +554,67 @@
             animation: ledPulse 1.5s ease-in-out infinite;
         }
 
+        /* Ausgabeschrank - Werkzeug-Pulsing */
+        @keyframes toolPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        #row1 circle[fill="#E67E22"],
+        #row1 circle[fill="#16A085"],
+        #row1 circle[fill="#3498DB"] {
+            animation: toolPulse 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        #row1 circle:nth-child(5) { animation-delay: 0s; }
+        #row1 circle:nth-child(6) { animation-delay: 0.3s; }
+        #row1 circle:nth-child(7) { animation-delay: 0.6s; }
+        #row1 circle:nth-child(8) { animation-delay: 0.9s; }
+
+        /* Ausgabeschrank - Benachrichtigung Animation */
+        @keyframes notificationBounce {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.05); }
+        }
+
+        #notification {
+            animation: notificationBounce 2s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        /* Ausgabeschrank - RFID Scanner Glow */
+        @keyframes rfidGlow {
+            0%, 100% { opacity: 0.2; filter: drop-shadow(0 0 0px #F39C12); }
+            50% { opacity: 0.6; filter: drop-shadow(0 0 8px #F39C12); }
+        }
+
+        #reader rect[fill="#F39C12"] {
+            animation: rfidGlow 2s ease-in-out infinite;
+        }
+
+        /* Ausgabeschrank - Datenfluss Animation */
+        @keyframes dataflowPulse {
+            0%, 100% { opacity: 0.5; stroke-dashoffset: 0; }
+            50% { opacity: 1; stroke-dashoffset: 6; }
+        }
+
+        #dataflow path {
+            animation: dataflowPulse 2s linear infinite;
+        }
+
+        /* Ausgabeschrank - Touchscreen Display Blink */
+        @keyframes displayBlink {
+            0%, 90%, 100% { opacity: 0.8; }
+            95% { opacity: 0.3; }
+        }
+
+        #ausgabeschrank rect[x="365"][y="65"] {
+            animation: displayBlink 4s ease-in-out infinite;
+        }
+
         /* Pfeile Animation für Vertikallift */
         @keyframes arrowMove {
             0%, 100% { opacity: 0.3; transform: translateY(0); }
