@@ -15,3 +15,11 @@ Thumbs.db
 # Temporäre Dateien
 *.tmp
 *.temp
+
+# Large video files (original, uncompressed)
+Modula video.mov
+*.mov
+
+# Compressed videos are OK to track
+!*-compressed.mp4
+!*-compressed.webm
