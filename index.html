@@ -619,6 +619,28 @@
             height: 100%;
         }
 
+        /* Full-Width Video Section */
+        .fullwidth-video-section {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .fullwidth-video-section video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .fullwidth-video-section {
+                height: 400px;
+            }
+        }
+
         /* Modular System Section */
         .modular-section {
             background: var(--background);
@@ -1264,6 +1286,14 @@
                 </svg>
             </div>
         </div>
+
+        <!-- Full-Width Modula Video -->
+        <section class="fullwidth-video-section">
+            <video autoplay loop muted playsinline>
+                <source src="Modula video.mov" type="video/quicktime">
+                Ihr Browser unterstützt das Video-Tag nicht.
+            </video>
+        </section>
 
         <div class="solution-item">
             <div class="solution-content">
