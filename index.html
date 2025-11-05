@@ -56,37 +56,14 @@
             justify-content: space-between;
         }
 
-        .header-logo-link {
-            text-decoration: none;
-        }
-
-        .header-logo-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.15rem;
+        .header-logo {
+            height: 50px;
+            width: auto;
             transition: transform 0.3s ease;
         }
 
-        .header-logo-placeholder:hover {
+        .header-logo:hover {
             transform: scale(1.05);
-        }
-
-        .logo-text {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.05em;
-            line-height: 1;
-        }
-
-        .logo-subtitle {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--secondary);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            opacity: 0.8;
         }
 
         .header-nav {
@@ -1439,12 +1416,8 @@
                 padding: 0.75rem 1.5rem;
             }
 
-            .logo-text {
-                font-size: 1.5rem;
-            }
-
-            .logo-subtitle {
-                font-size: 0.65rem;
+            .header-logo {
+                height: 40px;
             }
 
             .header-nav {
@@ -1580,11 +1553,8 @@
     <!-- Header Navigation -->
     <header class="header" id="header">
         <div class="header-content">
-            <a href="#home" class="header-logo-link">
-                <div class="header-logo-placeholder">
-                    <span class="logo-text">PÖPPEL</span>
-                    <span class="logo-subtitle">Intralogistik</span>
-                </div>
+            <a href="#home">
+                <img src="logos/100 Poeppel Logo HELL .png" alt="Pöppel Intralogistik" class="header-logo">
             </a>
             <nav class="header-nav">
                 <a href="#solutions">Lösungen</a>
