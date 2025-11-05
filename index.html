@@ -30,8 +30,114 @@
             line-height: 1.6;
         }
 
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .header-nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .header-cta:hover {
+            background: var(--success);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 160, 133, 0.3);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
         /* Hero Section with Video Background Effect */
         .hero {
+            margin-top: 70px;
             min-height: 90vh;
             background: linear-gradient(135deg, rgba(22, 160, 133, 0.93), rgba(44, 62, 80, 0.93)),
                         url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80');
@@ -1265,6 +1371,26 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .header-content {
+                padding: 0.75rem 1.5rem;
+            }
+
+            .header-logo {
+                height: 40px;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                margin-top: 60px;
+            }
+
             .section {
                 padding: 3rem 1.5rem;
             }
@@ -1382,6 +1508,29 @@
     </style>
 </head>
 <body>
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#home">
+                <img src="100 Poeppel Logo HELL .png" alt="Pöppel Intralogistik" class="header-logo">
+            </a>
+            <nav class="header-nav">
+                <a href="#solutions">Lösungen</a>
+                <a href="#stats">Ergebnisse</a>
+                <a href="#process">Prozess</a>
+                <a href="#social-proof">Referenzen</a>
+                <button class="header-cta" onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'})">
+                    Kontakt
+                </button>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
     <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1392,9 +1541,6 @@
          ======================================== -->
     <section class="hero" data-section="hero">
         <div class="hero-content">
-            <div style="margin-bottom: 2rem; text-align: center;">
-                <img src="100 Poeppel Logo HELL .png" alt="Pöppel Intralogistik" style="max-width: 300px; height: auto; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));">
-            </div>
             <h1 class="hero-headline">Maßgeschneiderte Intralogistik-Lösungen, die mit Ihnen wachsen</h1>
             <p class="hero-subheadline">Modulare Systeme. Maximale Effizienz. Nachweisbare Einsparungen von bis zu 90% Fläche und 60% Kosten.</p>
             <div class="hero-cta-group">
@@ -1620,7 +1766,7 @@
          - Lagerverwaltung & ERP-Integration
          - Fahrerlose Transportsysteme (AGV)
          ======================================== -->
-    <section class="section" data-section="solutions" style="background: var(--background);">
+    <section class="section" data-section="solutions" id="solutions" style="background: var(--background);">
         <div class="section-header">
             <div class="section-eyebrow">Unsere Lösung</div>
             <h2 class="section-title">Maßgeschneiderte Systeme für Ihre Anforderungen</h2>
@@ -2156,7 +2302,7 @@
          Animationen: Ja (CountUp-Zahlen)
          Inhalt: Nachweisbare Ergebnisse mit animierten Zahlen
          ======================================== -->
-    <section class="stats-section" data-section="stats">
+    <section class="stats-section" data-section="stats" id="stats">
         <div class="section-header" style="margin-bottom: 3rem;">
             <h2 class="section-title" style="color: white;">Nachweisbare Ergebnisse</h2>
             <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Echte Daten aus realisierten Projekten</p>
@@ -2229,7 +2375,7 @@
          Animationen: Ja
          Inhalt: 5-Schritte Timeline von Analyse bis Umsetzung
          ======================================== -->
-    <section class="section" data-section="process" style="background: white;">
+    <section class="section" data-section="process" id="process" style="background: white;">
         <div class="section-header">
             <div class="section-eyebrow">Unser Prozess</div>
             <h2 class="section-title">Von der Analyse zur Umsetzung</h2>
@@ -2285,7 +2431,7 @@
          Animationen: Ja
          Inhalt: Kundenstimmen und Testimonials
          ======================================== -->
-    <section class="social-proof" data-section="socialProof">
+    <section class="social-proof" data-section="socialProof" id="social-proof">
         <div class="section-header">
             <div class="section-eyebrow">Referenzen</div>
             <h2 class="section-title">Was unsere Kunden sagen</h2>
@@ -2906,6 +3052,25 @@
             });
             logoMarquee.addEventListener('mouseleave', () => {
                 logoMarquee.style.animationPlayState = 'running';
+            });
+        }
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                // TODO: Implement mobile menu
+                console.log('Mobile menu toggle clicked');
             });
         }
 
