@@ -231,13 +231,33 @@
             text-align: center;
         }
 
+        .hero-logo {
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto 2.5rem;
+            display: block;
+            filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(255,255,255,0.3));
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero-headline {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-            animation: fadeInUp 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .hero-subheadline {
@@ -1487,6 +1507,11 @@
                 margin-top: 60px;
             }
 
+            .hero-logo {
+                max-width: 200px;
+                margin-bottom: 2rem;
+            }
+
             .section {
                 padding: 3rem 1.5rem;
             }
@@ -1638,6 +1663,7 @@
          ======================================== -->
     <section class="hero" data-section="hero">
         <div class="hero-content">
+            <img src="logos/100 Poeppel Logo HELL .png" alt="Pöppel Intralogistik" class="hero-logo">
             <h1 class="hero-headline">Maßgeschneiderte Intralogistik-Lösungen, die mit Ihnen wachsen</h1>
             <p class="hero-subheadline">Modulare Systeme. Maximale Effizienz. Nachweisbare Einsparungen von bis zu 90% Fläche und 60% Kosten.</p>
             <div class="hero-cta-group">
