@@ -232,8 +232,9 @@
         /* Problem/Solution Section */
         .section {
             padding: 5rem 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .section-header {
@@ -399,6 +400,9 @@
             gap: 4rem;
             align-items: center;
             margin-bottom: 5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .solution-item:nth-child(even) .solution-content {
@@ -1261,6 +1265,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
             .problem-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -1278,6 +1286,7 @@
             .solution-item {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                margin-bottom: 3rem;
             }
 
             /* Bilder immer zuerst mobile */
@@ -1291,7 +1300,12 @@
 
             /* SVG-Größen mobile optimieren */
             .solution-image svg {
-                max-height: 250px;
+                max-height: 300px;
+            }
+
+            /* Solution benefits mobile */
+            .solution-benefits {
+                font-size: 0.9rem;
             }
 
             .hero-cta-group {
@@ -1336,6 +1350,33 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tablet Optimierung (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .section {
+                padding: 4rem 2rem;
+            }
+
+            .solution-item {
+                gap: 3rem;
+                max-width: 900px;
+            }
+
+            .solution-image svg {
+                max-height: 350px;
+            }
+        }
+
+        /* Große Bildschirme (> 1400px) */
+        @media (min-width: 1401px) {
+            .section {
+                padding: 6rem 3rem;
+            }
+
+            .solution-item {
+                gap: 5rem;
             }
         }
     </style>
