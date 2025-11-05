@@ -1195,17 +1195,19 @@
 
         .timeline-content {
             flex: 1;
-            background: white;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(22, 160, 133, 0.1);
             cursor: default;
+            position: relative;
         }
 
         .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.15);
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
         }
 
         .timeline-item:not(.animated) .timeline-content {
@@ -2502,7 +2504,7 @@
          Animationen: Ja
          Inhalt: 5-Schritte Timeline von Analyse bis Umsetzung
          ======================================== -->
-    <section class="section" data-section="process" id="process" style="background: white;">
+    <section class="section" data-section="process" id="process" style="background: white; padding-bottom: 8rem;">
         <div class="section-header">
             <div class="section-eyebrow">Unser Prozess</div>
             <h2 class="section-title">Von der Analyse zur Umsetzung</h2>
@@ -2614,11 +2616,25 @@
         </div>
         <div class="video-marquee-wrapper">
             <div class="video-marquee-container">
+                <!-- Modula Lift -->
                 <div class="video-card">
                     <div class="video-embed">
                         <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
+                <!-- Modula Karussell -->
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/0BjE9I60BIQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Modula Paletten -->
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/sXbN4bXmvec" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Weitere Modula Videos -->
                 <div class="video-card">
                     <div class="video-embed">
                         <iframe src="https://www.youtube.com/embed/knncx4o4jeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -2632,6 +2648,22 @@
                 <div class="video-card">
                     <div class="video-embed">
                         <iframe src="https://www.youtube.com/embed/63oQYilf_LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!-- Duplikate für endlose Schleife -->
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/0BjE9I60BIQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/sXbN4bXmvec" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -3141,15 +3173,20 @@
             let scrollInterval;
             let isUserInteracting = false;
             let scrollTimeout;
+            let isProgrammaticScroll = false; // Flag für automatisches Scrollen
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
             const startAutoScroll = () => {
                 if (!isUserInteracting && !isMobile) { // Nur Desktop auto-scroll
                     scrollInterval = setInterval(() => {
                         if (!isUserInteracting && videoWrapper.scrollLeft < videoWrapper.scrollWidth - videoWrapper.clientWidth) {
+                            isProgrammaticScroll = true;
                             videoWrapper.scrollLeft += 1;
+                            setTimeout(() => { isProgrammaticScroll = false; }, 10);
                         } else if (!isUserInteracting) {
+                            isProgrammaticScroll = true;
                             videoWrapper.scrollLeft = 0; // Loop back to start
+                            setTimeout(() => { isProgrammaticScroll = false; }, 10);
                         }
                     }, 30);
                 }
@@ -3188,19 +3225,24 @@
 
             // Scroll-Event für manuelle User-Interaktion
             videoWrapper.addEventListener('scroll', () => {
-                isUserInteracting = true;
-                stopAutoScroll();
+                // Nur als User-Interaktion werten wenn es kein programmatisches Scrollen ist
+                if (!isProgrammaticScroll) {
+                    isUserInteracting = true;
+                    stopAutoScroll();
 
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    isUserInteracting = false;
-                    if (!isMobile) startAutoScroll();
-                }, 2000);
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        isUserInteracting = false;
+                        if (!isMobile) startAutoScroll();
+                    }, 2000);
+                }
             });
 
-            // Nur Desktop: Auto-Scroll starten
+            // Nur Desktop: Auto-Scroll starten (mit Verzögerung damit Videos geladen sind)
             if (!isMobile) {
-                startAutoScroll();
+                setTimeout(() => {
+                    startAutoScroll();
+                }, 1000);
             }
         }
 
