@@ -319,7 +319,7 @@
         .problem-icon {
             width: 100%;
             height: 120px;
-            background: linear-gradient(135deg, var(--primary), var(--success));
+            background: linear-gradient(135deg, #266363, #54b399);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -409,6 +409,14 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .solution-image:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
         }
 
         .solution-image img,
@@ -416,6 +424,12 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .solution-image:hover img,
+        .solution-image:hover svg {
+            transform: scale(1.02);
         }
 
         .solution-image img {
@@ -2095,161 +2109,6 @@
         </div>
     </section>
 
-    <!-- Process Flow Cycle -->
-    <section class="section" style="background: var(--background);">
-        <div class="section-header">
-            <div class="section-eyebrow">Prozess</div>
-            <h2 class="section-title">Von der Analyse bis zur Optimierung</h2>
-            <p class="section-subtitle">Unser systematischer Ansatz für Ihren Erfolg</p>
-        </div>
-
-        <div style="max-width: 1000px; margin: 3rem auto; position: relative;">
-            <!-- Modern Circular Flow Diagram -->
-            <svg viewBox="0 0 600 600" style="width: 100%; height: auto;">
-                <!-- Center Circle -->
-                <circle cx="300" cy="300" r="80" fill="var(--primary)" opacity="0.1"/>
-                <circle cx="300" cy="300" r="60" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                <text x="300" y="295" font-family="Arial" font-size="16" fill="var(--primary)" text-anchor="middle" font-weight="bold">Ihr</text>
-                <text x="300" y="315" font-family="Arial" font-size="16" fill="var(--primary)" text-anchor="middle" font-weight="bold">Projekt</text>
-
-                <!-- Circular connection path -->
-                <circle cx="300" cy="300" r="200" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5,5" opacity="0.3"/>
-
-                <!-- Step 1: Analysis (Top) -->
-                <g>
-                    <circle cx="300" cy="80" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="300" cy="80" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="300" y="70" font-family="Arial" font-size="32" text-anchor="middle">📊</text>
-                    <text x="300" y="95" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Analyse</text>
-
-                    <foreignObject x="220" y="10" width="160" height="60">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: center; font-size: 11px; color: var(--text-secondary);">
-                            Prozess-Audit &amp; Potenzial-Bewertung
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 1 -->
-                <path d="M 340 120 L 420 180" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Step 2: Planning (Right-Top) -->
-                <g>
-                    <circle cx="470" cy="220" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="470" cy="220" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" begin="0.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="470" y="210" font-family="Arial" font-size="32" text-anchor="middle">📐</text>
-                    <text x="470" y="235" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Planung</text>
-
-                    <foreignObject x="480" y="190" width="110" height="60">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: left; font-size: 11px; color: var(--text-secondary);">
-                            System-Design &amp; Layout-Optimierung
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 2 -->
-                <path d="M 450 270 L 420 350" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Step 3: Implementation (Right-Bottom) -->
-                <g>
-                    <circle cx="380" cy="420" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="380" cy="420" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" begin="1s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="380" y="410" font-family="Arial" font-size="32" text-anchor="middle">⚙️</text>
-                    <text x="380" y="435" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Umsetzung</text>
-
-                    <foreignObject x="390" y="390" width="110" height="60">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: left; font-size: 11px; color: var(--text-secondary);">
-                            Installation &amp; Inbetriebnahme
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 3 -->
-                <path d="M 340 450 L 260 480" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Step 4: Training (Bottom) -->
-                <g>
-                    <circle cx="190" cy="490" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="190" cy="490" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" begin="1.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="190" y="480" font-family="Arial" font-size="32" text-anchor="middle">👥</text>
-                    <text x="190" y="505" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Schulung</text>
-
-                    <foreignObject x="100" y="505" width="180" height="40">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: center; font-size: 11px; color: var(--text-secondary);">
-                            Mitarbeiter-Training &amp; Know-how-Transfer
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 4 -->
-                <path d="M 150 470 L 100 380" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Step 5: Support (Left-Bottom) -->
-                <g>
-                    <circle cx="80" cy="300" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="80" cy="300" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" begin="2s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="80" y="290" font-family="Arial" font-size="32" text-anchor="middle">🔧</text>
-                    <text x="80" y="315" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Support</text>
-
-                    <foreignObject x="10" y="270" width="60" height="60">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: center; font-size: 11px; color: var(--text-secondary);">
-                            24/7 Service
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 5 -->
-                <path d="M 110 260 L 180 180" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Step 6: Optimization (Left-Top) -->
-                <g>
-                    <circle cx="220" cy="130" r="50" fill="white" stroke="var(--primary)" stroke-width="3"/>
-                    <circle cx="220" cy="130" r="50" fill="var(--primary)" opacity="0.1">
-                        <animate attributeName="r" values="50;55;50" dur="2s" begin="2.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <text x="220" y="120" font-family="Arial" font-size="32" text-anchor="middle">📈</text>
-                    <text x="220" y="145" font-family="Arial" font-size="12" fill="var(--secondary)" text-anchor="middle" font-weight="bold">Optimierung</text>
-
-                    <foreignObject x="130" y="100" width="80" height="60">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="text-align: center; font-size: 11px; color: var(--text-secondary);">
-                            Kontinuierliche Verbesserung
-                        </div>
-                    </foreignObject>
-                </g>
-
-                <!-- Arrow 6 - Closing the loop -->
-                <path d="M 260 110 L 290 90" stroke="var(--primary)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-
-                <!-- Arrow marker definition -->
-                <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="var(--primary)"/>
-                    </marker>
-                </defs>
-
-                <!-- Animated data flow circle -->
-                <circle r="8" fill="var(--success)" opacity="0.8">
-                    <animateMotion dur="12s" repeatCount="indefinite" path="M 300,100 A 200,200 0 1,1 300,100 Z"/>
-                </circle>
-            </svg>
-        </div>
-
-        <div style="text-align: center; margin-top: 3rem; color: var(--text-secondary);">
-            <p style="font-size: 1.125rem; max-width: 700px; margin: 0 auto;">
-                Ein durchgängiger Prozess, der auch nach der Implementierung weitergeht. Wir optimieren gemeinsam mit Ihnen kontinuierlich für maximale Effizienz.
-            </p>
-        </div>
-    </section>
-
     <!-- ========================================
          SEKTION: Statistiken / Ergebnisse
          Status: Aktiv
@@ -2684,8 +2543,8 @@
             document.getElementById('scrollProgress').style.width = scrolled + '%';
         }, { passive: true });
 
-        // 3D Tilt Effect for Cards
-        const tiltCards = document.querySelectorAll('.problem-card, .modular-card, .testimonial-card');
+        // 3D Tilt Effect for Cards and Solution Diagrams
+        const tiltCards = document.querySelectorAll('.problem-card, .modular-card, .testimonial-card, .solution-image');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
