@@ -56,14 +56,37 @@
             justify-content: space-between;
         }
 
-        .header-logo {
-            height: 50px;
-            width: auto;
+        .header-logo-link {
+            text-decoration: none;
+        }
+
+        .header-logo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15rem;
             transition: transform 0.3s ease;
         }
 
-        .header-logo:hover {
+        .header-logo-placeholder:hover {
             transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.8;
         }
 
         .header-nav {
@@ -377,7 +400,7 @@
             flex-direction: column;
             gap: 3rem;
             margin-top: 4rem;
-            max-width: 800px;
+            max-width: 1040px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -386,7 +409,7 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
             padding: 0;
             border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.08);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             border: 1px solid rgba(22, 160, 133, 0.1);
             overflow: hidden;
@@ -419,7 +442,7 @@
 
         .problem-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(22, 160, 133, 0.15);
+            box-shadow: 0 20px 60px rgba(22, 160, 133, 0.25), 0 10px 30px rgba(0,0,0,0.15);
             border-color: rgba(22, 160, 133, 0.3);
         }
 
@@ -1257,8 +1280,39 @@
 
         /* Social Proof */
         .social-proof {
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.95), rgba(44, 62, 80, 0.95)),
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
             padding: 5rem 2rem;
-            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-proof::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M50 0v100M0 50h100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .social-proof .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-proof .section-eyebrow {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .social-proof .section-title {
+            color: white;
         }
 
         .testimonial-grid {
@@ -1267,19 +1321,29 @@
             gap: 2rem;
             max-width: 1200px;
             margin: 3rem auto;
+            position: relative;
+            z-index: 1;
         }
 
         .testimonial-card {
-            background: var(--background);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
             padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .testimonial-text {
             font-size: 1.05rem;
             line-height: 1.7;
-            color: var(--text-primary);
+            color: white;
             margin-bottom: 1.5rem;
             font-style: italic;
         }
@@ -1309,12 +1373,12 @@
 
         .author-name {
             font-weight: 600;
-            color: var(--secondary);
+            color: white;
         }
 
         .author-title {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Footer */
@@ -1375,8 +1439,12 @@
                 padding: 0.75rem 1.5rem;
             }
 
-            .header-logo {
-                height: 40px;
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
             }
 
             .header-nav {
@@ -1398,6 +1466,7 @@
             .problem-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                max-width: 100%;
             }
 
             .problem-icon {
@@ -1511,8 +1580,11 @@
     <!-- Header Navigation -->
     <header class="header" id="header">
         <div class="header-content">
-            <a href="#home">
-                <img src="100 Poeppel Logo HELL .png" alt="Pöppel Intralogistik" class="header-logo">
+            <a href="#home" class="header-logo-link">
+                <div class="header-logo-placeholder">
+                    <span class="logo-text">PÖPPEL</span>
+                    <span class="logo-subtitle">Intralogistik</span>
+                </div>
             </a>
             <nav class="header-nav">
                 <a href="#solutions">Lösungen</a>
