@@ -363,12 +363,12 @@
 
         .modal-actions {
             display: flex;
+            flex-direction: column;
             gap: 1rem;
             margin-top: 2rem;
         }
 
         .btn-add-to-list {
-            flex: 1;
             background: var(--primary);
             color: white;
             border: none;
@@ -378,6 +378,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .btn-add-to-list:hover {
@@ -388,6 +389,25 @@
 
         .btn-add-to-list.added {
             background: var(--success);
+        }
+
+        .btn-back-modal {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-back-modal:hover {
+            background: #1E8449;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
         }
 
         /* Watchlist (Merkliste) */
@@ -653,8 +673,31 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
             .products-grid {
                 grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .product-title {
+                font-size: 1.5rem;
+            }
+
+            .product-excerpt {
+                font-size: 0.95rem;
             }
 
             .watchlist-sidebar {
@@ -662,13 +705,69 @@
                 right: -100%;
             }
 
+            .watchlist-badge {
+                width: 60px;
+                height: 60px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .watchlist-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .watchlist-count {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+
             .modal-content {
                 width: 95%;
-                padding: 2rem;
+                max-width: 95vw;
+                padding: 1.5rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-title {
+                font-size: 1.75rem;
+            }
+
+            .modal-tagline {
+                font-size: 1rem;
+            }
+
+            .modal-description {
+                font-size: 0.95rem;
             }
 
             .modal-actions {
                 flex-direction: column;
+            }
+
+            .btn-add-to-list, .btn-back-modal {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .back-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .header-logo {
+                height: 40px;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .analysis-button {
+                padding: 1.25rem 2rem;
+                font-size: 1rem;
             }
         }
 
@@ -719,18 +818,20 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
         }
 
         .back-button:hover {
             background: #138f75;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
         }
     </style>
 </head>
@@ -821,6 +922,9 @@
             <div class="modal-actions">
                 <button class="btn-add-to-list" onclick="addToWatchlist()">
                     Zur Merkliste hinzufügen
+                </button>
+                <button class="btn-back-modal" onclick="closeModal()">
+                    Zurück zur Übersicht
                 </button>
             </div>
         </div>
