@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertikalliftsysteme von Modula | Automatische Lagerlösungen</title>
+    <style>
+        :root {
+            --primary: #16A085;
+            --secondary: #2C3E50;
+            --accent: #34495E;
+            --background: #F8F9FA;
+            --surface: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --success: #27AE60;
+            --warning: #F39C12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg,
+                rgba(22, 160, 133, 0.95) 0%,
+                rgba(38, 99, 99, 0.95) 50%,
+                rgba(84, 179, 153, 0.92) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 4px 30px rgba(22, 160, 133, 0.2);
+            z-index: 9999;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .header-nav a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.93), rgba(44, 62, 80, 0.93)),
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Products Grid - Touchscreen Design */
+        .products-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
+            border-color: var(--primary);
+        }
+
+        .product-card:active {
+            transform: translateY(-8px) scale(0.98);
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: white;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-tagline {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-excerpt {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .product-button:hover {
+            background: #138f75;
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--background);
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 16px;
+            margin: 0 auto 2rem;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-tagline {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .modal-specs {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .modal-specs h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .modal-specs ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-specs li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal-specs li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-specs li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-add-to-list {
+            flex: 1;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-to-list:hover {
+            background: #138f75;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(22, 160, 133, 0.3);
+        }
+
+        .btn-add-to-list.added {
+            background: var(--success);
+        }
+
+        /* Watchlist (Merkliste) */
+        .watchlist-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(22, 160, 133, 0.4);
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        .watchlist-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(22, 160, 133, 0.5);
+        }
+
+        .watchlist-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 2px;
+        }
+
+        .watchlist-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #E74C3C;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .watchlist-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.2);
+            z-index: 10001;
+            padding: 2rem;
+            overflow-y: auto;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .watchlist-sidebar.active {
+            right: 0;
+        }
+
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--background);
+        }
+
+        .watchlist-header h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .watchlist-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .watchlist-items {
+            margin-bottom: 2rem;
+        }
+
+        .watchlist-item {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .watchlist-item-info h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .watchlist-item-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .watchlist-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-item-remove:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
+        }
+
+        .watchlist-action {
+            background: #FF9966;
+            color: white;
+            border: none;
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-action:hover {
+            background: #FF7744;
+        }
+
+        .watchlist-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .watchlist-empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Contact Form */
+        .contact-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .contact-section.active {
+            display: block;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--background);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(22, 160, 133, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: #138f75;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(22, 160, 133, 0.3);
+        }
+
+        .form-submit:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .watchlist-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 2rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* Analysis Button */
+        .analysis-button {
+            background: #FFD700;
+            color: var(--secondary);
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 600px;
+            margin: 3rem auto;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .analysis-button:hover {
+            background: #FFC700;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Back Button */
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #138f75;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html">
+                <img src="logos/100_Poeppel_Logo_HELL.png" alt="Pöppel Intralogistik" class="header-logo">
+            </a>
+            <nav class="header-nav">
+                <a href="index.html" class="back-button">Zurück</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <span>Vertikalliftsysteme</span>
+        </div>
+        <h1>Vertikalliftsysteme von Modula</h1>
+        <p>Wählen Sie die passenden automatischen Lagerlösungen für Ihre Anforderungen</p>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="products-grid">
+            <!-- Modula Lift -->
+            <div class="product-card" data-product="lift">
+                <img src="Produkte/modula-lift.webp" alt="Modula Lift Vertikalliftsystem" class="product-image" loading="lazy">
+                <h2 class="product-title">Modula Lift</h2>
+                <p class="product-tagline">Der Allrounder</p>
+                <p class="product-excerpt">Die intelligente Lösung für alle Branchen. Seit über 30 Jahren bewährt.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Modula Slim -->
+            <div class="product-card" data-product="slim">
+                <img src="Produkte/modula-slim.webp" alt="Modula Slim kompaktes Lagersystem" class="product-image" loading="lazy">
+                <h2 class="product-title">Modula Slim</h2>
+                <p class="product-tagline">Das Kompaktwunder</p>
+                <p class="product-excerpt">Maximale Leistung auf nur 3 m² Grundfläche. In 48h einsatzbereit.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Modula Next -->
+            <div class="product-card" data-product="next">
+                <img src="Produkte/modula-next.webp" alt="Modula Next fehlerfreies Picking-System" class="product-image" loading="lazy">
+                <h2 class="product-title">Modula Next</h2>
+                <p class="product-tagline">Fehlerfreies Picking</p>
+                <p class="product-excerpt">140 Picks pro Stunde. Null Fehler. Maximale Präzision.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Modula Pallet -->
+            <div class="product-card" data-product="pallet">
+                <img src="Produkte/modula-pallet.webp" alt="Modula Pallet Palettenlagerung" class="product-image" loading="lazy">
+                <h2 class="product-title">Modula Pallet</h2>
+                <p class="product-tagline">Ideal für Europaletten</p>
+                <p class="product-excerpt">Automatische Palettenlagerung ohne Gabelstapler. Ergonomisch und effizient.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Modula Climate -->
+            <div class="product-card" data-product="climate">
+                <img src="Produkte/modula-climatecontrol.webp" alt="Modula Climate Control Kühl- und Reinraumlager" class="product-image" loading="lazy">
+                <h2 class="product-title">Modula Climate & Clean Room</h2>
+                <p class="product-tagline">Die Spezialisten</p>
+                <p class="product-excerpt">Temperatur-, Feuchte- und Reinraumkontrolle für höchste Ansprüche.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" class="modal-image" alt="" loading="lazy">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-tagline" id="modalTagline"></p>
+            <div class="modal-description" id="modalDescription"></div>
+            <div class="modal-specs">
+                <h3>Technische Daten & Features</h3>
+                <ul id="modalSpecs"></ul>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-add-to-list" onclick="addToWatchlist()">
+                    Zur Merkliste hinzufügen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Watchlist Badge -->
+    <div class="watchlist-badge" onclick="toggleWatchlist()">
+        <svg class="watchlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <div class="watchlist-count" id="watchlistCount">0</div>
+    </div>
+
+    <!-- Watchlist Sidebar -->
+    <div class="watchlist-sidebar" id="watchlistSidebar">
+        <div class="watchlist-header">
+            <h2>Meine Auswahl</h2>
+            <button class="watchlist-close" onclick="toggleWatchlist()">&times;</button>
+        </div>
+        <div class="watchlist-items" id="watchlistItems">
+            <div class="watchlist-empty">
+                <div class="watchlist-empty-icon">📋</div>
+                <p>Noch keine Systeme ausgewählt</p>
+            </div>
+        </div>
+        <button class="watchlist-action" onclick="showContactForm()" id="requestConsultation" disabled>
+            Merkliste herunterladen
+        </button>
+    </div>
+
+    <!-- Contact Form -->
+    <section class="contact-section" id="contactSection">
+        <form class="contact-form" onsubmit="submitForm(event)">
+            <h2>Ihre Kontaktdaten</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                Wir erstellen für Sie eine individuelle Zusammenfassung als PDF
+            </p>
+
+            <div class="form-group">
+                <label for="firstName">Vorname *</label>
+                <input type="text" id="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Nachname *</label>
+                <input type="text" id="lastName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Firma *</label>
+                <input type="text" id="company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Nachricht (optional)</label>
+                <textarea id="message"></textarea>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="dataPrivacyCheckbox" required>
+                <label for="dataPrivacyCheckbox">Ich stimme der Speicherung meiner Daten zu *</label>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="requestConsultationCheckbox">
+                <label for="requestConsultationCheckbox">Ich möchte eine kostenlose Beratung vereinbaren</label>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="moreInfoCheckbox">
+                <label for="moreInfoCheckbox">Ich möchte mehr Informationen dazu</label>
+            </div>
+
+            <button type="submit" class="form-submit">PDF herunterladen & Anfrage senden</button>
+
+            <div class="success-message" id="successMessage">
+                ✓ Vielen Dank! Ihre Anfrage wurde gesendet und das PDF wird heruntergeladen.
+            </div>
+        </form>
+
+        <a href="https://audit.poeppel-intralogistik.de" class="analysis-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+            </svg>
+            Schnell Analyse starten
+        </a>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Product Data
+        const products = {
+            lift: {
+                title: "Modula Lift",
+                tagline: "Der Allrounder",
+                image: "Produkte/modula-lift.webp",
+                description: "Eine intelligente Lösung, die auch auf kleinstem Raum überzeugt. Kompakte Technologie zum Preis eines gebrauchten Hochregallagers. Die Lösung für die Lagerung von Industrie- und Halbfertigprodukten, Ersatzteilen und Waren aller Art in allen Branchen und allen Abteilungen. Seit über 30 Jahren.",
+                specs: [
+                    "250 bis 990 kg pro Träger mit einer Gesamtkapazität von 90.000 kg",
+                    "Trägerbreiten von 1.500 mm bis 4.100 mm",
+                    "Wahlweise Tiefe: 654 mm, 857 mm oder 1.257 mm",
+                    "Höhe ab 3,3 bis 16,1 m",
+                    "Große Auswahl an Entnahmestellen (Innen-/Außen-, Einzel-/Doppelentnahmen)",
+                    "Ladehöhen zwischen 695 mm und 1.295 mm",
+                    "TÜV-Zertifizierung mit GS-Siegel"
+                ]
+            },
+            slim: {
+                title: "Modula Slim",
+                tagline: "Das Kompaktwunder",
+                image: "Produkte/modula-slim.webp",
+                description: "Die intelligente Lösung, die auch auf kleinstem Raum überzeugt. Mit einer geringen Tiefe von nur 1,6 m und einer Grundfläche von nur 3 m² ist Modula Slim die perfekte Lösung für beengte Platzverhältnisse.",
+                specs: [
+                    "Geringe Tiefe mit nur 1,6 m",
+                    "Benötigt nur 3 m² Grundfläche",
+                    "In 48 Stunden einsatzbereit",
+                    "TÜV-Zertifizierung mit GS-Siegel",
+                    "Ideal für Engstellen und kleine Lagerräume",
+                    "Vollwertige Lift-Technologie auf minimalem Raum"
+                ]
+            },
+            next: {
+                title: "Modula Next",
+                tagline: "Fehlerfreies Picking",
+                image: "Produkte/modula-next.webp",
+                description: "Modula Next eliminiert Fehler beim Kommissionieren, selbst bei sehr ähnlichen Artikeln. Das System öffnet das mobile Zugriffsfenster genau über dem Träger und dem Fach, in dem sich der gewünschte Artikel befindet. Immer der richtige Artikel für den richtigen Mitarbeiter zum richtigen Zeitpunkt.",
+                specs: [
+                    "Schnelle und präzise Entnahme (140 Picks pro Stunde)",
+                    "Klare und sichere Rückverfolgbarkeit",
+                    "Weltweites Bestandsmanagement in Echtzeit",
+                    "Weniger Fehler, weniger Rücklauf, weniger Lieferungen",
+                    "Mobiles Zugriffsfenster für maximale Präzision",
+                    "Ideal für ähnliche Artikel und komplexe Kommissionierung"
+                ]
+            },
+            pallet: {
+                title: "Modula Pallet",
+                tagline: "Ideal für Europaletten",
+                image: "Produkte/modula-pallet.webp",
+                description: "Die automatische Lagerlösung für die Lagerung von Europaletten mit den Abmessungen 1200 x 800 mm und vergleichbaren Formaten wie Gitterboxen oder Kartons - sicher, ergonomisch und effizient.",
+                specs: [
+                    "Maximieren Sie die Nutzung Ihrer Lagerhöhe",
+                    "Machen Sie wertvolle Bodenfläche frei",
+                    "Paletten direkt vom Boden aus handhaben, ohne Gabelstapler",
+                    "Vereinfachte Zwischenlagerung durch Nutzung als Pufferzone",
+                    "Bruttonutzlast insgesamt: 35.000 bis 90.000 kg",
+                    "1 Entnahmestelle am Boden + 2 Standard-Entnahmestellen (auch in der Höhe)"
+                ]
+            },
+            climate: {
+                title: "Modula Climate Control & Clean Room",
+                tagline: "Die Spezialisten",
+                image: "Produkte/modula-climatecontrol.webp",
+                description: "Modula Climate Control und Modula Clean Room sind unsere automatischen Lager für besondere Ansprüche: Sie bieten eine lückenlose Überwachung und Regelung der Temperatur-, Feuchte- und Bakterienwerte.",
+                specs: [
+                    "Ideal für Pharma, Kosmetik, Elektronik",
+                    "Perfekt für Lebensmittel- & Getränkeindustrie",
+                    "Autonome Konstruktion, keine externe Isolierung notwendig",
+                    "Technologie anwendbar auf die gesamte Lift-Reihe",
+                    "Lückenlose Überwachung aller Parameter",
+                    "Regelung von Temperatur, Feuchtigkeit und Bakterienwerten"
+                ]
+            }
+        };
+
+        let currentProduct = null;
+        let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWatchlistUI();
+
+            // Check for URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const productParam = urlParams.get('product');
+            if (productParam && products[productParam]) {
+                openModal(productParam);
+            }
+
+            // Add click handlers to product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const productId = this.dataset.product;
+                    openModal(productId);
+                });
+            });
+        });
+
+        function openModal(productId) {
+            currentProduct = productId;
+            const product = products[productId];
+
+            // Set image
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = product.image;
+            modalImage.alt = product.title;
+
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalTagline').textContent = product.tagline;
+            document.getElementById('modalDescription').textContent = product.description;
+
+            const specsList = document.getElementById('modalSpecs');
+            specsList.innerHTML = '';
+            product.specs.forEach(spec => {
+                const li = document.createElement('li');
+                li.textContent = spec;
+                specsList.appendChild(li);
+            });
+
+            // Update button state
+            const addBtn = document.querySelector('.btn-add-to-list');
+            if (watchlist.some(item => item.id === productId)) {
+                addBtn.textContent = '✓ Bereits in Merkliste';
+                addBtn.classList.add('added');
+            } else {
+                addBtn.textContent = 'Zur Merkliste hinzufügen';
+                addBtn.classList.remove('added');
+            }
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentProduct = null;
+        }
+
+        function addToWatchlist() {
+            if (!currentProduct) return;
+
+            const product = products[currentProduct];
+
+            if (!watchlist.some(item => item.id === currentProduct)) {
+                watchlist.push({
+                    id: currentProduct,
+                    title: product.title,
+                    tagline: product.tagline
+                });
+                localStorage.setItem('watchlist', JSON.stringify(watchlist));
+                updateWatchlistUI();
+
+                // Update button
+                const addBtn = document.querySelector('.btn-add-to-list');
+                addBtn.textContent = '✓ Zur Merkliste hinzugefügt';
+                addBtn.classList.add('added');
+            }
+        }
+
+        function removeFromWatchlist(productId) {
+            watchlist = watchlist.filter(item => item.id !== productId);
+            localStorage.setItem('watchlist', JSON.stringify(watchlist));
+            updateWatchlistUI();
+        }
+
+        function updateWatchlistUI() {
+            const count = watchlist.length;
+            document.getElementById('watchlistCount').textContent = count;
+
+            const itemsContainer = document.getElementById('watchlistItems');
+            const requestBtn = document.getElementById('requestConsultation');
+
+            if (count === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="watchlist-empty">
+                        <div class="watchlist-empty-icon">📋</div>
+                        <p>Noch keine Systeme ausgewählt</p>
+                    </div>
+                `;
+                requestBtn.disabled = true;
+            } else {
+                itemsContainer.innerHTML = '';
+                watchlist.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'watchlist-item';
+                    itemEl.innerHTML = `
+                        <div class="watchlist-item-info">
+                            <h3>${item.title}</h3>
+                            <p>${item.tagline}</p>
+                        </div>
+                        <button class="watchlist-item-remove" onclick="removeFromWatchlist('${item.id}')">&times;</button>
+                    `;
+                    itemsContainer.appendChild(itemEl);
+                });
+                requestBtn.disabled = false;
+            }
+        }
+
+        function toggleWatchlist() {
+            document.getElementById('watchlistSidebar').classList.toggle('active');
+        }
+
+        function showContactForm() {
+            toggleWatchlist();
+            document.getElementById('contactSection').classList.add('active');
+            document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                company: document.getElementById('company').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                dataPrivacyConsent: document.getElementById('dataPrivacyCheckbox').checked,
+                requestConsultation: document.getElementById('requestConsultationCheckbox').checked,
+                moreInfo: document.getElementById('moreInfoCheckbox').checked,
+                products: watchlist
+            };
+
+            // Generate PDF
+            generatePDF(formData);
+
+            // Show success message
+            document.getElementById('successMessage').classList.add('active');
+
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                event.target.reset();
+                watchlist = [];
+                localStorage.removeItem('watchlist');
+                updateWatchlistUI();
+                document.getElementById('successMessage').classList.remove('active');
+            }, 3000);
+        }
+
+        function generatePDF(formData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Color scheme
+            const primaryColor = [22, 160, 133]; // Pöppel Green
+            const secondaryColor = [44, 62, 80];
+            const lightGray = [248, 249, 250];
+
+            // Header with colored background
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, 'F');
+
+            // Company name in header
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont(undefined, 'bold');
+            doc.text('R. Pöppel GmbH & Co. KG', 20, 18);
+
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('Ihre Modula Produktauswahl', 20, 30);
+
+            // Date
+            doc.setFontSize(9);
+            doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 150, 30);
+
+            // Customer Info Box
+            doc.setTextColor(...secondaryColor);
+            doc.setFillColor(...lightGray);
+            doc.roundedRect(20, 50, 170, 35, 3, 3, 'F');
+
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            doc.text('Kundendaten:', 25, 58);
+
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(10);
+            doc.text(`${formData.firstName} ${formData.lastName}`, 25, 66);
+            doc.text(formData.company, 25, 72);
+            doc.text(`E-Mail: ${formData.email}`, 25, 78);
+            if (formData.phone) doc.text(`Tel: ${formData.phone}`, 120, 78);
+
+            // Products Section
+            let yPos = 95;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Ausgewählte Systeme', 20, yPos);
+
+            // Line under heading
+            doc.setDrawColor(...primaryColor);
+            doc.setLineWidth(0.5);
+            doc.line(20, yPos + 2, 190, yPos + 2);
+
+            yPos += 12;
+            doc.setTextColor(...secondaryColor);
+
+            formData.products.forEach((item, index) => {
+                const product = products[item.id];
+
+                // Check if we need a new page
+                if (yPos > 220) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                // Product box header
+                doc.setFillColor(250, 250, 250);
+                doc.roundedRect(20, yPos - 5, 170, 22, 2, 2, 'F');
+
+                // Number circle
+                doc.setFillColor(...primaryColor);
+                doc.circle(30, yPos + 5, 5, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(10);
+                doc.text(String(index + 1), 28, yPos + 7);
+
+                // Product info
+                doc.setTextColor(...secondaryColor);
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text(product.title, 42, yPos + 3);
+
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(120, 120, 120);
+                doc.text(product.tagline, 42, yPos + 10);
+
+                yPos += 27;
+
+                // Product description
+                doc.setFontSize(9);
+                doc.setTextColor(...secondaryColor);
+                const descLines = doc.splitTextToSize(product.description, 165);
+                doc.text(descLines, 25, yPos);
+                yPos += (descLines.length * 4) + 5;
+
+                // Technical specs
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...primaryColor);
+                doc.text('Technische Details:', 25, yPos);
+                yPos += 5;
+
+                doc.setFontSize(8);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...secondaryColor);
+
+                product.specs.forEach(spec => {
+                    if (yPos > 250) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    doc.setTextColor(...primaryColor);
+                    doc.text('•', 27, yPos);
+                    doc.setTextColor(...secondaryColor);
+                    const specLines = doc.splitTextToSize(spec, 160);
+                    doc.text(specLines, 33, yPos);
+                    yPos += (specLines.length * 4);
+                });
+
+                yPos += 8;
+            });
+
+            // Message section
+            if (formData.message) {
+                yPos += 5;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...primaryColor);
+                doc.text('Nachricht:', 20, yPos);
+                yPos += 7;
+
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...secondaryColor);
+                const splitMessage = doc.splitTextToSize(formData.message, 170);
+                doc.text(splitMessage, 20, yPos);
+                yPos += (splitMessage.length * 5) + 10;
+            }
+
+            // Preferences section
+            yPos += 5;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Ihre Anforderungen:', 20, yPos);
+            yPos += 7;
+
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(...secondaryColor);
+
+            if (formData.requestConsultation) {
+                doc.setTextColor(...primaryColor);
+                doc.text('✓', 22, yPos);
+                doc.setTextColor(...secondaryColor);
+                doc.text('Kostenlose Beratung gewünscht', 30, yPos);
+                yPos += 6;
+            }
+            if (formData.moreInfo) {
+                doc.setTextColor(...primaryColor);
+                doc.text('✓', 22, yPos);
+                doc.setTextColor(...secondaryColor);
+                doc.text('Weitere Informationen gewünscht', 30, yPos);
+                yPos += 6;
+            }
+
+            // Footer with company info (on every page)
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFillColor(...primaryColor);
+                doc.rect(0, 270, 210, 27, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'bold');
+                doc.text('R. Pöppel GmbH & Co. KG', 20, 278);
+
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(8);
+                doc.text('Alpenstraße 45 | Industriegebiet Süd | D-87700 Memmingen', 20, 283);
+                doc.text('Tel: 08331 9559-0 | E-Mail: info@poeppel-wkz.de', 20, 288);
+                doc.text('www.poeppel-wkz.de', 160, 288);
+
+                // Page number
+                doc.setFontSize(7);
+                doc.text(`Seite ${i} von ${pageCount}`, 190, 292, { align: 'right' });
+            }
+
+            // TODO: Add Calendly QR Code and Link here
+            // When implementing Calendly integration:
+            // 1. Generate QR Code with Calendly booking link
+            // 2. Add QR code image to PDF footer or last page
+            // 3. Add text: "Termin vereinbaren: [Calendly-Link]"
+            // 4. Position on last page for easy scanning
+
+            // Download
+            doc.save(`Modula-Produktauswahl-${formData.lastName}.pdf`);
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
