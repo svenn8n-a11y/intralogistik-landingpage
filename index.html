@@ -1032,40 +1032,6 @@
             padding: 1rem 2rem;
         }
 
-        .video-nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            z-index: 20;
-            position: relative;
-        }
-
-        .video-nav-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
-        }
-
-        .video-nav-btn:hover {
-            background: #138f75;
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
-        }
-
-        .video-nav-btn svg {
-            width: 24px;
-            height: 24px;
-        }
 
 
         .video-card {
@@ -1623,15 +1589,6 @@
                 width: 280px;
             }
 
-            .video-nav-buttons {
-                margin-top: 1.5rem;
-            }
-
-            .video-nav-btn {
-                width: 45px;
-                height: 45px;
-            }
-
             .video-marquee-container {
                 padding: 1rem;
             }
@@ -1842,7 +1799,7 @@
                         Als zertifizierter Systemintegrator bieten wir Ihnen nicht nur einzelne Komponenten, sondern durchdachte Gesamtlösungen aus einer Hand. Von der ersten Analyse über die Planung bis zur Inbetriebnahme und darüber hinaus – wir begleiten Sie in jedem Schritt.
                     </p>
                     <p style="line-height: 1.8; color: var(--text-secondary);">
-                        Unsere Expertise basiert auf jahrelanger Erfahrung in der Fertigungsindustrie und der engen Zusammenarbeit mit führenden Technologiepartnern wie <strong>Modula</strong>, <strong>Walter Tools</strong>, <strong>Precitool</strong> und vielen mehr.
+                        Unsere Expertise basiert auf jahrelanger Erfahrung in der Fertigungsindustrie und der engen Zusammenarbeit mit führenden Technologiepartnern.
                     </p>
                 </div>
 
@@ -2762,19 +2719,6 @@
                 </div>
             </div>
         </div>
-        <!-- Video Navigation Buttons -->
-        <div class="video-nav-buttons">
-            <button class="video-nav-btn" onclick="scrollVideoLeft()" aria-label="Nach links scrollen">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 18l-6-6 6-6"></path>
-                </svg>
-            </button>
-            <button class="video-nav-btn" onclick="scrollVideoRight()" aria-label="Nach rechts scrollen">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 18l6-6-6-6"></path>
-                </svg>
-            </button>
-        </div>
     </section>
 
     <!-- ========================================
@@ -3274,7 +3218,42 @@
             console.error('Stats section NOT found!');
         }
 
-        // Video marquee now uses CSS animation (see .video-marquee-container in CSS)
+        // Video marquee automatic scroll animation
+        const videoWrapper = document.querySelector('.video-marquee-wrapper');
+        let videoScrollPosition = 0;
+        let videoScrollDirection = 1; // 1 = right, -1 = left
+
+        function autoScrollVideos() {
+            if (videoWrapper) {
+                const maxScroll = videoWrapper.scrollWidth - videoWrapper.clientWidth;
+
+                // Scroll smoothly
+                videoScrollPosition += videoScrollDirection * 1;
+
+                // Check boundaries and reverse direction
+                if (videoScrollPosition >= maxScroll) {
+                    videoScrollDirection = -1;
+                } else if (videoScrollPosition <= 0) {
+                    videoScrollDirection = 1;
+                }
+
+                videoWrapper.scrollLeft = videoScrollPosition;
+            }
+        }
+
+        // Start automatic scrolling
+        let videoScrollInterval = setInterval(autoScrollVideos, 30);
+
+        // Pause on hover
+        if (videoWrapper) {
+            videoWrapper.addEventListener('mouseenter', () => {
+                clearInterval(videoScrollInterval);
+            });
+
+            videoWrapper.addEventListener('mouseleave', () => {
+                videoScrollInterval = setInterval(autoScrollVideos, 30);
+            });
+        }
 
         // Video navigation functions
         function scrollVideoLeft() {
