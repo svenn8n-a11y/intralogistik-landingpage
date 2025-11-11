@@ -1630,6 +1630,39 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+            /* Über uns Sektion Mobile - Fix für überlaufende Kacheln */
+            .section[style*="background: white"] > div {
+                padding: 0 1rem;
+            }
+
+            .section[style*="background: white"] > div > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                padding: 0;
+            }
+
+            .section[style*="background: white"] > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+                padding: 0;
+            }
+
+            .section[style*="background: white"] h3 {
+                font-size: 1.25rem !important;
+            }
+
+            .section[style*="background: white"] p {
+                font-size: 0.95rem !important;
+            }
+
+            .section[style*="background: white"] div[style*="padding: 2rem"] {
+                padding: 1.5rem !important;
+            }
+
+            .section[style*="background: white"] div[style*="font-size: 2.5rem"] {
+                font-size: 2rem !important;
+            }
         }
 
         /* Tablet Optimierung (768px - 1024px) */
