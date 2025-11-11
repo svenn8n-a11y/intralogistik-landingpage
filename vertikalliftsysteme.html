@@ -890,54 +890,34 @@
             margin: 0 auto;
         }
 
-        /* Horizontal scrolling video bar */
+        /* Centered video display */
         .video-scroll-wrapper {
             position: relative;
-            overflow: hidden;
-            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
         }
 
         .video-scroll-container {
             display: flex;
-            gap: 2rem;
-            padding: 0 2rem;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--background);
-        }
-
-        .video-scroll-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .video-scroll-container::-webkit-scrollbar-track {
-            background: var(--background);
-            border-radius: 4px;
-        }
-
-        .video-scroll-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        .video-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: #138f75;
+            justify-content: center;
+            width: 100%;
         }
 
         .video-card {
-            flex-shrink: 0;
-            width: 900px;
+            width: 100%;
+            max-width: 1200px;
             background: var(--surface);
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 60px rgba(0,0,0,0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .video-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.35);
         }
 
         .video-embed {
@@ -957,39 +937,6 @@
             border: none;
         }
 
-        /* Video navigation buttons */
-        .video-nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .video-nav-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
-        }
-
-        .video-nav-btn:hover {
-            background: #138f75;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
-        }
-
-        .video-nav-btn svg {
-            width: 24px;
-            height: 24px;
-        }
 
         @media (max-width: 768px) {
             .video-section {
@@ -1004,24 +951,14 @@
                 font-size: 1rem;
             }
 
+            .video-scroll-wrapper {
+                padding: 2rem 1rem;
+            }
+
             .video-card {
-                width: 90vw;
-                max-width: 500px;
+                max-width: 95vw;
             }
 
-            .video-scroll-container {
-                padding: 0 1rem;
-            }
-
-            .video-nav-btn {
-                width: 45px;
-                height: 45px;
-            }
-
-            .video-nav-btn svg {
-                width: 20px;
-                height: 20px;
-            }
         }
     </style>
 </head>
@@ -1118,18 +1055,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="video-nav-buttons">
-                <button class="video-nav-btn" onclick="scrollVideoLeft()" aria-label="Nach links scrollen">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6"></path>
-                    </svg>
-                </button>
-                <button class="video-nav-btn" onclick="scrollVideoRight()" aria-label="Nach rechts scrollen">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18l6-6-6-6"></path>
-                    </svg>
-                </button>
             </div>
         </div>
     </section>
