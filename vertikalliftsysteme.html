@@ -927,17 +927,17 @@
 
         .video-card {
             flex-shrink: 0;
-            width: 480px;
+            width: 900px;
             background: var(--surface);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 60px rgba(0,0,0,0.2);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .video-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
         }
 
         .video-embed {
@@ -1005,7 +1005,8 @@
             }
 
             .video-card {
-                width: 320px;
+                width: 90vw;
+                max-width: 500px;
             }
 
             .video-scroll-container {
