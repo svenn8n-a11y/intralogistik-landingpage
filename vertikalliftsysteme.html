@@ -753,8 +753,9 @@
             }
 
             .back-button {
-                padding: 0.75rem 1.5rem;
-                font-size: 1rem;
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+                letter-spacing: 0.3px;
             }
 
             .header-logo {
@@ -815,33 +816,58 @@
 
         /* Back Button */
         .back-button {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #138f75 100%);
             color: white;
             border: none;
-            padding: 1rem 3rem;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            padding: 1.25rem 3.5rem;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 800;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 25px rgba(22, 160, 133, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
         }
 
         .back-button:hover {
-            background: #138f75;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
+            background: linear-gradient(135deg, #138f75 0%, #0e6b5a 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(22, 160, 133, 0.5);
+        }
+
+        .back-button:active {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 20px rgba(22, 160, 133, 0.4);
         }
 
         /* Video Section */
         .video-section {
             background: var(--background);
             padding: 4rem 2rem;
+            position: relative;
         }
 
         .video-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -864,22 +890,105 @@
             margin: 0 auto;
         }
 
-        .video-wrapper {
+        /* Horizontal scrolling video bar */
+        .video-scroll-wrapper {
             position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .video-scroll-container {
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--background);
+        }
+
+        .video-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .video-scroll-container::-webkit-scrollbar-track {
+            background: var(--background);
+            border-radius: 4px;
+        }
+
+        .video-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .video-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #138f75;
+        }
+
+        .video-card {
+            flex-shrink: 0;
+            width: 480px;
+            background: var(--surface);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
             background: #000;
         }
 
-        .video-wrapper iframe {
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 500px;
+            height: 100%;
             border: none;
-            display: block;
+        }
+
+        /* Video navigation buttons */
+        .video-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .video-nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .video-nav-btn:hover {
+            background: #138f75;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
+        }
+
+        .video-nav-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
         @media (max-width: 768px) {
@@ -895,8 +1004,22 @@
                 font-size: 1rem;
             }
 
-            .video-wrapper iframe {
-                height: 250px;
+            .video-card {
+                width: 320px;
+            }
+
+            .video-scroll-container {
+                padding: 0 1rem;
+            }
+
+            .video-nav-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .video-nav-btn svg {
+                width: 20px;
+                height: 20px;
             }
         }
     </style>
@@ -980,14 +1103,32 @@
                 <h2>Modula Systeme in Aktion</h2>
                 <p>Sehen Sie, wie Modula Vertikalliftsysteme die Intralogistik revolutionieren und Unternehmen weltweit dabei helfen, effizienter zu arbeiten.</p>
             </div>
-            <div class="video-wrapper">
-                <iframe
-                    src="https://www.youtube.com/embed/DbPOTw8njUs"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    loading="lazy">
-                </iframe>
+            <div class="video-scroll-wrapper">
+                <div class="video-scroll-container" id="videoScrollContainer">
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe
+                                src="https://www.youtube.com/embed/DbPOTw8njUs?autoplay=1&mute=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-nav-buttons">
+                <button class="video-nav-btn" onclick="scrollVideoLeft()" aria-label="Nach links scrollen">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"></path>
+                    </svg>
+                </button>
+                <button class="video-nav-btn" onclick="scrollVideoRight()" aria-label="Nach rechts scrollen">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1554,6 +1695,27 @@
 
             // Download
             doc.save(`Modula-Produktauswahl-${formData.lastName}.pdf`);
+        }
+
+        // Video navigation functions
+        function scrollVideoLeft() {
+            const container = document.getElementById('videoScrollContainer');
+            if (container) {
+                container.scrollBy({
+                    left: -500,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function scrollVideoRight() {
+            const container = document.getElementById('videoScrollContainer');
+            if (container) {
+                container.scrollBy({
+                    left: 500,
+                    behavior: 'smooth'
+                });
+            }
         }
 
         // Close modal on ESC key
