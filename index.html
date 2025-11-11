@@ -999,16 +999,37 @@
         }
 
         .video-marquee-wrapper {
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             position: relative;
             width: 100%;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--background);
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-track {
+            background: var(--background);
+            border-radius: 4px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .video-marquee-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #138f75;
         }
 
         .video-marquee-container {
             display: flex;
             gap: 2rem;
-            padding: 1rem 0;
-            animation: videoScroll 60s linear infinite;
+            padding: 1rem 2rem;
         }
 
         .video-nav-buttons {
@@ -1046,42 +1067,6 @@
             height: 24px;
         }
 
-        @keyframes videoScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Pause animation on hover */
-        .video-marquee-container:hover {
-            animation-play-state: paused;
-        }
-
-        /* Fade-Edge Left & Right */
-        .video-marquee-section::before,
-        .video-marquee-section::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100px;
-            height: 60%;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .video-marquee-section::before {
-            left: 0;
-            background: linear-gradient(to right, var(--background), transparent);
-        }
-
-        .video-marquee-section::after {
-            right: 0;
-            background: linear-gradient(to left, var(--background), transparent);
-        }
 
         .video-card {
             flex-shrink: 0;
@@ -1634,10 +1619,6 @@
                 padding-bottom: 1rem;
             }
 
-            .video-marquee-container {
-                animation: videoScroll 30s linear infinite; /* Schneller auf Mobile */
-            }
-
             .video-card {
                 width: 280px;
             }
@@ -1651,10 +1632,8 @@
                 height: 45px;
             }
 
-            /* Fade-Edge schmaler mobile */
-            .video-marquee-section::before,
-            .video-marquee-section::after {
-                width: 40px;
+            .video-marquee-container {
+                padding: 1rem;
             }
 
             /* Section Padding Mobile */
@@ -3299,30 +3278,22 @@
 
         // Video navigation functions
         function scrollVideoLeft() {
-            const container = document.querySelector('.video-marquee-container');
-            if (container) {
-                container.style.animationPlayState = 'paused';
-                const currentTransform = window.getComputedStyle(container).transform;
-                const matrix = new DOMMatrix(currentTransform);
-                const currentX = matrix.m41;
-                container.style.transform = `translateX(${currentX + 500}px)`;
-                setTimeout(() => {
-                    container.style.animationPlayState = 'running';
-                }, 500);
+            const wrapper = document.querySelector('.video-marquee-wrapper');
+            if (wrapper) {
+                wrapper.scrollBy({
+                    left: -500,
+                    behavior: 'smooth'
+                });
             }
         }
 
         function scrollVideoRight() {
-            const container = document.querySelector('.video-marquee-container');
-            if (container) {
-                container.style.animationPlayState = 'paused';
-                const currentTransform = window.getComputedStyle(container).transform;
-                const matrix = new DOMMatrix(currentTransform);
-                const currentX = matrix.m41;
-                container.style.transform = `translateX(${currentX - 500}px)`;
-                setTimeout(() => {
-                    container.style.animationPlayState = 'running';
-                }, 500);
+            const wrapper = document.querySelector('.video-marquee-wrapper');
+            if (wrapper) {
+                wrapper.scrollBy({
+                    left: 500,
+                    behavior: 'smooth'
+                });
             }
         }
 
