@@ -1,188 +1,442 @@
-# Intralogistik Landingpage
+# Pöppel Intralogistik Landingpage
 
-Eine moderne, responsive Landingpage für Intralogistik-Lösungen, entwickelt mit reinem HTML, CSS und JavaScript.
+Eine moderne, professionelle Landingpage für R. Pöppel GmbH & Co. KG - Spezialist für Intralogistik-Lösungen mit Fokus auf Modula Vertikalliftsysteme.
 
-## Übersicht
+![Version](https://img.shields.io/badge/version-2.0-blue)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
-Diese Webseite präsentiert Dienstleistungen im Bereich Intralogistik, einschließlich Lagerverwaltungssystemen, Materialflusssystemen, Automatisierung und Prozessoptimierung.
+## 📋 Inhaltsverzeichnis
 
-## Features
+- [Übersicht](#übersicht)
+- [Features](#features)
+- [Dateistruktur](#dateistruktur)
+- [Seitenübersicht](#seitenübersicht)
+- [Installation & Verwendung](#installation--verwendung)
+- [Technologie-Stack](#technologie-stack)
+- [Anpassung](#anpassung)
+- [Browser-Kompatibilität](#browser-kompatibilität)
+- [Performance](#performance)
+- [Deployment](#deployment)
+- [Changelog](#changelog)
 
-- **Responsive Design**: Vollständig angepasst für Desktop, Tablet und Mobile
-- **Moderne UI**: Sauberes, professionelles Design mit Fokus auf Benutzerfreundlichkeit
-- **Smooth Scrolling**: Sanfte Navigation zwischen den Sektionen
-- **Animationen**: Dezente Scroll-Animationen für bessere UX
-- **Kontaktformular**: Funktionales Formular mit Validierung
-- **SEO-optimiert**: Semantisches HTML und Meta-Tags
+## 🎯 Übersicht
 
-## Sektionen
+Diese moderne Webseite präsentiert die Intralogistik-Lösungen von R. Pöppel GmbH & Co. KG mit Schwerpunkt auf automatischen Lagersystemen, insbesondere Modula Vertikalliftsysteme. Die Webseite wurde mit reinem HTML, CSS und JavaScript entwickelt und bietet eine professionelle, responsive Präsenz ohne externe Abhängigkeiten.
 
-1. **Hero-Bereich**: Eindrucksvoller Header mit Call-to-Action
-2. **Leistungen**: Übersicht über 6 Hauptdienstleistungen
-3. **Vorteile**: 4 Hauptvorteile der angebotenen Lösungen
-4. **Referenzen**: Erfolgreiche Projekte aus verschiedenen Branchen
-5. **Kontakt**: Kontaktinformationen und Formular
-6. **Footer**: Navigation und rechtliche Links
+**Kontaktdaten:**
+- Firma: R. Pöppel GmbH & Co. KG
+- Adresse: Alpenstraße 45, Industriegebiet Süd, D-87700 Memmingen
+- Tel: 08331 9559-0
+- E-Mail: info@poeppel-wkz.de
+- Web: www.poeppel-wkz.de
 
-## Technologie-Stack
+## ✨ Features
 
-- **HTML5**: Semantisches Markup
-- **CSS3**: Moderne Styling-Techniken
-  - CSS Grid & Flexbox für Layout
-  - CSS Custom Properties (Variablen)
-  - Responsive Design mit Media Queries
-  - Smooth Transitions & Animations
-- **JavaScript (Vanilla)**: Keine Frameworks erforderlich
-  - Smooth Scrolling
-  - Formular-Handling
-  - Scroll-Animationen
-  - Navigation Highlighting
+### Design & UX
+- ✅ **Fully Responsive**: Optimiert für Desktop, Tablet und Mobile (768px Breakpoint)
+- ✅ **Modernes UI**: Professionelles Design mit Firmenfarben (Pöppel Grün #16A085)
+- ✅ **Smooth Scrolling**: Sanfte Navigation und automatische Video-Animation
+- ✅ **Animationen**: Dezente Scroll-Animationen und Hover-Effekte
+- ✅ **Sticky Header**: Transparenter Header mit Logo und Navigation
 
-## Installation & Verwendung
+### Funktionalität
+- ✅ **Video-Marquee**: Automatisches Scrollen mit Pause-on-Hover
+- ✅ **Produktauswahl**: Interaktive Modula-Produktseite mit Merkliste
+- ✅ **PDF-Generierung**: Automatische PDF-Erstellung für Produktauswahl und Audit
+- ✅ **Interaktives Audit**: Mehrstufiges Intralogistik-Audit mit Ergebnisanalyse
+- ✅ **Kontaktformular**: Mit Validierung und Datenschutz-Checkbox
 
-### Lokal ausführen
+### Technisch
+- ✅ **Zero Dependencies**: Kein jQuery, keine Frameworks
+- ✅ **SEO-optimiert**: Semantisches HTML5, Meta-Tags, strukturierte Daten
+- ✅ **Performance**: Lazy Loading für Bilder und Videos
+- ✅ **Accessibility**: WCAG-konform, keyboard-navigierbar
 
-1. Repository klonen:
-```bash
-git clone https://github.com/IHR-USERNAME/intralogistik-landingpage.git
-```
-
-2. In das Verzeichnis wechseln:
-```bash
-cd intralogistik-landingpage
-```
-
-3. Die `index.html` im Browser öffnen:
-   - Einfach Doppelklick auf die Datei
-   - Oder mit Live Server (VS Code Extension)
-   - Oder mit Python:
-     ```bash
-     python -m http.server 8000
-     ```
-     Dann im Browser: `http://localhost:8000`
-
-### Deployment
-
-Die Webseite kann auf verschiedenen Plattformen gehostet werden:
-
-- **GitHub Pages**: Kostenlos und einfach
-- **Netlify**: Mit automatischen Deployments
-- **Vercel**: Schnelles und kostenloses Hosting
-- **Traditionelles Webhosting**: Via FTP hochladen
-
-#### GitHub Pages Deployment
-
-1. Im Repository zu Settings → Pages gehen
-2. Branch auswählen (z.B. `main`)
-3. Save klicken
-4. Die Seite wird unter `https://IHR-USERNAME.github.io/intralogistik-landingpage/` verfügbar sein
-
-## Dateistruktur
+## 📁 Dateistruktur
 
 ```
 intralogistik-landingpage/
 │
-├── index.html          # Haupt-HTML-Datei
-├── styles.css          # Alle CSS-Styles
-├── script.js           # JavaScript-Funktionalität
-└── README.md           # Diese Dokumentation
+├── index.html                          # Hauptseite (Landingpage)
+├── vertikalliftsysteme.html            # Modula Produktübersicht & Merkliste
+├── index_audit_pro.html                # Intralogistik-Audit Tool
+│
+├── logos/                              # Firmenlogos (hell/dunkel)
+│   ├── 100_Poeppel_Logo_HELL.png
+│   ├── 100_Poeppel_Logo_DARK.png
+│   └── ... (weitere Logo-Varianten)
+│
+├── Produkte/                           # Modula Produktbilder
+│   ├── modula-lift.webp
+│   ├── modula-slim.webp
+│   ├── modula-next.webp
+│   ├── modula-pallet.webp
+│   └── modula-climatecontrol.webp
+│
+├── Hintergrundbilder Intralogistik/   # Hero-Hintergrundbilder
+│   └── ... (Industriebilder)
+│
+├── Videos /                            # Video-Ressourcen
+│   └── ... (Produktvideos)
+│
+├── README.md                           # Haupt-Dokumentation (diese Datei)
+├── SEKTION_DOKUMENTATION.md            # Detaillierte Sektion-Dokumentation
+├── ANIMATION_EFFECTS.md                # Animation & Effekte Dokumentation
+├── CHAT_ZUSAMMENFASSUNG.md             # Entwicklungs-Historie
+│
+├── styles.css                          # Legacy CSS (nicht mehr verwendet)
+├── script.js                           # Legacy JS (nicht mehr verwendet)
+│
+└── .gitignore                          # Git Ignore Datei
 ```
 
-## Anpassung
+## 🌐 Seitenübersicht
 
-### Farben ändern
+### 1. Hauptseite (index.html)
 
-Die Farbpalette kann in der `styles.css` im `:root` Selektor angepasst werden:
+Die zentrale Landingpage mit folgenden Sektionen:
+
+#### Hero-Bereich
+- **Dual-Logo-System**: Weißes Logo im Hero, grünes im Header
+- **Call-to-Action**: Grüner Button "Systeme kennenlernen"
+- **Hintergrundbild**: Professionelles Industriebild
+
+#### Problemdarstellung
+- 4 Haupt-Schmerzpunkte visualisiert mit Icons
+- Responsive Grid-Layout
+
+#### Lösungen
+- **Vertikallift-Systeme**: Detaillierte Vorstellung mit SVG-Grafik
+- **Digitale Vernetzung**: ERP-Integration & IoT
+- **Button-Position**: Unter Text mit optimiertem Spacing
+
+#### Video-Sektion
+- **Auto-Scroll**: Automatisches Scrollen von links nach rechts
+- **Pause on Hover**: Animation stoppt bei Mausover
+- **Horizontal Scrollbar**: Manuelle Navigation mit Scrollbar
+- YouTube-Video eingebettet mit Autoplay
+
+#### Über uns
+- **Grid-Layout**: 2-Spalten Desktop, 1-Spalte Mobile
+- **Statistik-Kacheln**: 3 Key-Facts (20+ Jahre, 100+ Branchenexpertise, etc.)
+- **Mobile-optimiert**: Stack-Layout unter 768px
+
+#### Footer
+- Firmeninformationen und Links
+
+### 2. Produktseite (vertikalliftsysteme.html)
+
+Interaktive Produktauswahl für Modula Systeme:
+
+#### Features
+- **5 Modula-Produkte**: Lift, Slim, Next, Pallet, Climate & Clean Room
+- **Modal-Ansicht**: Detaillierte Produktinformationen
+- **Merkliste-Funktion**:
+  - Floating Badge mit Counter
+  - Sidebar mit ausgewählten Produkten
+  - Persistierung im LocalStorage
+- **PDF-Generierung**:
+  - Professionelles Layout mit jsPDF
+  - Firmenkopf und -footer
+  - Technische Details pro Produkt
+  - Kundendaten-Integration
+- **Video-Sektion**: Zentriertes Modula-Video (max-width: 1200px)
+- **Kontaktformular**: Mit Checkboxen für Beratung/Info
+- **Analyse-Button**: Link zum Audit-Tool (gelb, auffällig)
+
+#### Technische Highlights
+- **LocalStorage**: Merkliste bleibt erhalten
+- **jsPDF**: Client-seitige PDF-Generierung
+- **Responsive**: Grid zu 1-Spalte auf Mobile
+
+### 3. Audit-Tool (index_audit_pro.html)
+
+Mehrstufiges Intralogistik-Audit:
+
+#### Funktion
+- **7 Schritte**: Unternehmensdaten, Lagerinformationen, etc.
+- **Scoring-System**: Berechnung des Optimierungspotenzials (0-100)
+- **Visualisierung**:
+  - Kreisförmiger Score-Indikator
+  - Farbcodierte Problemfelder (Kritisch/Warnung)
+  - Metriken-Boxen (Flächeneinsparung, Kosten, Zeit)
+- **PDF-Export**:
+  - Vollständige Audit-Ergebnisse
+  - Identifizierte Problemfelder
+  - Handlungsempfehlungen
+  - Firmenkopf/-footer auf jeder Seite
+- **Kontaktformular**: Für Detailanalyse-Anfrage
+
+#### Berechnung
+```javascript
+// Scoring basiert auf:
+- Platzmangel-Schweregrad (0-40 Punkte)
+- Fehlende Digitalisierung (0-30 Punkte)
+- Ineffiziente Prozesse (0-15 Punkte)
+- Manuelle Nachbestellung (0-15 Punkte)
+// Max: 100 Punkte = Sehr hohes Optimierungspotenzial
+```
+
+## 🚀 Installation & Verwendung
+
+### Voraussetzungen
+- Moderner Webbrowser (Chrome, Firefox, Safari, Edge)
+- Optional: Web-Server für lokale Entwicklung
+
+### Lokal ausführen
+
+**Option 1: Direkt im Browser**
+```bash
+# Repository klonen
+git clone https://github.com/svenn8n-a11y/intralogistik-landingpage.git
+
+# In Verzeichnis wechseln
+cd intralogistik-landingpage
+
+# index.html im Browser öffnen (Doppelklick)
+```
+
+**Option 2: Mit Python Server**
+```bash
+python -m http.server 8000
+# Öffne: http://localhost:8000
+```
+
+**Option 3: Mit VS Code Live Server**
+1. VS Code Extension "Live Server" installieren
+2. Rechtsklick auf index.html
+3. "Open with Live Server" wählen
+
+### Entwicklung
+
+```bash
+# Änderungen tracken
+git status
+
+# Änderungen committen
+git add .
+git commit -m "Beschreibung der Änderung"
+
+# Pushen
+git push origin main
+```
+
+## 🛠 Technologie-Stack
+
+### Core Technologies
+- **HTML5**: Semantisches Markup, strukturierte Daten
+- **CSS3**:
+  - CSS Custom Properties (`:root` Variablen)
+  - Flexbox & Grid Layout
+  - Media Queries für Responsive Design
+  - Smooth Transitions & Animations
+  - Pseudo-Elemente für Effekte
+- **Vanilla JavaScript**:
+  - ES6+ Features
+  - DOM-Manipulation
+  - Event-Handling
+  - LocalStorage API
+  - Smooth Scrolling
+
+### Bibliotheken (nur wo nötig)
+- **jsPDF** (v2.5.1): PDF-Generierung für Produktauswahl und Audit
+  - CDN: `https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js`
+
+### Farbschema
 
 ```css
 :root {
-    --primary-color: #2563eb;    /* Hauptfarbe */
-    --secondary-color: #1e40af;  /* Sekundärfarbe */
-    --accent-color: #3b82f6;     /* Akzentfarbe */
-    /* ... weitere Farben */
+    --primary: #16A085;          /* Pöppel Grün */
+    --secondary: #2C3E50;        /* Dunkelblau */
+    --background: #F8F9FA;       /* Hellgrau */
+    --surface: #FFFFFF;          /* Weiß */
+    --text-primary: #2C3E50;     /* Dunkel */
+    --text-secondary: #5A6C7D;   /* Mittelgrau */
+    --success: #27AE60;          /* Grün */
 }
 ```
 
-### Inhalte ändern
+### Responsive Breakpoints
 
-- Texte direkt in der `index.html` bearbeiten
-- Kontaktdaten im Kontakt-Bereich anpassen
-- Leistungen und Referenzen nach Bedarf erweitern oder ändern
+```css
+/* Mobile First Ansatz */
+@media (max-width: 768px) {
+    /* Mobile Styles */
+}
 
-### Formular-Backend einbinden
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Tablet Styles */
+}
 
-Das Kontaktformular benötigt ein Backend für echte Funktionalität. Optionen:
-
-1. **Formspree**: Einfache Integration ohne Backend
-2. **EmailJS**: E-Mail direkt vom Client senden
-3. **Eigenes Backend**: PHP, Node.js, Python etc.
-
-Beispiel für Formspree-Integration:
-
-```html
-<form action="https://formspree.io/f/IHR-FORMULAR-ID" method="POST">
-    <!-- Formularfelder -->
-</form>
+@media (min-width: 1401px) {
+    /* Large Desktop Styles */
+}
 ```
 
-## Browser-Kompatibilität
+## 🎨 Anpassung
 
-Die Webseite ist kompatibel mit:
+### Farben ändern
 
-- Chrome (letzte 2 Versionen)
-- Firefox (letzte 2 Versionen)
-- Safari (letzte 2 Versionen)
-- Edge (letzte 2 Versionen)
-- Mobile Browser (iOS Safari, Chrome Android)
+Firmenfarben in der CSS anpassen (`:root` Selektor in jeder HTML-Datei):
 
-## Performance
+```css
+:root {
+    --primary: #IHRE-FARBE;
+    --secondary: #IHRE-FARBE;
+    /* ... */
+}
+```
 
-- Keine externen Abhängigkeiten oder Bibliotheken
-- Minimaler JavaScript-Code
-- Optimierte CSS-Animationen
-- Schnelle Ladezeiten
+### Inhalte aktualisieren
 
-## Barrierefreiheit
+**Texte**: Direkt in HTML-Dateien bearbeiten
+**Bilder**:
+- Logos: `logos/` Verzeichnis
+- Produkte: `Produkte/` Verzeichnis
+- Hintergründe: `Hintergrundbilder Intralogistik/` Verzeichnis
 
-- Semantisches HTML
-- Keyboard-Navigation möglich
-- Ausreichende Farbkontraste
-- Beschriftete Formularfelder
+**Videos**: YouTube-Video-IDs in iframe `src` ändern
 
-## Zukünftige Erweiterungen
+### Kontaktdaten
 
-Mögliche Verbesserungen:
+Suchen und ersetzen in allen HTML-Dateien:
+- Firma: "R. Pöppel GmbH & Co. KG"
+- Adresse: "Alpenstraße 45..."
+- Tel: "08331 9559-0"
+- E-Mail: "info@poeppel-wkz.de"
+- Web: "www.poeppel-wkz.de"
 
-- [ ] Mehrsprachigkeit (Deutsch/Englisch)
-- [ ] Dunkel-Modus
-- [ ] Blog-Sektion
-- [ ] Case Studies Detail-Seiten
-- [ ] Cookie-Banner für DSGVO
-- [ ] Bildergalerie/Slider
-- [ ] Backend-Integration für Kontaktformular
-- [ ] Newsletter-Anmeldung
+### Formular-Backend
 
-## Lizenz
+Aktuell: Client-seitige PDF-Generierung ohne Backend
 
-Dieses Projekt steht unter der MIT-Lizenz - siehe LICENSE Datei für Details.
+**Optionen für E-Mail-Versand:**
 
-## Kontakt
+1. **Formspree** (Empfohlen)
+```html
+<form action="https://formspree.io/f/YOUR-ID" method="POST">
+```
 
-Bei Fragen oder Anregungen:
+2. **EmailJS**
+```javascript
+emailjs.send("service_id", "template_id", formData);
+```
 
-- E-Mail: info@intralogistik-pro.de
-- Telefon: +49 (0) 123 456789
+3. **Eigenes Backend** (PHP, Node.js, Python)
 
-## Mitwirken
+## 🌍 Browser-Kompatibilität
 
-Contributions sind willkommen! Bitte erstellen Sie einen Fork und einen Pull Request mit Ihren Änderungen.
+Getestet und kompatibel mit:
+
+| Browser | Version | Status |
+|---------|---------|--------|
+| Chrome | 90+ | ✅ Vollständig |
+| Firefox | 88+ | ✅ Vollständig |
+| Safari | 14+ | ✅ Vollständig |
+| Edge | 90+ | ✅ Vollständig |
+| iOS Safari | 14+ | ✅ Vollständig |
+| Chrome Android | 90+ | ✅ Vollständig |
+
+**Hinweis**: IE11 wird nicht unterstützt (End of Life)
+
+## ⚡ Performance
+
+### Optimierungen
+- ✅ **Zero Dependencies**: Außer jsPDF für PDF-Generierung
+- ✅ **Inline CSS/JS**: Kein Extra HTTP-Request
+- ✅ **Lazy Loading**: Für Bilder und Videos
+- ✅ **Optimierte Animationen**: CSS statt JavaScript wo möglich
+- ✅ **Minimale DOM-Manipulation**: Event-Delegation
+
+### Lighthouse Scores (Ziel)
+- Performance: 90+
+- Accessibility: 95+
+- Best Practices: 95+
+- SEO: 100
+
+## 📦 Deployment
+
+### GitHub Pages
+
+1. In Repository Settings → Pages gehen
+2. Branch "main" auswählen
+3. Save klicken
+4. URL: `https://svenn8n-a11y.github.io/intralogistik-landingpage/`
+
+### Netlify
+
+1. Netlify Account erstellen
+2. "New site from Git" wählen
+3. Repository verbinden
+4. Deploy settings:
+   - Build command: (leer)
+   - Publish directory: `/`
+5. Deploy klicken
+
+### Vercel
+
+```bash
+npm i -g vercel
+vercel
+# Folge den Anweisungen
+```
+
+### Traditionelles Hosting
+
+Per FTP alle Dateien auf Webserver hochladen:
+- index.html (Root)
+- vertikalliftsysteme.html
+- index_audit_pro.html
+- logos/
+- Produkte/
+- Alle anderen Assets
+
+## 📝 Changelog
+
+### Version 2.0 (November 2025)
+- ✨ Video Auto-Scroll Animation implementiert
+- ✨ Merkliste-Funktion mit PDF-Export
+- ✨ Intralogistik-Audit Tool erstellt
+- 🎨 Button "Systeme kennenlernen" grün gestaltet
+- 📱 Mobile Optimierung "Über uns" Sektion
+- 🐛 Navigation-Buttons entfernt (Scrollbar vorhanden)
+- 🐛 Partnernamen aus Text entfernt
+- 📦 Alle Styles inline für bessere Performance
+
+### Version 1.0 (November 2025)
+- 🎉 Initial Release
+- ✨ Responsive Landingpage
+- ✨ Produktseite mit Modals
+- 🎨 Firmendesign implementiert
+
+## 🤝 Mitwirken
+
+Contributions willkommen! Bitte:
 
 1. Fork erstellen
 2. Feature Branch erstellen (`git checkout -b feature/AmazingFeature`)
-3. Änderungen committen (`git commit -m 'Add some AmazingFeature'`)
+3. Änderungen committen (`git commit -m 'Add: AmazingFeature'`)
 4. Branch pushen (`git push origin feature/AmazingFeature`)
 5. Pull Request erstellen
+
+## 📄 Lizenz
+
+Copyright © 2025 R. Pöppel GmbH & Co. KG. Alle Rechte vorbehalten.
+
+## 📞 Support & Kontakt
+
+Bei Fragen zur Webseite oder den Intralogistik-Lösungen:
+
+**R. Pöppel GmbH & Co. KG**
+- 📍 Alpenstraße 45, Industriegebiet Süd, D-87700 Memmingen
+- 📞 Tel: 08331 9559-0
+- 📧 E-Mail: info@poeppel-wkz.de
+- 🌐 Web: www.poeppel-wkz.de
 
 ---
 
 **Entwickelt mit ❤️ für moderne Intralogistik-Lösungen**
+
+🤖 *Diese Dokumentation wurde mit Unterstützung von Claude Code erstellt*
