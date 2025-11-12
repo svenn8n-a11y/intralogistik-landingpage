@@ -601,17 +601,6 @@
                 ]
             },
             {
-                title: "Wirtschaftliche Kennzahlen",
-                fields: [
-                    { name: "personalkosten_stunde", label: "Durchschnittliche Personalkosten (€/Stunde)", type: "number" },
-                    { name: "mietkosten_qm", label: "Miete/Betriebskosten (€/m²/Monat)", type: "number" },
-                    { name: "suchzeit_pro_pick", label: "Durchschnittliche Suchzeit pro Entnahme (Minuten)", type: "number" },
-                    { name: "fehlerquote", label: "Geschätzte Fehlerquote bei Kommissionierung (%)", type: "number" },
-                    { name: "notfallbestellungen_jahr", label: "Notfall-/Eilbestellungen pro Jahr", type: "number" },
-                    { name: "materialverlust_jahr", label: "Geschätzter Materialverlust pro Jahr (€)", type: "number" }
-                ]
-            },
-            {
                 title: "Herausforderungen",
                 fields: [
                     { name: "painpoints", label: "Aktuelle Herausforderungen", type: "checkbox", options: ["Platzmangel", "Lange Suchzeiten", "Hohe Personalkosten", "Fehlerhafte Kommissionierung", "Produktionsstillstände", "Fehlende Transparenz", "Unübersichtliche Bestände", "Schwierige Inventur"] }
@@ -644,17 +633,6 @@
                 fields: [
                     { name: "hauptziele", label: "Ihre Hauptziele", type: "checkbox", options: ["Platzeinsparung", "Kostenreduktion", "Fehlerminimierung", "Schnellere Prozesse", "Bessere Übersicht", "Mitarbeiterentlastung", "Höhere Produktivität", "Digitalisierung", "Rückverfolgbarkeit", "Automatische Nachbestellung"] },
                     { name: "roi_erwartung", label: "ROI-Erwartung", type: "select", options: ["unter 1 Jahr", "1-2 Jahre", "2-3 Jahre", "3-5 Jahre", "über 5 Jahre"] }
-                ]
-            },
-            {
-                title: "Werkzeugverwaltung",
-                fields: [
-                    { name: "werkzeuganzahl", label: "Anzahl aktiver Werkzeuge (Bohrer, Fräser, etc.)", type: "number" },
-                    { name: "werkzeugtypen", label: "Gelagerte Werkzeugtypen", type: "checkbox", options: ["HSS-Bohrer", "VHM-Fräser", "Schaftfräser", "Wendeplattenbohrer", "Sägeblätter", "Gewindewerkzeuge", "Sonderwerkzeuge", "Messwerkzeuge"] },
-                    { name: "werkzeugverwaltung_aktuell", label: "Aktuelle Werkzeugverwaltung", type: "select", options: ["Keine systematische Verwaltung", "Excel/Papier", "Einfaches Ausgabesystem", "Elektronischer Schrank ohne Tracking", "Vollautomatisches System mit WMS"] },
-                    { name: "werkzeugprobleme", label: "Herausforderungen bei Werkzeugen", type: "checkbox", options: ["Werkzeugverlust/Schwund", "Lange Suchzeiten", "Keine Zugriffskontrolle", "Fehlende Inventur", "Keine Verbrauchsübersicht", "Ungeplante Nachbestellungen"] },
-                    { name: "werkzeugkosten_jahr", label: "Geschätzte Werkzeugkosten pro Jahr (€)", type: "number" },
-                    { name: "mitarbeiter_werkzeugzugriff", label: "Mitarbeiter mit Werkzeugzugriff", type: "number" }
                 ]
             }
         ];
@@ -751,162 +729,51 @@
 
         function calculateScore() {
             let score = 0;
-
+            
             // Painpoints
             if (formData.painpoints) {
                 score += formData.painpoints.length * 8;
             }
-
+            
             // SKUs
             const skus = parseInt(formData.anzahl_skus) || 0;
             if (skus > 5000) score += 20;
             else if (skus > 2000) score += 15;
             else if (skus > 1000) score += 10;
-
+            
             // Picks
             const picks = parseInt(formData.picks_pro_tag) || 0;
             if (picks > 1000) score += 15;
             else if (picks > 500) score += 10;
             else if (picks > 200) score += 5;
-
+            
             // Schichtbetrieb
             if (formData.schichtbetrieb === '3-Schicht' || formData.schichtbetrieb === '24/7') score += 15;
-
+            
             // Digitalisierung
             if (formData.lagerverwaltung === 'Keine digitale Verwaltung' || formData.lagerverwaltung === 'Excel/Tabellen') score += 20;
             if (formData.nachbestellung === 'Manuell' || formData.nachbestellung === 'Excel-basiert') score += 15;
             if (formData.materialentnahme === 'Keine Zuordnung' || formData.materialentnahme === 'Manuelle Dokumentation') score += 15;
-
+            
             return Math.min(score, 100);
-        }
-
-        function calculateToolManagementScore() {
-            let score = 0;
-
-            // Werkzeuganzahl (0-25 Punkte)
-            const werkzeuganzahl = parseInt(formData.werkzeuganzahl) || 0;
-            if (werkzeuganzahl > 500) score += 25;
-            else if (werkzeuganzahl > 200) score += 20;
-            else if (werkzeuganzahl > 100) score += 15;
-            else if (werkzeuganzahl > 50) score += 10;
-            else if (werkzeuganzahl > 0) score += 5;
-
-            // Werkzeugprobleme (0-30 Punkte, je 5 Punkte)
-            if (formData.werkzeugprobleme) {
-                score += formData.werkzeugprobleme.length * 5;
-            }
-
-            // Verwaltungssystem (0-25 Punkte)
-            if (formData.werkzeugverwaltung_aktuell === 'Keine systematische Verwaltung') score += 25;
-            else if (formData.werkzeugverwaltung_aktuell === 'Excel/Papier') score += 20;
-            else if (formData.werkzeugverwaltung_aktuell === 'Einfaches Ausgabesystem') score += 15;
-            else if (formData.werkzeugverwaltung_aktuell === 'Elektronischer Schrank ohne Tracking') score += 10;
-
-            // Werkzeugtypen-Vielfalt (0-10 Punkte)
-            if (formData.werkzeugtypen) {
-                score += Math.min(formData.werkzeugtypen.length * 1.5, 10);
-            }
-
-            // Mitarbeiteranzahl mit Zugriff (0-10 Punkte)
-            const mitarbeiter = parseInt(formData.mitarbeiter_werkzeugzugriff) || 0;
-            if (mitarbeiter > 50) score += 10;
-            else if (mitarbeiter > 20) score += 8;
-            else if (mitarbeiter > 10) score += 5;
-            else if (mitarbeiter > 0) score += 3;
-
-            return Math.min(Math.round(score), 100);
-        }
-
-        function calculateDetailedROI() {
-            // User inputs mit Fallback-Werten
-            const personalkosten = parseFloat(formData.personalkosten_stunde) || 45;
-            const mietkosten = parseFloat(formData.mietkosten_qm) || 8;
-            const suchzeit = parseFloat(formData.suchzeit_pro_pick) || 2;
-            const fehlerquote = parseFloat(formData.fehlerquote) || 3;
-            const notfallbestellungen = parseInt(formData.notfallbestellungen_jahr) || 50;
-            const materialverlust = parseFloat(formData.materialverlust_jahr) || 5000;
-
-            // Basis-Daten
-            const flaeche = parseInt(formData.lagerflaeche) || 100;
-            const picks = parseInt(formData.picks_pro_tag) || 100;
-            const arbeitstage = 260;
-
-            // 1. Flächeneinsparung (70-90% je nach System)
-            const flaechenEinsparungProzent = 0.75; // Konservativ 75%
-            const flaechenEinsparung = Math.round(flaeche * flaechenEinsparungProzent);
-            const flaechenKostenEinsparung = Math.round(flaechenEinsparung * mietkosten * 12);
-
-            // 2. Zeiteinsparung durch schnellere Entnahmen
-            const suchzeitAltStunden = (picks * suchzeit * arbeitstage) / 60;
-            const suchzeitNeuStunden = suchzeitAltStunden * 0.2; // 80% Reduktion
-            const zeitEinsparungStunden = Math.round(suchzeitAltStunden - suchzeitNeuStunden);
-            const zeitKostenEinsparung = Math.round(zeitEinsparungStunden * personalkosten);
-
-            // 3. Fehlerreduktion (von X% auf 0.5%)
-            const fehlerAlt = picks * arbeitstage * (fehlerquote / 100);
-            const fehlerNeu = picks * arbeitstage * 0.005;
-            const fehlerReduktion = Math.round(fehlerAlt - fehlerNeu);
-            const fehlerKosten = Math.round(fehlerReduktion * 150); // Ø 150€ pro Fehler
-
-            // 4. Materialverlust-Reduktion (85% weniger)
-            const materialverlustReduktion = Math.round(materialverlust * 0.85);
-
-            // 5. Notfallbestellungen reduzieren (70% weniger)
-            const notfallReduktion = Math.round(notfallbestellungen * 0.7);
-            const notfallKostenEinsparung = notfallReduktion * 200; // Ø 200€ Mehrkosten pro Notfallbestellung
-
-            // Gesamt-Einsparung pro Jahr
-            const gesamtEinsparung = flaechenKostenEinsparung + zeitKostenEinsparung +
-                                     fehlerKosten + materialverlustReduktion + notfallKostenEinsparung;
-
-            // Geschätzte Investition (basierend auf Lagergröße und Score)
-            const score = calculateScore();
-            const toolScore = calculateToolManagementScore();
-            let investitionBasis = 0;
-
-            // Vertikallift
-            if (flaeche > 200) investitionBasis += 180000;
-            else if (flaeche > 100) investitionBasis += 120000;
-            else investitionBasis += 80000;
-
-            // Ausgabeschränke
-            if (toolScore > 60) investitionBasis += 35000;
-
-            // WMS Software
-            if (formData.lagerverwaltung === 'Keine digitale Verwaltung' || formData.lagerverwaltung === 'Excel/Tabellen') {
-                investitionBasis += 25000;
-            }
-
-            const amortisationJahre = (investitionBasis / gesamtEinsparung).toFixed(1);
-
-            return {
-                flaechenEinsparung,
-                flaechenKostenEinsparung,
-                zeitEinsparungStunden,
-                zeitKostenEinsparung,
-                fehlerReduktion,
-                fehlerKosten,
-                materialverlustReduktion,
-                notfallReduktion,
-                notfallKostenEinsparung,
-                gesamtEinsparung,
-                investitionBasis,
-                amortisationJahre
-            };
         }
 
         function showResults() {
             saveCurrentStep();
 
             const score = calculateScore();
-            const toolScore = calculateToolManagementScore();
-            const roi = calculateDetailedROI();
+            const flaeche = parseInt(formData.lagerflaeche) || 100;
+            const flaechenEinsparung = Math.round(flaeche * 0.7);
+            const kostenEinsparung = Math.round(flaechenEinsparung * 60 * 12);
+            const zeitEinsparung = Math.round((parseInt(formData.picks_pro_tag) || 100) * 0.5 * 260 / 60);
 
             // Store results for PDF generation
             auditResults = {
                 score,
-                toolScore,
-                ...roi,
+                flaeche,
+                flaechenEinsparung,
+                kostenEinsparung,
+                zeitEinsparung,
                 formData: {...formData}
             };
 
@@ -930,13 +797,10 @@
             
             // Metrics
             const metrics = [
-                { label: 'Flächeneinsparung', value: `~${roi.flaechenEinsparung} m²` },
-                { label: 'Gesamteinsparung/Jahr', value: `~${roi.gesamtEinsparung.toLocaleString('de-DE')} €` },
-                { label: 'Zeiteinsparung/Jahr', value: `~${roi.zeitEinsparungStunden.toLocaleString('de-DE')} h` },
-                { label: 'Fehlerreduktion/Jahr', value: `~${roi.fehlerReduktion} Fehler` },
-                { label: 'Werkzeug-Management Score', value: `${toolScore}/100` },
-                { label: 'Geschätzte Investition', value: `~${roi.investitionBasis.toLocaleString('de-DE')} €` },
-                { label: 'Amortisation', value: `~${roi.amortisationJahre} Jahre` }
+                { label: 'Geschätzte Flächeneinsparung', value: `~${flaechenEinsparung} m²` },
+                { label: 'Potenzielle Kosteneinsparung/Jahr', value: `~${kostenEinsparung.toLocaleString('de-DE')} €` },
+                { label: 'Zeiteinsparung/Jahr', value: `~${zeitEinsparung} h` },
+                { label: 'Geschätzte Amortisation', value: '1,8-3 Jahre' }
             ];
             
             document.getElementById('metricsGrid').innerHTML = metrics.map(m => `
@@ -970,32 +834,11 @@
             
             // Recommendations
             const recommendations = [
-                { title: 'Vertikallift-System (Modula)', text: `Durch ein automatisches Vertikallagersystem können Sie <span class="recommendation-number">${roi.flaechenEinsparung} m²</span> Fläche einsparen (Einsparung: <span class="recommendation-number">${roi.flaechenKostenEinsparung.toLocaleString('de-DE')} €/Jahr</span>) und die Kommissionierzeit um <span class="recommendation-number">80%</span> reduzieren.` },
-                { title: 'Digitales Lagerverwaltungssystem', text: `Ein professionelles WMS schafft Transparenz, reduziert <span class="recommendation-number">${roi.fehlerReduktion}</span> Fehler/Jahr (Einsparung: <span class="recommendation-number">${roi.fehlerKosten.toLocaleString('de-DE')} €</span>) und ermöglicht automatische Nachbestellungen.` },
-                { title: 'Automatisierte Materialfluss-Steuerung', text: `Durch Integration von AGV-Systemen und automatisierter Versorgung sparen Sie <span class="recommendation-number">${roi.zeitEinsparungStunden.toLocaleString('de-DE')} h/Jahr</span> (Wert: <span class="recommendation-number">${roi.zeitKostenEinsparung.toLocaleString('de-DE')} €</span>).` }
+                { title: 'Vertikallift-System (Modula)', text: `Durch ein automatisches Vertikallagersystem können Sie bis zu <span class="recommendation-number">${flaechenEinsparung} m²</span> Fläche einsparen und die Kommissionierzeit um <span class="recommendation-number">70%</span> reduzieren.` },
+                { title: 'Digitales Lagerverwaltungssystem', text: 'Ein professionelles WMS schafft Transparenz, reduziert Fehler um <span class="recommendation-number">65%</span> und ermöglicht automatische Nachbestellungen.' },
+                { title: 'Automatisierte Materialfluss-Steuerung', text: 'Durch Integration von AGV-Systemen und automatisierter Versorgung können Personalkosten um <span class="recommendation-number">50-60%</span> gesenkt werden.' }
             ];
-
-            // Tool-Management-Empfehlungen basierend auf Score und Werkzeuganzahl
-            const werkzeuganzahl = parseInt(formData.werkzeuganzahl) || 0;
-            if (toolScore >= 60 || werkzeuganzahl > 100) {
-                if (werkzeuganzahl > 500) {
-                    recommendations.push({
-                        title: 'Intelligente Ausgabeschränke mit WMS (TOOLBASE EB/EL Professional)',
-                        text: `Bei <span class="recommendation-number">${werkzeuganzahl}</span> Werkzeugen empfehlen wir professionelle Ausgabesysteme mit Softwareanbindung. Reduzieren Sie Werkzeugverlust um <span class="recommendation-number">85%</span> und Suchzeiten um <span class="recommendation-number">90%</span>.`
-                    });
-                } else if (werkzeuganzahl > 200) {
-                    recommendations.push({
-                        title: 'Automatische Werkzeugausgabe (Walter Toolstation oder TOOLBASE AR)',
-                        text: `Für <span class="recommendation-number">${werkzeuganzahl}</span> Werkzeuge: Automatisierte Ausgabeschränke mit RFID-Tracking und ERP-Integration reduzieren Verwaltungsaufwand um <span class="recommendation-number">70%</span>.`
-                    });
-                } else if (werkzeuganzahl > 50) {
-                    recommendations.push({
-                        title: 'Elektronische Werkzeugschränke (SafePro/SafeReturn iM)',
-                        text: `Elektronische Schränke mit Zugriffskontrolle eliminieren Werkzeugverlust und schaffen vollständige Rückverfolgbarkeit. ROI typischerweise <span class="recommendation-number">unter 18 Monaten</span>.`
-                    });
-                }
-            }
-
+            
             if (formData.materialentnahme !== 'Vollautomatisch ERP-integriert') {
                 recommendations.push({ title: 'ERP-Integration für auftragsbezogene Entnahmen', text: 'Vollständige Rückverfolgbarkeit und automatische Kostenzuordnung steigern Effizienz um <span class="recommendation-number">40%</span>.' });
             }
@@ -1109,13 +952,10 @@
 
             // Metric boxes
             const metrics = [
-                { label: 'Flächeneinsparung', value: `~${auditResults.flaechenEinsparung} m²` },
-                { label: 'Gesamteinsparung/Jahr', value: `~${auditResults.gesamtEinsparung.toLocaleString('de-DE')} €` },
-                { label: 'Zeiteinsparung/Jahr', value: `~${auditResults.zeitEinsparungStunden.toLocaleString('de-DE')} h` },
-                { label: 'Fehlerreduktion/Jahr', value: `~${auditResults.fehlerReduktion} Fehler` },
-                { label: 'Werkzeug-Management Score', value: `${auditResults.toolScore}/100` },
-                { label: 'Geschätzte Investition', value: `~${auditResults.investitionBasis.toLocaleString('de-DE')} €` },
-                { label: 'Amortisation', value: `~${auditResults.amortisationJahre} Jahre` }
+                { label: 'Geschätzte Flächeneinsparung', value: `~${auditResults.flaechenEinsparung} m²` },
+                { label: 'Potenzielle Kosteneinsparung/Jahr', value: `~${auditResults.kostenEinsparung.toLocaleString('de-DE')} €` },
+                { label: 'Zeiteinsparung/Jahr', value: `~${auditResults.zeitEinsparung} h` },
+                { label: 'Geschätzte Amortisation', value: '1,8-3 Jahre' }
             ];
 
             metrics.forEach((metric, index) => {
@@ -1138,50 +978,6 @@
                 doc.text(metric.value, 25, yPos + 9);
 
                 yPos += 22;
-            });
-
-            yPos += 5;
-
-            // Detailed ROI Breakdown Section
-            if (yPos > 180) {
-                doc.addPage();
-                yPos = 20;
-            }
-
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.setTextColor(...primaryColor);
-            doc.text('Detaillierte ROI-Aufschlüsselung', 20, yPos);
-
-            doc.setDrawColor(...primaryColor);
-            doc.line(20, yPos + 2, 190, yPos + 2);
-
-            yPos += 10;
-
-            const roiDetails = [
-                { label: 'Flächenkosteneinsparung', value: `${auditResults.flaechenKostenEinsparung.toLocaleString('de-DE')} €/Jahr` },
-                { label: 'Zeitkosteneinsparung', value: `${auditResults.zeitKostenEinsparung.toLocaleString('de-DE')} €/Jahr` },
-                { label: 'Fehlerkosten-Reduktion', value: `${auditResults.fehlerKosten.toLocaleString('de-DE')} €/Jahr` },
-                { label: 'Materialverlust-Reduktion', value: `${auditResults.materialverlustReduktion.toLocaleString('de-DE')} €/Jahr` },
-                { label: 'Notfallbestellungen-Einsparung', value: `${auditResults.notfallKostenEinsparung.toLocaleString('de-DE')} €/Jahr` }
-            ];
-
-            roiDetails.forEach((item) => {
-                if (yPos > 250) {
-                    doc.addPage();
-                    yPos = 20;
-                }
-
-                doc.setFontSize(10);
-                doc.setFont(undefined, 'normal');
-                doc.setTextColor(...secondaryColor);
-                doc.text(`${item.label}:`, 25, yPos);
-
-                doc.setFont(undefined, 'bold');
-                doc.setTextColor(...primaryColor);
-                doc.text(item.value, 130, yPos);
-
-                yPos += 7;
             });
 
             yPos += 5;
@@ -1272,31 +1068,10 @@
             yPos += 10;
 
             const recommendations = [
-                { title: 'Vertikallift-System (Modula)', text: `Durch ein automatisches Vertikallagersystem können Sie ${auditResults.flaechenEinsparung} m² Fläche einsparen (Einsparung: ${auditResults.flaechenKostenEinsparung.toLocaleString('de-DE')} EUR/Jahr) und die Kommissionierzeit um 80% reduzieren.` },
-                { title: 'Digitales Lagerverwaltungssystem', text: `Ein professionelles WMS schafft Transparenz, reduziert ${auditResults.fehlerReduktion} Fehler/Jahr (Einsparung: ${auditResults.fehlerKosten.toLocaleString('de-DE')} EUR) und ermöglicht automatische Nachbestellungen.` },
-                { title: 'Automatisierte Materialfluss-Steuerung', text: `Durch Integration von AGV-Systemen und automatisierter Versorgung sparen Sie ${auditResults.zeitEinsparungStunden.toLocaleString('de-DE')} h/Jahr (Wert: ${auditResults.zeitKostenEinsparung.toLocaleString('de-DE')} EUR).` }
+                { title: 'Vertikallift-System (Modula)', text: `Durch ein automatisches Vertikallagersystem können Sie bis zu ${auditResults.flaechenEinsparung} m² Fläche einsparen und die Kommissionierzeit um 70% reduzieren.` },
+                { title: 'Digitales Lagerverwaltungssystem', text: 'Ein professionelles WMS schafft Transparenz, reduziert Fehler um 65% und ermöglicht automatische Nachbestellungen.' },
+                { title: 'Automatisierte Materialfluss-Steuerung', text: 'Durch Integration von AGV-Systemen und automatisierter Versorgung können Personalkosten um 50-60% gesenkt werden.' }
             ];
-
-            // Tool-Management-Empfehlungen für PDF
-            const werkzeuganzahl = parseInt(auditResults.formData.werkzeuganzahl) || 0;
-            if (auditResults.toolScore >= 60 || werkzeuganzahl > 100) {
-                if (werkzeuganzahl > 500) {
-                    recommendations.push({
-                        title: 'Intelligente Ausgabeschraenke mit WMS',
-                        text: `Bei ${werkzeuganzahl} Werkzeugen: Professionelle Ausgabesysteme (TOOLBASE EB/EL) mit Softwareanbindung. Reduzieren Sie Werkzeugverlust um 85% und Suchzeiten um 90%.`
-                    });
-                } else if (werkzeuganzahl > 200) {
-                    recommendations.push({
-                        title: 'Automatische Werkzeugausgabe',
-                        text: `Fuer ${werkzeuganzahl} Werkzeuge: Automatisierte Ausgabeschraenke (Walter Toolstation/TOOLBASE AR) mit RFID-Tracking und ERP-Integration. Verwaltungsaufwand -70%.`
-                    });
-                } else if (werkzeuganzahl > 50) {
-                    recommendations.push({
-                        title: 'Elektronische Werkzeugschraenke',
-                        text: `Elektronische Schraenke (SafePro/SafeReturn iM) mit Zugriffskontrolle eliminieren Werkzeugverlust und schaffen vollstaendige Rueckverfolgbarkeit. ROI typischerweise unter 18 Monaten.`
-                    });
-                }
-            }
 
             if (auditResults.formData.materialentnahme !== 'Vollautomatisch ERP-integriert') {
                 recommendations.push({ title: 'ERP-Integration', text: 'Vollständige Rückverfolgbarkeit und automatische Kostenzuordnung steigern Effizienz um 40%.' });
