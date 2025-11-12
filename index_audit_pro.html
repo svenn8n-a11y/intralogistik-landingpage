@@ -86,6 +86,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 3rem 2rem;
+            padding-top: 120px;
         }
 
         .step-container {
@@ -597,7 +598,7 @@
                     { name: "lagerflaeche", label: "Lagerfläche (m²)", type: "number" },
                     { name: "anzahl_skus", label: "Anzahl unterschiedlicher Artikel (SKUs)", type: "number" },
                     { name: "picks_pro_tag", label: "Entnahmen pro Tag", type: "number" },
-                    { name: "lagersystem", label: "Aktuelles Lagersystem", type: "select", options: ["Offene Regale", "Fachbodenregale", "Schubladenschränke", "Palettenregale", "Hochregallager", "Vertikallift/Karussell", "Gemischt"] }
+                    { name: "lagersystem", label: "Aktuelles Lagersystem (Mehrfachauswahl möglich)", type: "checkbox", options: ["Offene Regale", "Fachbodenregale", "Schubladenschränke", "Palettenregale", "Hochregallager", "Vertikallift/Karussell"] }
                 ]
             },
             {
@@ -771,6 +772,18 @@
 
             // Schichtbetrieb
             if (formData.schichtbetrieb === '3-Schicht' || formData.schichtbetrieb === '24/7') score += 15;
+
+            // Lagersystem-Komplexität (Mehrfachauswahl)
+            if (formData.lagersystem && formData.lagersystem.length > 0) {
+                // Verschiedene Systeme = höhere Komplexität
+                if (formData.lagersystem.length >= 3) score += 15;
+                else if (formData.lagersystem.length === 2) score += 10;
+
+                // Veraltete Systeme erhöhen Score
+                const veralteteSysteme = ['Offene Regale', 'Fachbodenregale'];
+                const hatVeraltetesSystem = formData.lagersystem.some(sys => veralteteSysteme.includes(sys));
+                if (hatVeraltetesSystem) score += 10;
+            }
 
             // Digitalisierung
             if (formData.lagerverwaltung === 'Keine digitale Verwaltung' || formData.lagerverwaltung === 'Excel/Tabellen') score += 20;
@@ -956,6 +969,16 @@
             }
             if (formData.painpoints && formData.painpoints.includes('Lange Suchzeiten')) {
                 problems.push({ level: 'warning', title: 'Ineffiziente Kommissionierung', description: 'Hoher Zeitverlust durch Suchen. Automatisierte Systeme reduzieren Suchzeiten um bis zu 80%.' });
+            }
+
+            // Lagersystem-Komplexität
+            if (formData.lagersystem && formData.lagersystem.length >= 3) {
+                problems.push({ level: 'warning', title: 'Heterogene Lagerlandschaft', description: `${formData.lagersystem.length} verschiedene Lagersysteme erschweren die Verwaltung und erhöhen Fehlerquoten. Eine Konsolidierung auf automatisierte Systeme schafft Effizienz.` });
+            }
+
+            // Veraltete Systeme
+            if (formData.lagersystem && formData.lagersystem.some(sys => ['Offene Regale', 'Fachbodenregale'].includes(sys))) {
+                problems.push({ level: 'warning', title: 'Veraltete Lagertechnik', description: 'Offene Regale und Fachbodenregale bieten keine Zugriffskontrolle, erschweren die Bestandsführung und verschwenden Fläche. Moderne Systeme bieten bis zu 85% Platzeinsparung.' });
             }
             
             document.getElementById('problemsContainer').innerHTML = problems.map(p => `
