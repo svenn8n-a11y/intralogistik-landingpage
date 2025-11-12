@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligente Ausgabeschränke | Tool-Management Systeme</title>
+    <style>
+        :root {
+            --primary: #16A085;
+            --secondary: #2C3E50;
+            --accent: #34495E;
+            --background: #F8F9FA;
+            --surface: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --success: #27AE60;
+            --warning: #F39C12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg,
+                rgba(22, 160, 133, 0.95) 0%,
+                rgba(38, 99, 99, 0.95) 50%,
+                rgba(84, 179, 153, 0.92) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 4px 30px rgba(22, 160, 133, 0.2);
+            z-index: 9999;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .header-nav a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.93), rgba(44, 62, 80, 0.93)),
+                        url('https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Products Grid - Touchscreen Design */
+        .products-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(22, 160, 133, 0.2);
+            border-color: var(--primary);
+        }
+
+        .product-card:active {
+            transform: translateY(-8px) scale(0.98);
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: white;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-tagline {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-excerpt {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .product-button:hover {
+            background: #138f75;
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--background);
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 16px;
+            margin: 0 auto 2rem;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-tagline {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .modal-specs {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .modal-specs h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .modal-specs ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-specs li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal-specs li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-specs li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-add-to-list {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-add-to-list:hover {
+            background: #138f75;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(22, 160, 133, 0.3);
+        }
+
+        .btn-add-to-list.added {
+            background: var(--success);
+        }
+
+        .btn-back-modal {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-back-modal:hover {
+            background: #1E8449;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Watchlist (Merkliste) */
+        .watchlist-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(22, 160, 133, 0.4);
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        .watchlist-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(22, 160, 133, 0.5);
+        }
+
+        .watchlist-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 2px;
+        }
+
+        .watchlist-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #E74C3C;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .watchlist-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.2);
+            z-index: 10001;
+            padding: 2rem;
+            overflow-y: auto;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .watchlist-sidebar.active {
+            right: 0;
+        }
+
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--background);
+        }
+
+        .watchlist-header h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .watchlist-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .watchlist-items {
+            margin-bottom: 2rem;
+        }
+
+        .watchlist-item {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .watchlist-item-info h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .watchlist-item-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .watchlist-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-item-remove:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
+        }
+
+        .watchlist-action {
+            background: #FF9966;
+            color: white;
+            border: none;
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-action:hover {
+            background: #FF7744;
+        }
+
+        .watchlist-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .watchlist-empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Contact Form */
+        .contact-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .contact-section.active {
+            display: block;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--background);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(22, 160, 133, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: #138f75;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(22, 160, 133, 0.3);
+        }
+
+        .form-submit:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .product-title {
+                font-size: 1.5rem;
+            }
+
+            .product-excerpt {
+                font-size: 0.95rem;
+            }
+
+            .watchlist-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .watchlist-badge {
+                width: 60px;
+                height: 60px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .watchlist-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .watchlist-count {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-width: 95vw;
+                padding: 1.5rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-title {
+                font-size: 1.75rem;
+            }
+
+            .modal-tagline {
+                font-size: 1rem;
+            }
+
+            .modal-description {
+                font-size: 0.95rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .btn-add-to-list, .btn-back-modal {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .back-button {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+                letter-spacing: 0.3px;
+            }
+
+            .header-logo {
+                height: 40px;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .analysis-button {
+                padding: 1.25rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* Analysis Button */
+        .analysis-button {
+            background: #FFD700;
+            color: var(--secondary);
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 600px;
+            margin: 3rem auto;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .analysis-button:hover {
+            background: #FFC700;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, var(--primary) 0%, #138f75 100%);
+            color: white;
+            border: none;
+            padding: 1.25rem 3.5rem;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 25px rgba(22, 160, 133, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #138f75 0%, #0e6b5a 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(22, 160, 133, 0.5);
+        }
+
+        .back-button:active {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 20px rgba(22, 160, 133, 0.4);
+        }
+
+        /* Video Section */
+        .video-section {
+            background: var(--background);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .video-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .video-header h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .video-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Centered video display */
+        .video-scroll-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+        }
+
+        .video-scroll-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .video-card {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--surface);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.35);
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #000;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+
+        @media (max-width: 768px) {
+            .video-section {
+                padding: 3rem 1rem;
+            }
+
+            .video-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .video-header p {
+                font-size: 1rem;
+            }
+
+            .video-scroll-wrapper {
+                padding: 2rem 1rem;
+            }
+
+            .video-card {
+                max-width: 95vw;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html">
+                <img src="logos/100_Poeppel_Logo_HELL.png" alt="Pöppel Intralogistik" class="header-logo">
+            </a>
+            <nav class="header-nav">
+                <a href="index.html" class="back-button">Zurück</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <span>Ausgabeschränke & Tool-Management</span>
+        </div>
+        <h1>Intelligente Ausgabeschränke</h1>
+        <p>Automatisierte Tool-Management Systeme für maximale Kontrolle und Effizienz</p>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="products-grid">
+            <!-- TOOLBASE EB Professional -->
+            <div class="product-card" data-product="toolbase-eb">
+                <img src="Produkte/TOOLBASE_EB_boxensystem.jpeg" alt="TOOLBASE EB Professional Boxensystem" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE EB Professional</h2>
+                <p class="product-tagline">Das Boxensystem</p>
+                <p class="product-excerpt">Modulares Ausgabesystem mit intelligenter Zugriffskontrolle und RFID-Technologie.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- TOOLBASE EL Schubladensystem -->
+            <div class="product-card" data-product="toolbase-el">
+                <img src="Produkte/TOOLBASE_EL_ladensystem.jpeg" alt="TOOLBASE EL Schubladensystem" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE EL Professional</h2>
+                <p class="product-tagline">Das Schubladensystem</p>
+                <p class="product-excerpt">Flexible Schubladenlösung mit elektronischer Verriegelung und präziser Bestandskontrolle.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- TOOLBASE AR Rondellsystem -->
+            <div class="product-card" data-product="toolbase-ar">
+                <img src="Produkte/TOOLBASE_AR_rondellsystem.jpeg" alt="TOOLBASE AR Rondellsystem" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE AR Rondell</h2>
+                <p class="product-tagline">Das Rondellsystem</p>
+                <p class="product-excerpt">Vollautomatisches Rundlager für maximale Raumausnutzung und schnellen Zugriff.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Walter Toolstation D-Line -->
+            <div class="product-card" data-product="walter-d">
+                <img src="Produkte/Walter_Toolstation_D-line_freigestellt.jpeg" alt="Walter Toolstation D-Line" class="product-image" loading="lazy">
+                <h2 class="product-title">Walter Toolstation D-Line</h2>
+                <p class="product-tagline">Digitale Werkzeugverwaltung</p>
+                <p class="product-excerpt">Vending-System mit 30-50 Fächern für optimierte Werkzeugverwaltung und Bestandsüberwachung.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Walter Toolstation S-Line -->
+            <div class="product-card" data-product="walter-s">
+                <img src="Produkte/Walter_Toolstation_S-line.jpeg" alt="Walter Toolstation S-Line" class="product-image" loading="lazy">
+                <h2 class="product-title">Walter Toolstation S-Line</h2>
+                <p class="product-tagline">Kompakte Vending-Lösung</p>
+                <p class="product-excerpt">Schlanke Ausgabestation mit 5-20 Fächern für kleinere Werkzeugbereiche.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- Samurai X Tower -->
+            <div class="product-card" data-product="samurai">
+                <img src="Produkte/SamuraiX_tower.jpeg" alt="Samurai X Tower Schwerlastregal" class="product-image" loading="lazy">
+                <h2 class="product-title">Samurai X Tower</h2>
+                <p class="product-tagline">Die Hochleistungslösung</p>
+                <p class="product-excerpt">Schwerlast-Ausgabesystem für große Werkzeuge und Komponenten bis 70 kg pro Fach.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- SafePro iM -->
+            <div class="product-card" data-product="safepro">
+                <img src="Produkte/SafePro_iM.jpeg" alt="SafePro iM Sicherheitsschrank" class="product-image" loading="lazy">
+                <h2 class="product-title">SafePro iM</h2>
+                <p class="product-tagline">Höchste Sicherheitsstufe</p>
+                <p class="product-excerpt">Hochsicherheitsschrank mit biometrischer Zugangskontrolle für kritische Werkzeuge.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- SafeReturn iM -->
+            <div class="product-card" data-product="safereturn">
+                <img src="Produkte/SafeReturn_iM.jpeg" alt="SafeReturn iM Rückgabesystem" class="product-image" loading="lazy">
+                <h2 class="product-title">SafeReturn iM</h2>
+                <p class="product-tagline">Intelligente Rückgabe</p>
+                <p class="product-excerpt">Automatisches Rückgabesystem mit Erkennungstechnologie für fehlerfreie Werkzeugrückgabe.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- SafeSpring iM -->
+            <div class="product-card" data-product="safespring">
+                <img src="Produkte/SafeSpring_iM.jpeg" alt="SafeSpring iM Federschrank" class="product-image" loading="lazy">
+                <h2 class="product-title">SafeSpring iM</h2>
+                <p class="product-tagline">Automatische Ausgabe</p>
+                <p class="product-excerpt">Federbasiertes Ausgabesystem für schnellen und ergonomischen Werkzeugzugriff.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- MRO-X Locker -->
+            <div class="product-card" data-product="mro-x">
+                <img src="Produkte/Ihre MRO-X_locker.jpeg" alt="MRO-X Locker Schließfachsystem" class="product-image" loading="lazy">
+                <h2 class="product-title">MRO-X Locker</h2>
+                <p class="product-tagline">Das Schließfachsystem</p>
+                <p class="product-excerpt">Modulares Schließfachsystem für persönliche Werkzeugausstattung und C-Teile-Verwaltung.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- TOOLBASE Control AR-19 -->
+            <div class="product-card" data-product="toolbase-control">
+                <img src="Produkte/TOOLBASE_Control AR-19_600.jpeg" alt="TOOLBASE Control AR-19 Steuereinheit" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE Control AR-19</h2>
+                <p class="product-tagline">Die Steuereinheit</p>
+                <p class="product-excerpt">Zentrale Steuereinheit mit 19" Touchscreen für alle TOOLBASE-Systeme.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- TOOLBASE EV Vertikalsystem -->
+            <div class="product-card" data-product="toolbase-ev">
+                <img src="Produkte/TOOLBASE_EV_vertikalsystem.jpeg" alt="TOOLBASE EV Vertikallager" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE EV Vertikal</h2>
+                <p class="product-tagline">Das Vertikallager</p>
+                <p class="product-excerpt">Kompaktes Vertikallager für maximale Höhenausnutzung auf kleinstem Raum.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+
+            <!-- TOOLBASE EW Wägezellen -->
+            <div class="product-card" data-product="toolbase-ew">
+                <img src="Produkte/TOOLBASE_EW_waegezellenjpeg.jpeg" alt="TOOLBASE EW Wägesystem" class="product-image" loading="lazy">
+                <h2 class="product-title">TOOLBASE EW Wägesystem</h2>
+                <p class="product-tagline">Präzise Bestandserfassung</p>
+                <p class="product-excerpt">Hochpräzise Wägezellentechnologie für automatische Mengenerfassung von Schüttgut.</p>
+                <button class="product-button">Mehr erfahren</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-header">
+                <h2>Tool-Management Systeme in Aktion</h2>
+                <p>Erleben Sie, wie intelligente Ausgabeschränke die Werkzeugverwaltung revolutionieren und für maximale Transparenz und Effizienz sorgen.</p>
+            </div>
+            <div class="video-scroll-wrapper">
+                <div class="video-scroll-container" id="videoScrollContainer">
+                    <div class="video-card">
+                        <div class="video-embed">
+                            <iframe
+                                src="https://www.youtube.com/embed/7KnPXWOUhNE?autoplay=1&mute=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" class="modal-image" alt="" loading="lazy">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-tagline" id="modalTagline"></p>
+            <div class="modal-description" id="modalDescription"></div>
+            <div class="modal-specs">
+                <h3>Features & Vorteile</h3>
+                <ul id="modalSpecs"></ul>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-add-to-list" onclick="addToWatchlist()">
+                    Zur Merkliste hinzufügen
+                </button>
+                <button class="btn-back-modal" onclick="closeModal()">
+                    Zurück zur Übersicht
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Watchlist Badge -->
+    <div class="watchlist-badge" onclick="toggleWatchlist()">
+        <svg class="watchlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <div class="watchlist-count" id="watchlistCount">0</div>
+    </div>
+
+    <!-- Watchlist Sidebar -->
+    <div class="watchlist-sidebar" id="watchlistSidebar">
+        <div class="watchlist-header">
+            <h2>Meine Auswahl</h2>
+            <button class="watchlist-close" onclick="toggleWatchlist()">&times;</button>
+        </div>
+        <div class="watchlist-items" id="watchlistItems">
+            <div class="watchlist-empty">
+                <div class="watchlist-empty-icon">🔧</div>
+                <p>Noch keine Systeme ausgewählt</p>
+            </div>
+        </div>
+        <button class="watchlist-action" onclick="showContactForm()" id="requestConsultation" disabled>
+            Merkliste herunterladen
+        </button>
+    </div>
+
+    <!-- Contact Form -->
+    <section class="contact-section" id="contactSection">
+        <form class="contact-form" onsubmit="submitForm(event)">
+            <h2>Ihre Kontaktdaten</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                Wir erstellen für Sie eine individuelle Zusammenfassung als PDF
+            </p>
+
+            <div class="form-group">
+                <label for="firstName">Vorname *</label>
+                <input type="text" id="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Nachname *</label>
+                <input type="text" id="lastName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Firma *</label>
+                <input type="text" id="company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Nachricht (optional)</label>
+                <textarea id="message"></textarea>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="dataPrivacyCheckbox" required>
+                <label for="dataPrivacyCheckbox">Ich stimme der Speicherung meiner Daten zu *</label>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="requestConsultationCheckbox">
+                <label for="requestConsultationCheckbox">Ich möchte eine kostenlose Beratung vereinbaren</label>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="moreInfoCheckbox">
+                <label for="moreInfoCheckbox">Ich möchte mehr Informationen dazu</label>
+            </div>
+
+            <button type="submit" class="form-submit">PDF herunterladen & Anfrage senden</button>
+
+            <div class="success-message" id="successMessage">
+                ✓ Vielen Dank! Ihre Anfrage wurde gesendet und das PDF wird heruntergeladen.
+            </div>
+        </form>
+
+        <a href="index_audit_pro.html" class="analysis-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+            </svg>
+            Schnell-Analyse starten
+        </a>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Product Data
+        const products = {
+            'toolbase-eb': {
+                title: "TOOLBASE EB Professional",
+                tagline: "Das Boxensystem",
+                image: "Produkte/TOOLBASE_EB_boxensystem.jpeg",
+                description: "Das TOOLBASE EB Professional System ist ein modulares Ausgabesystem mit bis zu 400 einzeln kontrollierten Boxen. Jede Box verfügt über elektronische Verriegelung und RFID-Technologie für lückenlose Rückverfolgbarkeit. Ideal für C-Teile-Management und Werkzeugausgabe mit automatischer Bestandserfassung und ERP-Integration.",
+                specs: [
+                    "Bis zu 400 individuell verriegelbare Boxen",
+                    "RFID-basierte Zugangskontrolle und Bestandserfassung",
+                    "Echtzeitüberwachung aller Entnahmen und Rückgaben",
+                    "ERP-Integration für automatische Nachbestellung",
+                    "Touchscreen-Bedienung mit intuitiver Benutzeroberfläche",
+                    "Modularer Aufbau für flexible Erweiterung",
+                    "Web-basiertes Reporting und Analytics-Dashboard",
+                    "24/7 Verfügbarkeit ohne Personalkosten"
+                ]
+            },
+            'toolbase-el': {
+                title: "TOOLBASE EL Professional",
+                tagline: "Das Schubladensystem",
+                image: "Produkte/TOOLBASE_EL_ladensystem.jpeg",
+                description: "Das TOOLBASE EL Professional ist ein intelligentes Schubladensystem mit elektronischer Einzelverriegelung. Perfekt für größere Werkzeuge, Messgeräte und Kleinteile. Das System bietet maximale Flexibilität durch variable Schubladeneinteilung und garantiert höchste Sicherheit durch personalisierte Zugriffsrechte.",
+                specs: [
+                    "Elektronisch verriegelte Einzelschubladen",
+                    "Variable Schubladenhöhen von 50mm bis 200mm",
+                    "RFID-Chip oder PIN-Code Authentifizierung",
+                    "Automatische Bestandsführung per Wägezellen",
+                    "Individuelle Zugriffsrechte pro Benutzer und Schublade",
+                    "LED-Anzeige für schnelle visuelle Orientierung",
+                    "Cloud-basierte Verwaltung und Monitoring",
+                    "Integration mit bestehenden ERP-Systemen"
+                ]
+            },
+            'toolbase-ar': {
+                title: "TOOLBASE AR Rondell",
+                tagline: "Das Rondellsystem",
+                image: "Produkte/TOOLBASE_AR_rondellsystem.jpeg",
+                description: "Das TOOLBASE AR ist ein vollautomatisches vertikales Rundlager-System, das maximale Lagerkapazität auf kleinstem Raum bietet. Der automatische Greifer bringt die gewünschten Werkzeuge direkt zur ergonomischen Entnahmehöhe. Ideal für große Werkzeugbestände und häufige Zugriffe.",
+                specs: [
+                    "Vollautomatische Rotation und Entnahme",
+                    "Bis zu 90% Platzersparnis gegenüber klassischen Schränken",
+                    "Höhe bis 6 Meter nutzbar",
+                    "Ergonomische Entnahme auf Arbeitshöhe",
+                    "Schnelle Zugriffszeiten unter 30 Sekunden",
+                    "Integrierte Wägezellen für automatische Bestandserfassung",
+                    "RFID-Technologie für Werkzeugidentifikation",
+                    "Touchscreen-Steuerung mit grafischer Benutzeroberfläche"
+                ]
+            },
+            'walter-d': {
+                title: "Walter Toolstation D-Line",
+                tagline: "Digitale Werkzeugverwaltung",
+                image: "Produkte/Walter_Toolstation_D-line_freigestellt.jpeg",
+                description: "Die Walter Toolstation D-Line ist ein intelligentes Vending-System für die automatisierte Werkzeugausgabe. Mit 30-50 individualisierbaren Fächern bietet sie optimale Werkzeugverfügbarkeit rund um die Uhr. Das System erfasst automatisch alle Entnahmen und löst bei Bedarf Nachbestellungen aus.",
+                specs: [
+                    "30-50 individuell konfigurierbare Ausgabefächer",
+                    "RFID-Karten oder PIN-Code Authentifizierung",
+                    "Automatische Bestandsüberwachung und Nachbestellung",
+                    "24/7 Verfügbarkeit ohne Personaleinsatz",
+                    "Detailliertes Reporting über Verbrauch und Kosten",
+                    "Integration mit Walter Toolmanagement Plattform",
+                    "Remote-Monitoring und Verwaltung",
+                    "LED-Beleuchtung für bessere Sichtbarkeit"
+                ]
+            },
+            'walter-s': {
+                title: "Walter Toolstation S-Line",
+                tagline: "Kompakte Vending-Lösung",
+                image: "Produkte/Walter_Toolstation_S-line.jpeg",
+                description: "Die Walter Toolstation S-Line ist die kompakte Version für kleinere Werkzeugbereiche und Arbeitsgruppen. Mit 5-20 Fächern bietet sie alle Vorteile einer vollwertigen Vending-Lösung in platzsparendem Format. Perfekt für dezentrale Werkzeugausgabe direkt am Arbeitsplatz.",
+                specs: [
+                    "5-20 flexible Ausgabefächer",
+                    "Kompaktes Design für beengte Platzverhältnisse",
+                    "RFID-basierte Zugangskontrolle",
+                    "Echtzeit-Bestandsüberwachung",
+                    "Automatische Nachbestellvorschläge",
+                    "Cloud-basierte Datenverwaltung",
+                    "Einfache Installation ohne bauliche Maßnahmen",
+                    "Integration in Walter Toolmanagement-Ökosystem"
+                ]
+            },
+            'samurai': {
+                title: "Samurai X Tower",
+                tagline: "Die Hochleistungslösung",
+                image: "Produkte/SamuraiX_tower.jpeg",
+                description: "Der Samurai X Tower ist ein robustes Schwerlast-Ausgabesystem für große Werkzeuge, Bauteile und Komponenten. Mit einer Traglast von bis zu 70 kg pro Fach ist es ideal für Maschinenbau, Automotive und Schwermaschinenindustrie. Die intelligente Steuerung erfasst auch schwere Objekte präzise.",
+                specs: [
+                    "Traglast bis 70 kg pro Fach",
+                    "Robuste Stahlkonstruktion für Industrieeinsatz",
+                    "Präzise Gewichtserfassung durch Hochleistungs-Wägezellen",
+                    "Große Fachvolumen für sperrige Werkzeuge",
+                    "RFID-Technologie für automatische Objekterkennung",
+                    "Touchscreen mit grafischer Bestandsübersicht",
+                    "Integration mit ERP und MES-Systemen",
+                    "24/7 Betrieb mit minimaler Wartung"
+                ]
+            },
+            'safepro': {
+                title: "SafePro iM",
+                tagline: "Höchste Sicherheitsstufe",
+                image: "Produkte/SafePro_iM.jpeg",
+                description: "SafePro iM ist die Hochsicherheitslösung für kritische und hochwertige Werkzeuge. Mit biometrischer Zugangskontrolle, Videoüberwachung und manipulationssicherer Bauweise bietet es maximalen Schutz. Ideal für Präzisionswerkzeuge, Messgeräte und sensible Komponenten.",
+                specs: [
+                    "Biometrische Zugangskontrolle (Fingerabdruck)",
+                    "Integrierte Videoüberwachung aller Entnahmen",
+                    "Manipulationssichere Stahlkonstruktion",
+                    "Alarmfunktion bei unbefugtem Zugriff",
+                    "Lückenlose Audit-Trail Dokumentation",
+                    "Klimakontrolle für empfindliche Werkzeuge",
+                    "Brandschutzklasse für hochwertige Assets",
+                    "Compliance-konform für regulierte Industrien"
+                ]
+            },
+            'safereturn': {
+                title: "SafeReturn iM",
+                tagline: "Intelligente Rückgabe",
+                image: "Produkte/SafeReturn_iM.jpeg",
+                description: "Das SafeReturn iM System revolutioniert die Werkzeugrückgabe durch automatische Erkennung und Validierung. Sensoren und Kameras prüfen bei jeder Rückgabe den Zustand und die Vollständigkeit der Werkzeuge. Das System verhindert Fehler und gewährleistet, dass nur vollständige und funktionsfähige Werkzeuge zurückgenommen werden.",
+                specs: [
+                    "Automatische Werkzeugerkennung via RFID und Bildverarbeitung",
+                    "Zustandsprüfung bei jeder Rückgabe",
+                    "Intelligente Fehlererkennung (unvollständig, beschädigt)",
+                    "Sofortige Benachrichtigung bei Abweichungen",
+                    "Integration mit Wartungs-Management-System",
+                    "Dokumentation aller Werkzeugbewegungen",
+                    "Automatische Qualitätskontrolle",
+                    "Reduzierung von Werkzeugverlusten um bis zu 90%"
+                ]
+            },
+            'safespring': {
+                title: "SafeSpring iM",
+                tagline: "Automatische Ausgabe",
+                image: "Produkte/SafeSpring_iM.jpeg",
+                description: "SafeSpring iM nutzt innovative Federtechnologie für blitzschnelle und ergonomische Werkzeugausgabe. Nach Authentifizierung springt das gewünschte Fach automatisch heraus, ideal für hochfrequente Zugriffe. Das System kombiniert mechanische Zuverlässigkeit mit digitaler Intelligenz für maximale Effizienz.",
+                specs: [
+                    "Federbasierte Schnellausgabe in unter 2 Sekunden",
+                    "Ergonomische Entnahme ohne Bücken oder Strecken",
+                    "Bis zu 200 Ausgabevorgänge pro Stunde möglich",
+                    "Mechanische Zuverlässigkeit ohne Elektronik im Fach",
+                    "RFID oder Biometrie-Authentifizierung",
+                    "Automatische Bestandserfassung durch Sensoren",
+                    "Minimaler Wartungsaufwand",
+                    "Perfekt für 24/7 Hochleistungsbetrieb"
+                ]
+            },
+            'mro-x': {
+                title: "MRO-X Locker",
+                tagline: "Das Schließfachsystem",
+                image: "Produkte/Ihre MRO-X_locker.jpeg",
+                description: "Das MRO-X Locker System ist die flexible Lösung für persönliche Werkzeugausstattung und dezentrales C-Teile-Management. Jeder Mitarbeiter erhält sein eigenes intelligentes Schließfach mit individueller Ausstattung. Ideal für Unternehmen mit personalisierter Werkzeugvergabe und mobile Einsatzkräfte.",
+                specs: [
+                    "Modulares Schließfachsystem mit variabler Größe",
+                    "Personalisierte Zugangskontrolle pro Fach",
+                    "RFID-Karte oder PIN-Code Authentifizierung",
+                    "Automatische Bestandsüberwachung pro Mitarbeiter",
+                    "Integration mit Personalverwaltungssystem",
+                    "Flexible Erweiterung nach Bedarf",
+                    "Mobile App für Reservierung und Status",
+                    "Perfekt für MRO (Maintenance, Repair, Operations)"
+                ]
+            },
+            'toolbase-control': {
+                title: "TOOLBASE Control AR-19",
+                tagline: "Die Steuereinheit",
+                image: "Produkte/TOOLBASE_Control AR-19_600.jpeg",
+                description: "Das TOOLBASE Control AR-19 ist die zentrale Steuereinheit für alle TOOLBASE-Systeme. Der 19-Zoll Touchscreen bietet intuitive Bedienung und vollständige Übersicht über alle angeschlossenen Ausgabesysteme. Mit leistungsstarker Prozessor-Hardware und modularer Software-Architektur ist es die Schaltzentrale Ihres Tool-Managements.",
+                specs: [
+                    "19-Zoll Full-HD Touchscreen mit Multi-Touch",
+                    "Zentrale Steuerung für bis zu 50 TOOLBASE-Module",
+                    "Echtzeit-Dashboard mit Live-Bestandsanzeige",
+                    "Benutzerfreundliche grafische Oberfläche",
+                    "ERP/MES/SAP Integration via Standardschnittstellen",
+                    "Remote-Zugriff via Web-Browser",
+                    "Automatische Software-Updates",
+                    "Backup und Disaster-Recovery Funktionen"
+                ]
+            },
+            'toolbase-ev': {
+                title: "TOOLBASE EV Vertikal",
+                tagline: "Das Vertikallager",
+                image: "Produkte/TOOLBASE_EV_vertikalsystem.jpeg",
+                description: "Das TOOLBASE EV Vertikalsystem nutzt die Raumhöhe optimal aus und bietet maximale Lagerkapazität auf minimaler Grundfläche. Mit automatischer Vertikalförderung werden Werkzeuge schnell und ergonomisch zur Entnahmehöhe gebracht. Ideal für Betriebe mit begrenzter Bodenfläche aber verfügbarer Deckenhöhe.",
+                specs: [
+                    "Nutzung der Raumhöhe bis 6 Meter",
+                    "Bis zu 85% Platzersparnis gegenüber Standardschränken",
+                    "Automatische Vertikalförderung zur Entnahmehöhe",
+                    "Ergonomische Bedienung ohne Leiter oder Bücken",
+                    "Modulare Ebenen für verschiedene Werkzeuggrößen",
+                    "Integrierte LED-Beleuchtung jeder Ebene",
+                    "Schnelle Zugriffszeiten unter 20 Sekunden",
+                    "Optional mit Klimatisierung für Präzisionswerkzeuge"
+                ]
+            },
+            'toolbase-ew': {
+                title: "TOOLBASE EW Wägesystem",
+                tagline: "Präzise Bestandserfassung",
+                image: "Produkte/TOOLBASE_EW_waegezellenjpeg.jpeg",
+                description: "Das TOOLBASE EW Wägesystem erfasst Verbrauchsmaterialien und Schüttgut vollautomatisch über hochpräzise Wägezellen. Ohne manuelle Eingabe oder Scanvorgänge werden Bestände in Echtzeit überwacht. Perfekt für Schrauben, Dübel, Kleinteile und alle mengenmäßig erfassbaren Materialien.",
+                specs: [
+                    "Hochpräzise Wägezellen mit 0,1g Genauigkeit",
+                    "Automatische Mengenerfassung ohne Scan oder Eingabe",
+                    "Echtzeit-Bestandsüberwachung",
+                    "Automatische Nachbestellauslösung bei Mindestbestand",
+                    "Bis zu 100 verschiedene Artikel pro System",
+                    "Integration mit ERP für automatische Bestellungen",
+                    "Trendanalyse und Verbrauchsprognosen",
+                    "Reduzierung von Lagerkosten um bis zu 40%"
+                ]
+            }
+        };
+
+        let currentProduct = null;
+        let watchlist = JSON.parse(localStorage.getItem('watchlist_ausgabeschraenke')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWatchlistUI();
+
+            // Check for URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const productParam = urlParams.get('product');
+            if (productParam && products[productParam]) {
+                openModal(productParam);
+            }
+
+            // Add click handlers to product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const productId = this.dataset.product;
+                    openModal(productId);
+                });
+            });
+        });
+
+        function openModal(productId) {
+            currentProduct = productId;
+            const product = products[productId];
+
+            // Set image
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = product.image;
+            modalImage.alt = product.title;
+
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalTagline').textContent = product.tagline;
+            document.getElementById('modalDescription').textContent = product.description;
+
+            const specsList = document.getElementById('modalSpecs');
+            specsList.innerHTML = '';
+            product.specs.forEach(spec => {
+                const li = document.createElement('li');
+                li.textContent = spec;
+                specsList.appendChild(li);
+            });
+
+            // Update button state
+            const addBtn = document.querySelector('.btn-add-to-list');
+            if (watchlist.some(item => item.id === productId)) {
+                addBtn.textContent = '✓ Bereits in Merkliste';
+                addBtn.classList.add('added');
+            } else {
+                addBtn.textContent = 'Zur Merkliste hinzufügen';
+                addBtn.classList.remove('added');
+            }
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentProduct = null;
+        }
+
+        function addToWatchlist() {
+            if (!currentProduct) return;
+
+            const product = products[currentProduct];
+
+            if (!watchlist.some(item => item.id === currentProduct)) {
+                watchlist.push({
+                    id: currentProduct,
+                    title: product.title,
+                    tagline: product.tagline
+                });
+                localStorage.setItem('watchlist_ausgabeschraenke', JSON.stringify(watchlist));
+                updateWatchlistUI();
+
+                // Update button
+                const addBtn = document.querySelector('.btn-add-to-list');
+                addBtn.textContent = '✓ Zur Merkliste hinzugefügt';
+                addBtn.classList.add('added');
+            }
+        }
+
+        function removeFromWatchlist(productId) {
+            watchlist = watchlist.filter(item => item.id !== productId);
+            localStorage.setItem('watchlist_ausgabeschraenke', JSON.stringify(watchlist));
+            updateWatchlistUI();
+        }
+
+        function updateWatchlistUI() {
+            const count = watchlist.length;
+            document.getElementById('watchlistCount').textContent = count;
+
+            const itemsContainer = document.getElementById('watchlistItems');
+            const requestBtn = document.getElementById('requestConsultation');
+
+            if (count === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="watchlist-empty">
+                        <div class="watchlist-empty-icon">🔧</div>
+                        <p>Noch keine Systeme ausgewählt</p>
+                    </div>
+                `;
+                requestBtn.disabled = true;
+            } else {
+                itemsContainer.innerHTML = '';
+                watchlist.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'watchlist-item';
+                    itemEl.innerHTML = `
+                        <div class="watchlist-item-info">
+                            <h3>${item.title}</h3>
+                            <p>${item.tagline}</p>
+                        </div>
+                        <button class="watchlist-item-remove" onclick="removeFromWatchlist('${item.id}')">&times;</button>
+                    `;
+                    itemsContainer.appendChild(itemEl);
+                });
+                requestBtn.disabled = false;
+            }
+        }
+
+        function toggleWatchlist() {
+            document.getElementById('watchlistSidebar').classList.toggle('active');
+        }
+
+        function showContactForm() {
+            toggleWatchlist();
+            document.getElementById('contactSection').classList.add('active');
+            document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                company: document.getElementById('company').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                dataPrivacyConsent: document.getElementById('dataPrivacyCheckbox').checked,
+                requestConsultation: document.getElementById('requestConsultationCheckbox').checked,
+                moreInfo: document.getElementById('moreInfoCheckbox').checked,
+                products: watchlist
+            };
+
+            // Generate PDF
+            generatePDF(formData);
+
+            // Show success message
+            document.getElementById('successMessage').classList.add('active');
+
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                event.target.reset();
+                watchlist = [];
+                localStorage.removeItem('watchlist_ausgabeschraenke');
+                updateWatchlistUI();
+                document.getElementById('successMessage').classList.remove('active');
+            }, 3000);
+        }
+
+        function generatePDF(formData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Color scheme
+            const primaryColor = [22, 160, 133]; // Pöppel Green
+            const secondaryColor = [44, 62, 80];
+            const lightGray = [248, 249, 250];
+
+            // Header with colored background
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, 'F');
+
+            // Company name in header
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont(undefined, 'bold');
+            doc.text('R. Pöppel GmbH & Co. KG', 20, 18);
+
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('Ihre Ausgabeschrank-Auswahl', 20, 30);
+
+            // Date
+            doc.setFontSize(9);
+            doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 150, 30);
+
+            // Customer Info Box
+            doc.setTextColor(...secondaryColor);
+            doc.setFillColor(...lightGray);
+            doc.roundedRect(20, 50, 170, 35, 3, 3, 'F');
+
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            doc.text('Kundendaten:', 25, 58);
+
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(10);
+            doc.text(`${formData.firstName} ${formData.lastName}`, 25, 66);
+            doc.text(formData.company, 25, 72);
+            doc.text(`E-Mail: ${formData.email}`, 25, 78);
+            if (formData.phone) doc.text(`Tel: ${formData.phone}`, 120, 78);
+
+            // Products Section
+            let yPos = 95;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Ausgewählte Systeme', 20, yPos);
+
+            // Line under heading
+            doc.setDrawColor(...primaryColor);
+            doc.setLineWidth(0.5);
+            doc.line(20, yPos + 2, 190, yPos + 2);
+
+            yPos += 12;
+            doc.setTextColor(...secondaryColor);
+
+            formData.products.forEach((item, index) => {
+                const product = products[item.id];
+
+                // Check if we need a new page
+                if (yPos > 220) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                // Product box header
+                doc.setFillColor(250, 250, 250);
+                doc.roundedRect(20, yPos - 5, 170, 22, 2, 2, 'F');
+
+                // Number circle
+                doc.setFillColor(...primaryColor);
+                doc.circle(30, yPos + 5, 5, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(10);
+                doc.text(String(index + 1), 28, yPos + 7);
+
+                // Product info
+                doc.setTextColor(...secondaryColor);
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text(product.title, 42, yPos + 3);
+
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(120, 120, 120);
+                doc.text(product.tagline, 42, yPos + 10);
+
+                yPos += 27;
+
+                // Product description
+                doc.setFontSize(9);
+                doc.setTextColor(...secondaryColor);
+                const descLines = doc.splitTextToSize(product.description, 165);
+                doc.text(descLines, 25, yPos);
+                yPos += (descLines.length * 4) + 5;
+
+                // Technical specs
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...primaryColor);
+                doc.text('Features & Vorteile:', 25, yPos);
+                yPos += 5;
+
+                doc.setFontSize(8);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...secondaryColor);
+
+                product.specs.forEach(spec => {
+                    if (yPos > 250) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    doc.setTextColor(...primaryColor);
+                    doc.text('•', 27, yPos);
+                    doc.setTextColor(...secondaryColor);
+                    const specLines = doc.splitTextToSize(spec, 160);
+                    doc.text(specLines, 33, yPos);
+                    yPos += (specLines.length * 4);
+                });
+
+                yPos += 8;
+            });
+
+            // Message section
+            if (formData.message) {
+                yPos += 5;
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...primaryColor);
+                doc.text('Nachricht:', 20, yPos);
+                yPos += 7;
+
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...secondaryColor);
+                const splitMessage = doc.splitTextToSize(formData.message, 170);
+                doc.text(splitMessage, 20, yPos);
+                yPos += (splitMessage.length * 5) + 10;
+            }
+
+            // Preferences section
+            yPos += 5;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Ihre Anforderungen:', 20, yPos);
+            yPos += 7;
+
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(...secondaryColor);
+
+            if (formData.requestConsultation) {
+                doc.setTextColor(...primaryColor);
+                doc.text('✓', 22, yPos);
+                doc.setTextColor(...secondaryColor);
+                doc.text('Kostenlose Beratung gewünscht', 30, yPos);
+                yPos += 6;
+            }
+            if (formData.moreInfo) {
+                doc.setTextColor(...primaryColor);
+                doc.text('✓', 22, yPos);
+                doc.setTextColor(...secondaryColor);
+                doc.text('Weitere Informationen gewünscht', 30, yPos);
+                yPos += 6;
+            }
+
+            // Footer with company info (on every page)
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFillColor(...primaryColor);
+                doc.rect(0, 270, 210, 27, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'bold');
+                doc.text('R. Pöppel GmbH & Co. KG', 20, 278);
+
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(8);
+                doc.text('Alpenstraße 45 | Industriegebiet Süd | D-87700 Memmingen', 20, 283);
+                doc.text('Tel: 08331 9559-0 | E-Mail: info@poeppel-wkz.de', 20, 288);
+                doc.text('www.poeppel-wkz.de', 160, 288);
+
+                // Page number
+                doc.setFontSize(7);
+                doc.text(`Seite ${i} von ${pageCount}`, 190, 292, { align: 'right' });
+            }
+
+            // Download
+            doc.save(`Ausgabeschraenke-Auswahl-${formData.lastName}.pdf`);
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
