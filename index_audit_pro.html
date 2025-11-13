@@ -881,7 +881,12 @@
             }
 
             const flaechenEinsparung = Math.round(flaeche * flaechenEinsparungProzent);
-            const flaechenKostenEinsparung = Math.round(flaechenEinsparung * mietkosten * 12);
+            let flaechenKostenEinsparung = Math.round(flaechenEinsparung * mietkosten * 12);
+
+            // SAFETY: Cap Flächeneinsparung auf realistische Werte (max 200.000€/Jahr)
+            if (flaechenKostenEinsparung > 200000) {
+                flaechenKostenEinsparung = 200000;
+            }
 
             // 2. Zeiteinsparung durch schnellere Entnahmen (systemabhängig)
             let suchzeitReduktionFaktor = 0.80; // 80% Standard bei Vollautomatisierung
@@ -895,7 +900,12 @@
 
             const suchzeitAltStunden = (picks * suchzeit * arbeitstage) / 60;
             const zeitEinsparungStunden = Math.round(suchzeitAltStunden * suchzeitReduktionFaktor);
-            const zeitKostenEinsparung = Math.round(zeitEinsparungStunden * personalkosten);
+            let zeitKostenEinsparung = Math.round(zeitEinsparungStunden * personalkosten);
+
+            // SAFETY: Cap Zeiteinsparung auf realistische Werte (max 150.000€/Jahr)
+            if (zeitKostenEinsparung > 150000) {
+                zeitKostenEinsparung = 150000;
+            }
 
             // 3. Fehlerreduktion (von X% auf realistisches Ziel)
             // Fehlerkosten branchenabhängig (validiert durch Praxisdaten)
@@ -918,7 +928,12 @@
             const fehlerAlt = picks * arbeitstage * (fehlerquote / 100);
             const fehlerNeu = picks * arbeitstage * zielFehlerquote;
             const fehlerReduktion = Math.round(fehlerAlt - fehlerNeu);
-            const fehlerKosten = Math.round(fehlerReduktion * fehlerKostenProFehler);
+            let fehlerKosten = Math.round(fehlerReduktion * fehlerKostenProFehler);
+
+            // SAFETY: Cap Fehlerkosten auf realistische Werte (max 100.000€/Jahr)
+            if (fehlerKosten > 100000) {
+                fehlerKosten = 100000;
+            }
 
             // 4. NEU: Werkzeugverbrauch-Reduktion durch Zugriffskontrolle (28-35%)
             let werkzeugReduktion = 0;
@@ -938,12 +953,8 @@
                 const prozesskosten = parseFloat(formData.prozesskosten_jahr) || 0;
                 if (prozesskosten > 0) {
                     prozesskostenReduktion = Math.round(prozesskosten * 0.40);
-                } else {
-                    // Fallback: Schätzung basierend auf MA-Anzahl
-                    const mitarbeiter = getMitarbeiterCount(formData.mitarbeiter);
-                    // Ø 2h/Woche pro MA für Bestellung, Warenannahme, Rechnungsprüfung
-                    prozesskostenReduktion = Math.round(mitarbeiter * 2 * 50 * personalkosten * 0.40);
                 }
+                // KEIN automatischer Fallback mehr - nur wenn Nutzer Daten eingibt
             }
 
             // 6. Materialverlust-Reduktion (85% weniger)
@@ -967,10 +978,20 @@
             const notfallKostenEinsparung = notfallReduktion * 200; // Ø 200€ Mehrkosten pro Notfallbestellung
 
             // Gesamt-Einsparung pro Jahr (8 Komponenten)
-            const gesamtEinsparung = flaechenKostenEinsparung + zeitKostenEinsparung +
-                                     werkzeugReduktion + prozesskostenReduktion +
-                                     fehlerKosten + materialverlustReduktion +
-                                     stillstandsKostenEinsparung + notfallKostenEinsparung;
+            let gesamtEinsparung = flaechenKostenEinsparung + zeitKostenEinsparung +
+                                   werkzeugReduktion + prozesskostenReduktion +
+                                   fehlerKosten + materialverlustReduktion +
+                                   stillstandsKostenEinsparung + notfallKostenEinsparung;
+
+            // SAFETY CAP: Einsparungen sollten nicht unrealistisch hoch sein
+            // Max 80% der geschätzten Jahres-Gesamtkosten
+            const mitarbeiter = getMitarbeiterCount(formData.mitarbeiter);
+            const geschaetzteJahreskosten = mitarbeiter * 2000 * personalkosten + flaeche * mietkosten * 12;
+            const maxEinsparung = geschaetzteJahreskosten * 0.80;
+
+            if (gesamtEinsparung > maxEinsparung) {
+                gesamtEinsparung = Math.round(maxEinsparung);
+            }
 
             // Geschätzte Investition (modular basierend auf Bedarf und vorhandenen Systemen)
             let investitionBasis = 0;
