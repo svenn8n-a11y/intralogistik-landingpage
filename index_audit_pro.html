@@ -463,6 +463,33 @@
             .button-group {
                 flex-direction: column;
             }
+
+            /* Mobile Navigation */
+            .header-content {
+                padding: 0.8rem 1rem;
+            }
+
+            .header-logo {
+                height: 40px;
+            }
+
+            .header-nav {
+                gap: 0.5rem;
+            }
+
+            .header-nav a,
+            .back-button {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+                white-space: nowrap;
+            }
+
+            /* Container Mobile Padding */
+            .container {
+                padding-top: 110px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
     </style>
 </head>
@@ -1274,8 +1301,121 @@
             doc.setFontSize(9);
             doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 150, 30);
 
-            // Score Section
-            let yPos = 55;
+            // NEUE SEKTION: Ihre Eingaben/Antworten
+            let yPos = 50;
+            doc.addPage();
+
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Ihre Eingaben im Detail', 20, yPos);
+
+            doc.setDrawColor(...primaryColor);
+            doc.setLineWidth(0.8);
+            doc.line(20, yPos + 3, 190, yPos + 3);
+            yPos += 15;
+
+            // Helper function für Antworten
+            const addAnswer = (question, answer) => {
+                if (yPos > 270) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(100, 100, 100);
+                doc.text(question, 20, yPos);
+                yPos += 5;
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...secondaryColor);
+                const answerText = Array.isArray(answer) ? answer.join(', ') : (answer || 'Keine Angabe');
+                const lines = doc.splitTextToSize(answerText, 170);
+                doc.text(lines, 20, yPos);
+                yPos += (lines.length * 5) + 3;
+            };
+
+            // Unternehmensdaten
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('1. Unternehmensdaten', 20, yPos);
+            yPos += 8;
+
+            addAnswer('Branche', auditResults.formData.branche);
+            addAnswer('Anzahl Mitarbeiter', auditResults.formData.mitarbeiter);
+            addAnswer('Schichtbetrieb', auditResults.formData.schichtbetrieb);
+            yPos += 3;
+
+            // Lager & Logistik
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('2. Lager & Logistik', 20, yPos);
+            yPos += 8;
+
+            addAnswer('Lagerfläche', auditResults.formData.lagerflaeche ? auditResults.formData.lagerflaeche + ' m²' : 'Keine Angabe');
+            addAnswer('Anzahl SKUs (Artikelpositionen)', auditResults.formData.anzahl_skus);
+            addAnswer('Entnahmen pro Tag', auditResults.formData.picks_pro_tag);
+            addAnswer('Aktuelles Lagersystem', auditResults.formData.lagersystem);
+            yPos += 3;
+
+            // Wirtschaftliche Kennzahlen
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('3. Wirtschaftliche Kennzahlen', 20, yPos);
+            yPos += 8;
+
+            addAnswer('Personalkosten pro Stunde', auditResults.formData.personalkosten_stunde ? auditResults.formData.personalkosten_stunde + ' €' : 'Keine Angabe');
+            addAnswer('Miete/Betriebskosten pro m²/Monat', auditResults.formData.mietkosten_qm ? auditResults.formData.mietkosten_qm + ' €' : 'Keine Angabe');
+            addAnswer('Suchzeit pro Entnahme', auditResults.formData.suchzeit_pro_pick ? auditResults.formData.suchzeit_pro_pick + ' Min' : 'Keine Angabe');
+            addAnswer('Fehlerquote bei Kommissionierung', auditResults.formData.fehlerquote ? auditResults.formData.fehlerquote + ' %' : 'Keine Angabe');
+            addAnswer('Notfallbestellungen pro Jahr', auditResults.formData.notfallbestellungen_jahr);
+            addAnswer('Materialverlust pro Jahr', auditResults.formData.materialverlust_jahr ? auditResults.formData.materialverlust_jahr + ' €' : 'Keine Angabe');
+            addAnswer('Maschinenstillstände pro Jahr', auditResults.formData.stillstands_haeufigkeit);
+            addAnswer('Maschinenstundensatz', auditResults.formData.maschinenstundensatz ? auditResults.formData.maschinenstundensatz + ' €/h' : 'Keine Angabe');
+            yPos += 3;
+
+            // Herausforderungen
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('4. Herausforderungen', 20, yPos);
+            yPos += 8;
+
+            addAnswer('Aktuelle Herausforderungen', auditResults.formData.painpoints);
+            yPos += 3;
+
+            // Digitalisierung
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('5. Digitalisierung & Vernetzung', 20, yPos);
+            yPos += 8;
+
+            addAnswer('Lagerverwaltungssystem', auditResults.formData.lagerverwaltung);
+            addAnswer('Nachbestellprozess', auditResults.formData.nachbestellung);
+            addAnswer('Materialentnahme', auditResults.formData.materialentnahme);
+            yPos += 3;
+
+            // Werkzeugverwaltung
+            if (auditResults.toolScore > 30) {
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...primaryColor);
+                doc.text('6. Werkzeugverwaltung', 20, yPos);
+                yPos += 8;
+
+                addAnswer('Anzahl aktiver Werkzeuge', auditResults.formData.werkzeuganzahl);
+                addAnswer('Werkzeugverwaltung aktuell', auditResults.formData.werkzeugverwaltung_aktuell);
+                addAnswer('Werkzeugkosten pro Jahr', auditResults.formData.werkzeugkosten_jahr ? auditResults.formData.werkzeugkosten_jahr + ' €' : 'Keine Angabe');
+                addAnswer('Werkzeugbudget pro Jahr', auditResults.formData.werkzeugbudget_jahr ? auditResults.formData.werkzeugbudget_jahr + ' €' : 'Keine Angabe');
+                addAnswer('Prozesskosten Beschaffung pro Jahr', auditResults.formData.prozesskosten_jahr ? auditResults.formData.prozesskosten_jahr + ' €' : 'Keine Angabe');
+            }
+
+            // Score Section (neue Seite)
+            doc.addPage();
+            yPos = 20;
             doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(...primaryColor);
@@ -1298,35 +1438,6 @@
             doc.text(scoreLabel, 105, yPos + 35, { align: 'center' });
 
             yPos += 50;
-
-            // Company Data Section
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.setTextColor(...primaryColor);
-            doc.text('Ihre Daten', 20, yPos);
-
-            doc.setDrawColor(...primaryColor);
-            doc.setLineWidth(0.5);
-            doc.line(20, yPos + 2, 190, yPos + 2);
-
-            yPos += 10;
-
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.setTextColor(...secondaryColor);
-            doc.text(`Branche: ${auditResults.formData.branche || 'N/A'}`, 25, yPos);
-            yPos += 6;
-            doc.text(`Mitarbeiter: ${auditResults.formData.mitarbeiter || 'N/A'}`, 25, yPos);
-            yPos += 6;
-            doc.text(`Schichtbetrieb: ${auditResults.formData.schichtbetrieb || 'N/A'}`, 25, yPos);
-            yPos += 6;
-            doc.text(`Lagerfläche: ${auditResults.formData.lagerflaeche || 'N/A'} m²`, 25, yPos);
-            yPos += 6;
-            doc.text(`SKUs: ${auditResults.formData.anzahl_skus || 'N/A'}`, 25, yPos);
-            yPos += 6;
-            doc.text(`Picks/Tag: ${auditResults.formData.picks_pro_tag || 'N/A'}`, 25, yPos);
-
-            yPos += 12;
 
             // Metrics Section
             doc.setFontSize(14);
