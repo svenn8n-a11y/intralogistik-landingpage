@@ -190,6 +190,82 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(22, 160, 133, 0.98) 0%,
+                rgba(38, 99, 99, 0.98) 50%,
+                rgba(84, 179, 153, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 9998;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu a,
+        .mobile-menu button {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateX(5px);
+        }
+
         /* Hero Section with Video Background Effect */
         .hero {
             margin-top: 70px;
@@ -297,6 +373,7 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.75rem;
         }
 
@@ -1718,6 +1795,20 @@
             </button>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav>
+            <a href="#solutions" onclick="closeMobileMenu()">Lösungen</a>
+            <a href="vertikalliftsysteme.html">Lagersysteme</a>
+            <a href="#stats" onclick="closeMobileMenu()">Ergebnisse</a>
+            <a href="#process" onclick="closeMobileMenu()">Prozess</a>
+            <a href="#social-proof" onclick="closeMobileMenu()">Referenzen</a>
+            <button onclick="closeMobileMenu(); document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'})">
+                Kontakt
+            </button>
+        </nav>
+    </div>
 
     <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -3336,12 +3427,32 @@
             }
         }, { passive: true });
 
-        // Mobile menu toggle (placeholder for future implementation)
+        // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function toggleMobileMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', () => {
-                // TODO: Implement mobile menu
-                console.log('Mobile menu toggle clicked');
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Close mobile menu when clicking outside
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    closeMobileMenu();
+                }
             });
         }
 
