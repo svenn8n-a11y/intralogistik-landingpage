@@ -399,6 +399,10 @@ Per FTP alle Dateien auf Webserver hochladen:
 
 ## 📝 Changelog
 
+### Version 2.3.2 (Januar 2025)
+- 🐛 **Scroll-Animation Timing-Fix**: setTimeout-Array verhindert Konflikte bei schnellem Richtungswechsel
+- 📱 **Mobile Logo**: Verkleinert von 40px auf 32px für einheitliches Design
+
 ### Version 2.3.1 (Januar 2025)
 - 🐛 **Scroll-Animation Fix**: Rückwärts-Schleife beim Hochscrollen - letzte Kachel verschwindet zuerst
 - 📄 **PDF-Layout**: Leerzeile zwischen Produktname und Kategorie (keine Überschneidung mehr)
