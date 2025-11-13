@@ -16,10 +16,32 @@ Thumbs.db
 *.tmp
 *.temp
 
-# Large video files (original, uncompressed)
-Modula video.mov
+# Large video files (hosted on YouTube/CDN, not in Git)
+Videos /
+*.mp4
 *.mov
+*.avi
+*.mkv
 
-# Compressed videos are OK to track
+# Large PDF files (to be hosted separately)
+Produkte/*.pdf
+Produkte/*.zip
+
+# Test/Download PDFs (user-generated)
+download PDF/
+
+# Research files (not for production)
+Recherche und Berechnungen /
+Webbasiertes_ROI_TOOL/
+
+# Test/Progress files
+progressbar/
+
+# Background images (use optimized versions in production)
+Hintergrundbilder Intralogistik/
+
+# Compressed/optimized videos and images are OK to track
 !*-compressed.mp4
 !*-compressed.webm
+!*-optimized.png
+!*-optimized.jpg
