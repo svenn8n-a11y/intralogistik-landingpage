@@ -296,10 +296,11 @@
 
         .modal-image {
             width: 100%;
-            max-width: 300px;
+            max-width: 220px;
             height: auto;
             border-radius: 16px;
             margin: 0 auto 2rem;
+            object-fit: contain;
             display: block;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
@@ -1175,9 +1176,9 @@
                 <p>Noch keine Systeme ausgewählt</p>
             </div>
         </div>
-        <button class="watchlist-action" onclick="showContactForm()" id="requestConsultation" disabled>
-            Merkliste herunterladen
-        </button>
+        <a href="merkzettel.html" class="watchlist-action" id="requestConsultation" style="text-align: center; text-decoration: none; display: block;">
+            Merkzettel anzeigen
+        </a>
     </div>
 
     <!-- Contact Form -->
@@ -1464,7 +1465,7 @@
         };
 
         let currentProduct = null;
-        let watchlist = JSON.parse(localStorage.getItem('watchlist_ausgabeschraenke')) || [];
+        let watchlist = JSON.parse(localStorage.getItem('merkzettel')) || [];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1509,7 +1510,7 @@
 
             // Update button state
             const addBtn = document.querySelector('.btn-add-to-list');
-            if (watchlist.some(item => item.id === productId)) {
+            if (watchlist.some(item => item.id === 'ausgabe_' + productId)) {
                 addBtn.textContent = '✓ Bereits in Merkliste';
                 addBtn.classList.add('added');
             } else {
@@ -1532,13 +1533,15 @@
 
             const product = products[currentProduct];
 
-            if (!watchlist.some(item => item.id === currentProduct)) {
+            if (!watchlist.some(item => item.id === 'ausgabe_' + currentProduct)) {
                 watchlist.push({
-                    id: currentProduct,
-                    title: product.title,
-                    tagline: product.tagline
+                    id: 'ausgabe_' + currentProduct,
+                    name: product.title,
+                    category: 'Ausgabeschränke',
+                    image: product.image,
+                    specs: product.specs
                 });
-                localStorage.setItem('watchlist_ausgabeschraenke', JSON.stringify(watchlist));
+                localStorage.setItem('merkzettel', JSON.stringify(watchlist));
                 updateWatchlistUI();
 
                 // Update button
@@ -1550,7 +1553,7 @@
 
         function removeFromWatchlist(productId) {
             watchlist = watchlist.filter(item => item.id !== productId);
-            localStorage.setItem('watchlist_ausgabeschraenke', JSON.stringify(watchlist));
+            localStorage.setItem('merkzettel', JSON.stringify(watchlist));
             updateWatchlistUI();
         }
 
@@ -1568,22 +1571,26 @@
                         <p>Noch keine Systeme ausgewählt</p>
                     </div>
                 `;
-                requestBtn.disabled = true;
+                requestBtn.style.opacity = '0.5';
+                requestBtn.style.pointerEvents = 'none';
             } else {
                 itemsContainer.innerHTML = '';
                 watchlist.forEach(item => {
                     const itemEl = document.createElement('div');
                     itemEl.className = 'watchlist-item';
+                    const displayName = item.name || item.title || 'Produkt';
+                    const displayCategory = item.category || 'Ausgabeschränke';
                     itemEl.innerHTML = `
                         <div class="watchlist-item-info">
-                            <h3>${item.title}</h3>
-                            <p>${item.tagline}</p>
+                            <h3>${displayName}</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">${displayCategory}</p>
                         </div>
                         <button class="watchlist-item-remove" onclick="removeFromWatchlist('${item.id}')">&times;</button>
                     `;
                     itemsContainer.appendChild(itemEl);
                 });
-                requestBtn.disabled = false;
+                requestBtn.style.opacity = '1';
+                requestBtn.style.pointerEvents = 'auto';
             }
         }
 
@@ -1623,7 +1630,7 @@
             setTimeout(() => {
                 event.target.reset();
                 watchlist = [];
-                localStorage.removeItem('watchlist_ausgabeschraenke');
+                localStorage.removeItem('merkzettel');
                 updateWatchlistUI();
                 document.getElementById('successMessage').classList.remove('active');
             }, 3000);
