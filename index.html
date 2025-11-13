@@ -1213,29 +1213,19 @@
             margin-bottom: 3rem;
             position: relative;
             opacity: 0;
-            transform: translateY(60px);
+            transform: translateX(100px);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
                         transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .timeline-item.animated {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 31px;
-            top: 64px;
-            bottom: -48px;
-            width: 2px;
-            background: var(--primary);
-            opacity: 0.3;
-        }
-
-        .timeline-item:last-child::before {
-            display: none;
+        .timeline-item.slide-out {
+            opacity: 0;
+            transform: translateX(100px);
         }
 
         .timeline-number {
@@ -1254,14 +1244,33 @@
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Desktop: Nummer außerhalb */
+        @media (min-width: 769px) {
+            .timeline-item {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: 31px;
+                top: 64px;
+                bottom: -48px;
+                width: 2px;
+                background: var(--primary);
+                opacity: 0.3;
+            }
+        }
+
         .timeline-item:not(.animated) .timeline-number {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateX(40px);
         }
 
         .timeline-item.animated .timeline-number {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
 
         .timeline-content {
@@ -1283,12 +1292,12 @@
 
         .timeline-item:not(.animated) .timeline-content {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateX(60px);
         }
 
         .timeline-item.animated .timeline-content {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
 
         .timeline-title {
@@ -1702,6 +1711,39 @@
             }
 
             .modular-text {
+                font-size: 0.95rem;
+            }
+
+            /* Process Timeline Mobile - Zahlenstrahl entfernen, Kreise in Karten */
+            .timeline-item {
+                display: block;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-item::before {
+                display: none; /* Zahlenstrahl entfernen */
+            }
+
+            .timeline-number {
+                position: absolute;
+                top: 1.5rem;
+                left: 1.5rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+                z-index: 1;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+                padding-top: 5rem; /* Platz für den Kreis */
+            }
+
+            .timeline-title {
+                font-size: 1.25rem;
+            }
+
+            .timeline-description {
                 font-size: 0.95rem;
             }
 
@@ -2679,40 +2721,40 @@
 
         <div class="process-timeline">
             <div class="timeline-item">
-                <div class="timeline-number">1</div>
                 <div class="timeline-content">
+                    <div class="timeline-number">1</div>
                     <h4 class="timeline-title">Kostenfreie Analyse</h4>
                     <p class="timeline-description">Wir analysieren Ihre aktuelle Situation, erfassen Ihre Anforderungen und identifizieren Optimierungspotenziale. Nutzen Sie unser <a href="index_audit_pro.html" class="timeline-link">Online-Audit-Tool</a> oder vereinbaren Sie ein <a href="#contactForm" class="timeline-link" onclick="event.preventDefault(); document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'});">Erstgespräch</a>.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-number">2</div>
                 <div class="timeline-content">
+                    <div class="timeline-number">2</div>
                     <h4 class="timeline-title">Maßgeschneidertes Konzept</h4>
                     <p class="timeline-description">Basierend auf Ihren Bedürfnissen entwickeln wir ein individuelles Konzept. Wir zeigen Ihnen konkrete Lösungen von Modula, E/D/E, Precitool und weiteren Partnern – modular und erweiterbar.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-number">3</div>
                 <div class="timeline-content">
+                    <div class="timeline-number">3</div>
                     <h4 class="timeline-title">ROI-Kalkulation</h4>
                     <p class="timeline-description">Sie erhalten eine detaillierte Wirtschaftlichkeitsberechnung mit konkreten Einsparpotenzialen, Investitionskosten und realistischer Amortisationszeit.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-number">4</div>
                 <div class="timeline-content">
+                    <div class="timeline-number">4</div>
                     <h4 class="timeline-title">Professionelle Umsetzung</h4>
                     <p class="timeline-description">Unsere Experten koordinieren Installation, Integration und Inbetriebnahme. Wir garantieren reibungslose Abläufe und minimale Ausfallzeiten.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-number">5</div>
                 <div class="timeline-content">
+                    <div class="timeline-number">5</div>
                     <h4 class="timeline-title">Langfristige Partnerschaft</h4>
                     <p class="timeline-description">Service, Wartung und kontinuierliche Optimierung. Wir begleiten Sie langfristig und sorgen dafür, dass Ihr System mit Ihren Anforderungen mitwächst.</p>
                 </div>
