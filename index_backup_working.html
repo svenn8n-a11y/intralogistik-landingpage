@@ -2923,43 +2923,16 @@
             <p class="section-subtitle">Vereinbaren Sie ein kostenloses Beratungsgespräch mit unseren Intralogistik-Experten</p>
         </div>
 
-        <div class="contact-form" id="contactForm">
-                <form onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label class="form-label">Firma *</label>
-                        <input type="text" class="form-control" required placeholder="Ihr Firmenname">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Ansprechpartner *</label>
-                        <input type="text" class="form-control" required placeholder="Vor- und Nachname">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">E-Mail *</label>
-                        <input type="email" class="form-control" required placeholder="ihre@email.de">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Telefon *</label>
-                        <input type="tel" class="form-control" required placeholder="+49 ...">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Ihre größte Herausforderung</label>
-                        <select class="form-control">
-                            <option>Platzmangel</option>
-                            <option>Hohe Kosten</option>
-                            <option>Lange Suchzeiten</option>
-                            <option>Fehlende Digitalisierung</option>
-                            <option>Produktionsstillstände</option>
-                            <option>Sonstiges</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="submit-button">Kostenfreie Beratung anfordern</button>
-                </form>
+        <div class="contact-form typeform-widget" id="contactForm" style="width: 100%; height: 650px; max-width: 800px; margin: 0 auto;">
+                <div data-tf-widget="lLdYgrOJ"
+                     data-tf-opacity="100"
+                     data-tf-hide-headers
+                     data-tf-hide-footer
+                     data-tf-iframe-props="title=Kontaktformular Pöppel Intralogistik"
+                     style="width:100%;height:100%;">
+                </div>
             </div>
+            <script src="//embed.typeform.com/next/embed.js"></script>
     </section>
 
     <!-- ========================================
@@ -3137,10 +3110,7 @@
         // EVENT HANDLERS
         // ========================================
 
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Vielen Dank für Ihre Anfrage! Wir melden uns innerhalb von 24 Stunden bei Ihnen.');
-        }
+        // Kontaktformular wird jetzt von Typeform gehandhabt
 
         // Scroll Progress Bar
         window.addEventListener('scroll', () => {

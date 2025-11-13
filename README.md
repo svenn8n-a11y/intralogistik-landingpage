@@ -399,6 +399,12 @@ Per FTP alle Dateien auf Webserver hochladen:
 
 ## 📝 Changelog
 
+### Version 2.3.3 (Januar 2025)
+- 📧 **Typeform Integration**: Professionelles Kontaktformular mit direkter E-Mail-Weiterleitung
+  - Eingebettetes Widget für nahtlose Benutzererfahrung
+  - DSGVO-konform und zuverlässig
+  - Alle Anfragen landen direkt im Typeform-Dashboard
+
 ### Version 2.3.2 (Januar 2025)
 - 🐛 **Scroll-Animation Timing-Fix**: setTimeout-Array verhindert Konflikte bei schnellem Richtungswechsel
 - 📱 **Mobile Logo**: Verkleinert von 40px auf 32px für einheitliches Design
