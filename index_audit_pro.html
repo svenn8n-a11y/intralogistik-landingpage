@@ -609,7 +609,9 @@
                     { name: "suchzeit_pro_pick", label: "Durchschnittliche Suchzeit pro Entnahme (Minuten)", type: "number" },
                     { name: "fehlerquote", label: "Geschätzte Fehlerquote bei Kommissionierung (%)", type: "number" },
                     { name: "notfallbestellungen_jahr", label: "Notfall-/Eilbestellungen pro Jahr", type: "number" },
-                    { name: "materialverlust_jahr", label: "Geschätzter Materialverlust pro Jahr (€)", type: "number" }
+                    { name: "materialverlust_jahr", label: "Geschätzter Materialverlust pro Jahr (€)", type: "number" },
+                    { name: "stillstands_haeufigkeit", label: "Maschinenstillstände pro Jahr durch fehlende Werkzeuge/Materialien (optional)", type: "number", help: "Wie oft stehen Maschinen still, weil Werkzeuge oder Materialien fehlen?" },
+                    { name: "maschinenstundensatz", label: "Maschinenstundensatz bei Stillstand (€/h, optional)", type: "number", help: "Kosten eines Maschinenstillstands pro Stunde (inkl. Personal, Auftragsverzögerung). Typisch: 1.000-5.000€/h" }
                 ]
             },
             {
@@ -655,6 +657,8 @@
                     { name: "werkzeugverwaltung_aktuell", label: "Aktuelle Werkzeugverwaltung", type: "select", options: ["Keine systematische Verwaltung", "Excel/Papier", "Einfaches Ausgabesystem", "Elektronischer Schrank ohne Tracking", "Vollautomatisches System mit WMS"] },
                     { name: "werkzeugprobleme", label: "Herausforderungen bei Werkzeugen", type: "checkbox", options: ["Werkzeugverlust/Schwund", "Lange Suchzeiten", "Keine Zugriffskontrolle", "Fehlende Inventur", "Keine Verbrauchsübersicht", "Ungeplante Nachbestellungen"] },
                     { name: "werkzeugkosten_jahr", label: "Geschätzte Werkzeugkosten pro Jahr (€)", type: "number" },
+                    { name: "werkzeugbudget_jahr", label: "Jährliches Werkzeugbudget inkl. Verbrauchsmaterial (€, optional)", type: "number", help: "Gesamtausgaben für Werkzeuge, Kleinteile, Verbrauchsmaterial pro Jahr" },
+                    { name: "prozesskosten_jahr", label: "Jährliche Beschaffungs-Prozesskosten (€, optional)", type: "number", help: "Zeitaufwand für Bestellung, Warenannahme, Rechnungsprüfung (falls bekannt)" },
                     { name: "mitarbeiter_werkzeugzugriff", label: "Mitarbeiter mit Werkzeugzugriff", type: "number" }
                 ]
             }
@@ -675,7 +679,10 @@
             step.fields.forEach(field => {
                 html += `<div class="form-group">`;
                 html += `<label class="form-label">${field.label}</label>`;
-                
+                if (field.help) {
+                    html += `<div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">${field.help}</div>`;
+                }
+
                 if (field.type === 'select') {
                     html += `<select class="form-control" id="${field.name}">`;
                     field.options.forEach(opt => {
@@ -696,7 +703,7 @@
                     });
                     html += `</div>`;
                 }
-                
+
                 html += `</div>`;
             });
             
@@ -748,6 +755,17 @@
                     }
                 }
             });
+        }
+
+        function getMitarbeiterCount(mitarbeiterRange) {
+            // Konvertiert Mitarbeiter-Range in numerischen Wert (Mittelwert)
+            if (!mitarbeiterRange) return 35; // Default
+            if (mitarbeiterRange === '1-20') return 10;
+            if (mitarbeiterRange === '21-50') return 35;
+            if (mitarbeiterRange === '51-100') return 75;
+            if (mitarbeiterRange === '101-250') return 175;
+            if (mitarbeiterRange === 'über 250') return 350;
+            return 35;
         }
 
         function calculateScore() {
@@ -865,10 +883,18 @@
             const flaechenEinsparung = Math.round(flaeche * flaechenEinsparungProzent);
             const flaechenKostenEinsparung = Math.round(flaechenEinsparung * mietkosten * 12);
 
-            // 2. Zeiteinsparung durch schnellere Entnahmen
+            // 2. Zeiteinsparung durch schnellere Entnahmen (systemabhängig)
+            let suchzeitReduktionFaktor = 0.80; // 80% Standard bei Vollautomatisierung
+
+            // Wenn bereits moderne Systeme: geringere Verbesserung
+            if (formData.lagersystem && formData.lagersystem.includes('Hochregallager')) {
+                suchzeitReduktionFaktor = 0.40; // Nur noch 40% Verbesserung möglich
+            } else if (formData.lagersystem && formData.lagersystem.includes('Vertikallift/Karussell')) {
+                suchzeitReduktionFaktor = 0.30; // Nur noch 30% Verbesserung möglich
+            }
+
             const suchzeitAltStunden = (picks * suchzeit * arbeitstage) / 60;
-            const suchzeitNeuStunden = suchzeitAltStunden * 0.2; // 80% Reduktion
-            const zeitEinsparungStunden = Math.round(suchzeitAltStunden - suchzeitNeuStunden);
+            const zeitEinsparungStunden = Math.round(suchzeitAltStunden * suchzeitReduktionFaktor);
             const zeitKostenEinsparung = Math.round(zeitEinsparungStunden * personalkosten);
 
             // 3. Fehlerreduktion (von X% auf realistisches Ziel)
@@ -894,20 +920,59 @@
             const fehlerReduktion = Math.round(fehlerAlt - fehlerNeu);
             const fehlerKosten = Math.round(fehlerReduktion * fehlerKostenProFehler);
 
-            // 4. Materialverlust-Reduktion (85% weniger)
+            // 4. NEU: Werkzeugverbrauch-Reduktion durch Zugriffskontrolle (28-35%)
+            let werkzeugReduktion = 0;
+            const toolScore = calculateToolManagementScore();
+            if (toolScore > 60) { // Nur wenn Ausgabesystem relevant
+                const werkzeugbudget = parseFloat(formData.werkzeugbudget_jahr) || 0;
+                if (werkzeugbudget > 0) {
+                    // 28% konservativ, 35% bei hohem Tool-Score
+                    const reduktionProzent = toolScore > 80 ? 0.35 : 0.28;
+                    werkzeugReduktion = Math.round(werkzeugbudget * reduktionProzent);
+                }
+            }
+
+            // 5. NEU: Prozesskosten-Reduktion (40%)
+            let prozesskostenReduktion = 0;
+            if (toolScore > 60) {
+                const prozesskosten = parseFloat(formData.prozesskosten_jahr) || 0;
+                if (prozesskosten > 0) {
+                    prozesskostenReduktion = Math.round(prozesskosten * 0.40);
+                } else {
+                    // Fallback: Schätzung basierend auf MA-Anzahl
+                    const mitarbeiter = getMitarbeiterCount(formData.mitarbeiter);
+                    // Ø 2h/Woche pro MA für Bestellung, Warenannahme, Rechnungsprüfung
+                    prozesskostenReduktion = Math.round(mitarbeiter * 2 * 50 * personalkosten * 0.40);
+                }
+            }
+
+            // 6. Materialverlust-Reduktion (85% weniger)
             const materialverlustReduktion = Math.round(materialverlust * 0.85);
 
-            // 5. Notfallbestellungen reduzieren (70% weniger)
+            // 7. VERBESSERT: Stillstands-Vermeidung mit Maschinenstundensatz
+            let stillstandsKostenEinsparung = 0;
+            const stillstandsHaeufigkeit = parseInt(formData.stillstands_haeufigkeit) || 0;
+            if (stillstandsHaeufigkeit > 0) {
+                const maschinenKostenProStunde = parseFloat(formData.maschinenstundensatz) || 1000;
+                const durchschnittlicheDauer = 4; // Stunden pro Stillstand
+                const vermeidungsRate = 0.70; // 70% Reduktion durch bessere Verfügbarkeit
+
+                stillstandsKostenEinsparung = Math.round(
+                    stillstandsHaeufigkeit * durchschnittlicheDauer * maschinenKostenProStunde * vermeidungsRate
+                );
+            }
+
+            // 8. Notfallbestellungen reduzieren (70% weniger)
             const notfallReduktion = Math.round(notfallbestellungen * 0.7);
             const notfallKostenEinsparung = notfallReduktion * 200; // Ø 200€ Mehrkosten pro Notfallbestellung
 
-            // Gesamt-Einsparung pro Jahr
+            // Gesamt-Einsparung pro Jahr (8 Komponenten)
             const gesamtEinsparung = flaechenKostenEinsparung + zeitKostenEinsparung +
-                                     fehlerKosten + materialverlustReduktion + notfallKostenEinsparung;
+                                     werkzeugReduktion + prozesskostenReduktion +
+                                     fehlerKosten + materialverlustReduktion +
+                                     stillstandsKostenEinsparung + notfallKostenEinsparung;
 
             // Geschätzte Investition (modular basierend auf Bedarf und vorhandenen Systemen)
-            const score = calculateScore();
-            const toolScore = calculateToolManagementScore();
             let investitionBasis = 0;
 
             // Vertikallift nur kalkulieren, wenn nicht schon vorhanden und sinnvoll
@@ -939,20 +1004,91 @@
 
             const amortisationJahre = (investitionBasis / gesamtEinsparung).toFixed(1);
 
+            // Erweiterte ROI-Metriken
+            const roiProzent = Math.round((gesamtEinsparung * 5 - investitionBasis) / investitionBasis * 100);
+            const nettoGewinn5Jahre = Math.round(gesamtEinsparung * 5 - investitionBasis);
+            const paybackMonate = Math.round(amortisationJahre * 12);
+
             return {
                 flaechenEinsparung,
                 flaechenKostenEinsparung,
                 zeitEinsparungStunden,
                 zeitKostenEinsparung,
+                werkzeugReduktion,
+                prozesskostenReduktion,
                 fehlerReduktion,
                 fehlerKosten,
                 materialverlustReduktion,
+                stillstandsKostenEinsparung,
                 notfallReduktion,
                 notfallKostenEinsparung,
                 gesamtEinsparung,
                 investitionBasis,
-                amortisationJahre
+                amortisationJahre,
+                roiProzent,
+                nettoGewinn5Jahre,
+                paybackMonate
             };
+        }
+
+        function validatePlausibility(formData, roi) {
+            const warnings = [];
+            const toolScore = calculateToolManagementScore();
+
+            // 1. Pick-Dichte prüfen
+            const flaeche = parseFloat(formData.lagerflaeche) || 0;
+            const picks = parseInt(formData.picks_pro_tag) || 0;
+            if (flaeche > 0 && picks > 0) {
+                const pickDichte = picks / flaeche;
+                if (pickDichte < 0.5) {
+                    warnings.push({
+                        level: 'info',
+                        title: 'Niedrige Pick-Dichte',
+                        description: `Nur ${pickDichte.toFixed(2)} Picks/m². Bei geringer Aktivität könnte eine Teilautomatisierung ausreichend sein.`
+                    });
+                }
+                if (pickDichte > 10) {
+                    warnings.push({
+                        level: 'warning',
+                        title: 'Sehr hohe Pick-Dichte',
+                        description: `${pickDichte.toFixed(1)} Picks/m² ist sehr hoch. Prüfen Sie, ob die Lagerfläche korrekt angegeben wurde.`
+                    });
+                }
+            }
+
+            // 2. Einsparungen vs. geschätzte Gesamtkosten
+            const mitarbeiter = getMitarbeiterCount(formData.mitarbeiter);
+            const personalkosten = parseFloat(formData.personalkosten_stunde) || 35;
+            const mietkosten = parseFloat(formData.mietkosten_qm) || 6;
+            const geschaetzteGesamtkosten = mitarbeiter * 2000 * personalkosten + flaeche * mietkosten * 12;
+
+            if (roi.gesamtEinsparung > geschaetzteGesamtkosten * 0.80) {
+                warnings.push({
+                    level: 'warning',
+                    title: 'Unrealistisch hohe Einsparungen',
+                    description: `Die berechneten Einsparungen (${roi.gesamtEinsparung.toLocaleString('de-DE')}€) übersteigen 80% der geschätzten Gesamtkosten. Prüfen Sie Ihre Eingaben auf Plausibilität.`
+                });
+            }
+
+            // 3. Investition vs. Unternehmensgröße
+            if (formData.mitarbeiter === '1-20' && roi.investitionBasis > 100000) {
+                warnings.push({
+                    level: 'info',
+                    title: 'Hohe Investition für Unternehmensgröße',
+                    description: 'Die empfohlene Investition ist für Ihre Unternehmensgröße beträchtlich. Erwägen Sie eine schrittweise Implementierung.'
+                });
+            }
+
+            // 4. Fehlende kritische Daten
+            if (!formData.werkzeugbudget_jahr && toolScore > 70) {
+                warnings.push({
+                    level: 'info',
+                    title: 'Werkzeugbudget nicht angegeben',
+                    description: 'Für genauere Berechnungen geben Sie Ihr jährliches Werkzeugbudget an. Die Einsparungen könnten höher sein.'
+                });
+            }
+
+            return warnings;
         }
 
         function showResults() {
@@ -990,13 +1126,14 @@
             
             // Metrics
             const metrics = [
-                { label: 'Flächeneinsparung', value: `~${roi.flaechenEinsparung} m²` },
                 { label: 'Gesamteinsparung/Jahr', value: `~${roi.gesamtEinsparung.toLocaleString('de-DE')} €` },
-                { label: 'Zeiteinsparung/Jahr', value: `~${roi.zeitEinsparungStunden.toLocaleString('de-DE')} h` },
-                { label: 'Fehlerreduktion/Jahr', value: `~${roi.fehlerReduktion} Fehler` },
-                { label: 'Werkzeug-Management Score', value: `${toolScore}/100` },
+                { label: 'ROI über 5 Jahre', value: `${roi.roiProzent}%` },
+                { label: 'Nettogewinn 5 Jahre', value: `${roi.nettoGewinn5Jahre.toLocaleString('de-DE')} €` },
+                { label: 'Payback-Periode', value: `${roi.paybackMonate} Monate` },
                 { label: 'Geschätzte Investition', value: `~${roi.investitionBasis.toLocaleString('de-DE')} €` },
-                { label: 'Amortisation', value: `~${roi.amortisationJahre} Jahre` }
+                { label: 'Flächeneinsparung', value: `~${roi.flaechenEinsparung} m²` },
+                { label: 'Zeiteinsparung/Jahr', value: `~${roi.zeitEinsparungStunden.toLocaleString('de-DE')} h` },
+                { label: 'Werkzeug-Management Score', value: `${toolScore}/100` }
             ];
             
             document.getElementById('metricsGrid').innerHTML = metrics.map(m => `
@@ -1027,10 +1164,14 @@
             if (formData.lagersystem && formData.lagersystem.some(sys => ['Offene Regale', 'Fachbodenregale'].includes(sys))) {
                 problems.push({ level: 'warning', title: 'Veraltete Lagertechnik', description: 'Offene Regale und Fachbodenregale bieten keine Zugriffskontrolle, erschweren die Bestandsführung und verschwenden Fläche. Moderne Systeme bieten bis zu 85% Platzeinsparung.' });
             }
+
+            // Plausibilitätsprüfungen hinzufügen
+            const plausibilityWarnings = validatePlausibility(formData, roi);
+            problems.push(...plausibilityWarnings);
             
             document.getElementById('problemsContainer').innerHTML = problems.map(p => `
                 <div class="problem-item">
-                    <span class="problem-badge badge-${p.level}">${p.level === 'critical' ? 'Kritisch' : 'Warnung'}</span>
+                    <span class="problem-badge badge-${p.level}">${p.level === 'critical' ? 'Kritisch' : (p.level === 'warning' ? 'Warnung' : 'Info')}</span>
                     <div class="problem-text">
                         <div class="problem-title">${p.title}</div>
                         <div class="problem-description">${p.description}</div>
