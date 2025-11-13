@@ -3291,29 +3291,35 @@
             modularCardsObserver.observe(modularGrid);
         }
 
-        // Special observer for timeline items with staggered animation
-        const timelineObserver = new IntersectionObserver((entries) => {
+        // Scroll-based animation for timeline items - slides in/out individually
+        const timelineItemObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const timelineItems = entry.target.querySelectorAll('.timeline-item');
-                    console.log('Timeline in view, found items:', timelineItems.length);
-                    timelineItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.add('animated');
-                            console.log('Animated timeline item', index);
-                        }, index * 150); // Stagger by 150ms
-                    });
-                    timelineObserver.unobserve(entry.target);
+                    // Slide in from right
+                    entry.target.classList.add('animated');
+                    entry.target.classList.remove('slide-out');
+                } else {
+                    // Slide out to right when scrolling back up
+                    entry.target.classList.remove('animated');
+                    entry.target.classList.add('slide-out');
                 }
             });
-        }, { threshold: 0.05 });
+        }, {
+            threshold: 0.2,  // Trigger when 20% visible
+            rootMargin: '-50px 0px -50px 0px'  // Add some offset for smoother trigger
+        });
 
-        const processTimeline = document.querySelector('.process-timeline');
-        if (processTimeline) {
-            console.log('Process timeline found, observing...');
-            timelineObserver.observe(processTimeline);
+        // Observe each timeline item individually
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        if (timelineItems.length > 0) {
+            console.log('Timeline items found:', timelineItems.length);
+            timelineItems.forEach((item, index) => {
+                // Add slight delay for staggered effect
+                item.style.transitionDelay = `${index * 0.1}s`;
+                timelineItemObserver.observe(item);
+            });
         } else {
-            console.error('Process timeline NOT found!');
+            console.error('Timeline items NOT found!');
         }
 
         // Counter Animation for Stats

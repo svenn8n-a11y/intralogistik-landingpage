@@ -486,28 +486,28 @@
                 return;
             }
 
-            let yPos = 20;
+            let yPos = 30;
 
-            // Titel
-            doc.setFontSize(18);
+            // Titel - größer und prominenter
+            doc.setFontSize(22);
             doc.setTextColor(0, 0, 0);
             doc.setFont(undefined, 'bold');
             doc.text('Ihre Produktauswahl', 20, yPos);
-            yPos += 15;
+            yPos += 20;
 
-            // R. Pöppel GmbH & Co.KG
+            // Firmendaten
             doc.setFontSize(11);
             doc.setFont(undefined, 'normal');
             doc.text('R. Pöppel GmbH & Co.KG', 20, yPos);
             yPos += 7;
             doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 20, yPos);
-            yPos += 15;
+            yPos += 20;
 
             // Überschrift "Ausgewählte Systeme:"
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Ausgewählte Systeme:', 20, yPos);
-            yPos += 10;
+            yPos += 12;
 
             // Gruppiere nach Kategorie
             const categories = {
@@ -523,15 +523,15 @@
 
             let productNumber = 1;
 
-            // Zeige alle Produkte durchnummeriert (ohne Kategorie-Überschrift)
+            // Zeige alle Produkte durchnummeriert
             Object.keys(categories).forEach(category => {
                 const categoryItems = categories[category];
 
                 categoryItems.forEach(item => {
                     // Seitenumbruch wenn nötig
-                    if (yPos > 260) {
+                    if (yPos > 250) {
                         doc.addPage();
-                        yPos = 20;
+                        yPos = 30;
                     }
 
                     // Produktnummer und Name
@@ -539,33 +539,27 @@
                     doc.setFont(undefined, 'bold');
                     doc.setTextColor(0, 0, 0);
                     doc.text(`${productNumber}. ${item.name}`, 20, yPos);
-                    yPos += 6;
+                    yPos += 7;
 
-                    // Kategorie als Untertitel
-                    doc.setFontSize(10);
+                    // Kategorie/Tagline als Untertitel
+                    doc.setFontSize(11);
                     doc.setFont(undefined, 'normal');
-                    doc.setTextColor(80, 80, 80);
+                    doc.setTextColor(60, 60, 60);
                     doc.text(category, 20, yPos);
-                    yPos += 10;
+                    yPos += 12; // Mehr Abstand zwischen Produkten
 
                     productNumber++;
                 });
             });
 
-            yPos += 10;
+            yPos += 5;
 
-            // Footer ganz unten
-            if (yPos > 260) {
-                doc.addPage();
-                yPos = 270;
-            } else {
-                yPos = 270;
-            }
-
-            doc.setFontSize(10);
+            // Footer ganz unten auf letzter Seite
+            const finalYPos = 280;
+            doc.setFontSize(11);
             doc.setFont(undefined, 'normal');
             doc.setTextColor(0, 0, 0);
-            doc.text('Pöppel Intralogistik - Ihr Partner für Lagerlösungen', 20, yPos);
+            doc.text('Pöppel Intralogistik - Ihr Partner für Lagerlösungen', 20, finalYPos);
 
             doc.save(`Produktauswahl_Poeppel_${new Date().toISOString().split('T')[0]}.pdf`);
         }
