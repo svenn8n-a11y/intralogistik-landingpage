@@ -474,7 +474,7 @@
             }
         }
 
-        // PDF generieren - Einfaches Layout wie Modula-PDF
+        // PDF generieren - Mit Corporate Design, Logo, Boxen und Specs
         function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -486,28 +486,36 @@
                 return;
             }
 
-            let yPos = 30;
+            // Corporate Colors
+            const primaryColor = [22, 160, 133];  // #16A085
+            const lightGreen = [232, 245, 242];   // Hellgrün
+            const darkGray = [44, 62, 80];        // #2C3E50
 
-            // Titel - größer und prominenter
-            doc.setFontSize(22);
-            doc.setTextColor(0, 0, 0);
+            // Header mit grünem Hintergrund und Logo-Bereich
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 45, 'F');
+
+            // Logo-Text (da wir das Logo nicht als Bild haben)
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
             doc.setFont(undefined, 'bold');
-            doc.text('Ihre Produktauswahl', 20, yPos);
-            yPos += 20;
+            doc.text('PÖPPEL', 20, 22);
 
-            // Firmendaten
-            doc.setFontSize(11);
+            doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
-            doc.text('R. Pöppel GmbH & Co.KG', 20, yPos);
-            yPos += 7;
-            doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 20, yPos);
-            yPos += 20;
+            doc.text('Intralogistik', 20, 30);
 
-            // Überschrift "Ausgewählte Systeme:"
-            doc.setFontSize(14);
+            // Titel rechts neben Logo
+            doc.setFontSize(18);
             doc.setFont(undefined, 'bold');
-            doc.text('Ausgewählte Systeme:', 20, yPos);
-            yPos += 12;
+            doc.text('Ihre Produktauswahl', 75, 25);
+
+            // Datum
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Erstellt: ${new Date().toLocaleDateString('de-DE')}`, 75, 32);
+
+            let yPos = 60;
 
             // Gruppiere nach Kategorie
             const categories = {
@@ -523,43 +531,94 @@
 
             let productNumber = 1;
 
-            // Zeige alle Produkte durchnummeriert
+            // Zeige alle Produkte mit Boxen und Specs
             Object.keys(categories).forEach(category => {
                 const categoryItems = categories[category];
 
                 categoryItems.forEach(item => {
+                    // Berechne benötigten Platz
+                    const specsCount = item.specs ? item.specs.length : 0;
+                    const neededSpace = 40 + (specsCount * 5);
+
                     // Seitenumbruch wenn nötig
-                    if (yPos > 250) {
+                    if (yPos + neededSpace > 270) {
                         doc.addPage();
-                        yPos = 30;
+                        yPos = 20;
                     }
 
-                    // Produktnummer und Name
-                    doc.setFontSize(12);
-                    doc.setFont(undefined, 'bold');
-                    doc.setTextColor(0, 0, 0);
-                    doc.text(`${productNumber}. ${item.name}`, 20, yPos);
-                    yPos += 7;
+                    // Produkt-Box mit hellgrünem Hintergrund
+                    doc.setFillColor(...lightGreen);
+                    const boxHeight = neededSpace - 5;
+                    doc.roundedRect(15, yPos - 5, 180, boxHeight, 3, 3, 'F');
 
-                    // Kategorie/Tagline als Untertitel
+                    // Produkt-Nummer Badge (grüner Kreis)
+                    doc.setFillColor(...primaryColor);
+                    doc.circle(25, yPos + 3, 5, 'F');
+                    doc.setTextColor(255, 255, 255);
                     doc.setFontSize(11);
-                    doc.setFont(undefined, 'normal');
-                    doc.setTextColor(60, 60, 60);
-                    doc.text(category, 20, yPos);
-                    yPos += 12; // Mehr Abstand zwischen Produkten
+                    doc.setFont(undefined, 'bold');
+                    doc.text(String(productNumber), 25, yPos + 5, { align: 'center' });
 
+                    // Produktname
+                    doc.setTextColor(...darkGray);
+                    doc.setFontSize(13);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(item.name, 35, yPos + 5);
+
+                    yPos += 10;
+
+                    // Kategorie
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(category, 20, yPos);
+
+                    yPos += 8;
+
+                    // Spezifikationen mit Bullet Points
+                    if (item.specs && item.specs.length > 0) {
+                        doc.setFontSize(9);
+                        doc.setFont(undefined, 'normal');
+                        doc.setTextColor(60, 60, 60);
+
+                        item.specs.forEach(spec => {
+                            // Grüner Bullet Point
+                            doc.setFillColor(...primaryColor);
+                            doc.circle(20, yPos - 1, 1, 'F');
+
+                            // Spec-Text mit Wrapping
+                            const specLines = doc.splitTextToSize(spec, 165);
+                            doc.text(specLines, 24, yPos);
+                            yPos += (specLines.length * 4);
+                        });
+                    }
+
+                    yPos += 15;
                     productNumber++;
                 });
             });
 
-            yPos += 5;
+            // Footer auf allen Seiten
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
 
-            // Footer ganz unten auf letzter Seite
-            const finalYPos = 280;
-            doc.setFontSize(11);
-            doc.setFont(undefined, 'normal');
-            doc.setTextColor(0, 0, 0);
-            doc.text('Pöppel Intralogistik - Ihr Partner für Lagerlösungen', 20, finalYPos);
+                // Grüne Footer-Linie
+                doc.setDrawColor(...primaryColor);
+                doc.setLineWidth(0.5);
+                doc.line(15, 280, 195, 280);
+
+                // Footer-Text
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.setFont(undefined, 'normal');
+                doc.text('R. Pöppel GmbH & Co.KG', 20, 287);
+                doc.setFontSize(8);
+                doc.text('Alpenstraße 45 | 87700 Memmingen | Tel: 08331 9559-0', 20, 292);
+
+                // Seitenzahl rechts
+                doc.text(`Seite ${i} von ${pageCount}`, 190, 292, { align: 'right' });
+            }
 
             doc.save(`Produktauswahl_Poeppel_${new Date().toISOString().split('T')[0]}.pdf`);
         }
