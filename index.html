@@ -1663,6 +1663,27 @@
                 font-size: 0.9rem;
             }
 
+            /* Logo Marquee mobile optimieren */
+            .logo-marquee {
+                padding: 0.25rem 0;
+            }
+
+            .marquee-container {
+                animation: marquee 15s linear infinite; /* 2x schneller (war 30s) */
+                padding: 0 1rem;
+            }
+
+            .logo-item {
+                height: 100px; /* Kleiner (war 180px) */
+                width: 280px;  /* Kleiner (war 500px) */
+                padding: 0.75rem;
+            }
+
+            .logo-marquee::before,
+            .logo-marquee::after {
+                width: 100px; /* Kleinere Fades */
+            }
+
             /* Video Marquee mobile optimieren */
             .video-marquee-section {
                 padding: 3rem 1rem;
@@ -3274,101 +3295,39 @@
             modularCardsObserver.observe(modularGrid);
         }
 
-        // Langsame, scroll-gekoppelte Animation für Timeline-Items
+        // Einfache, robuste Timeline Animation mit Intersection Observer
         const timelineItems = document.querySelectorAll('.timeline-item');
-        let lastScrollY = window.scrollY;
-        let scrollDirection = 'down';
-        let timelineTimeouts = []; // Array zum Speichern aller setTimeout IDs
 
         if (timelineItems.length > 0) {
             console.log('Timeline items found:', timelineItems.length);
 
-            // Längere Transition für langsamere Animation
-            timelineItems.forEach((item, index) => {
-                item.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-                item.style.transitionDelay = '0s'; // Kein Delay, direkt an Scroll
+            // Initial: alle unsichtbar
+            timelineItems.forEach(item => {
+                item.classList.remove('animated');
             });
 
-            // Funktion zum Löschen aller pending Timeouts
-            function clearAllTimelineTimeouts() {
-                timelineTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-                timelineTimeouts = [];
-            }
+            // Intersection Observer für saubere Animation
+            const observerOptions = {
+                threshold: 0.2, // Item muss zu 20% sichtbar sein
+                rootMargin: '0px 0px -100px 0px' // Trigger etwas früher
+            };
 
-            // Scroll-Listener für direkte Kopplung
-            let timelineCheckRunning = false;
-
-            function checkTimelineItemsVisibility() {
-                if (timelineCheckRunning) return;
-                timelineCheckRunning = true;
-
-                requestAnimationFrame(() => {
-                    // WICHTIG: Alte Timeouts löschen BEVOR neue gesetzt werden
-                    clearAllTimelineTimeouts();
-
-                    // Scroll-Richtung bestimmen
-                    const currentScrollY = window.scrollY;
-                    scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
-                    lastScrollY = currentScrollY;
-
-                    const windowHeight = window.innerHeight;
-                    const triggerPoint = windowHeight * 0.7; // 70% vom Viewport
-
-                    // Runterscrollen: Vorwärts-Schleife (erste zuerst)
-                    if (scrollDirection === 'down') {
-                        timelineItems.forEach((item, index) => {
-                            const rect = item.getBoundingClientRect();
-                            const itemTop = rect.top;
-                            const itemBottom = rect.bottom;
-
-                            if (itemTop < triggerPoint && itemBottom > 0) {
-                                const timeoutId = setTimeout(() => {
-                                    item.classList.add('animated');
-                                    item.classList.remove('slide-out');
-                                }, index * 150); // Stagger: jedes Item 150ms verzögert
-                                timelineTimeouts.push(timeoutId); // ID speichern
-                            }
-                        });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Item ist im Viewport -> einblenden
+                        entry.target.classList.add('animated');
+                    } else {
+                        // Item ist außerhalb des Viewports -> ausblenden
+                        entry.target.classList.remove('animated');
                     }
-                    // Hochscrollen: Rückwärts-Schleife (letzte zuerst)
-                    else if (scrollDirection === 'up') {
-                        for (let i = timelineItems.length - 1; i >= 0; i--) {
-                            const item = timelineItems[i];
-                            const rect = item.getBoundingClientRect();
-                            const itemTop = rect.top;
-
-                            // Item-Zentrum berechnen
-                            const itemCenter = itemTop + (rect.height / 2);
-                            const viewportCenter = windowHeight * 0.5;
-
-                            // Nur ausblenden wenn Zentrum über Viewport-Mitte ist oder komplett außerhalb
-                            if (itemCenter < viewportCenter || itemTop > windowHeight) {
-                                // Berechne Verzögerung: letzte Item (i=3) = 0ms, erste (i=0) = 450ms
-                                const delay = (timelineItems.length - 1 - i) * 150;
-                                const timeoutId = setTimeout(() => {
-                                    item.classList.remove('animated');
-                                    item.classList.add('slide-out');
-                                }, delay);
-                                timelineTimeouts.push(timeoutId); // ID speichern
-                            }
-                        }
-                    }
-
-                    timelineCheckRunning = false;
                 });
-            }
+            }, observerOptions);
 
-            // Initial check
-            checkTimelineItemsVisibility();
-
-            // Scroll-Listener mit Throttling
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                if (scrollTimeout) {
-                    clearTimeout(scrollTimeout);
-                }
-                scrollTimeout = setTimeout(checkTimelineItemsVisibility, 50);
-            }, { passive: true });
+            // Observe alle Timeline-Items
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
         } else {
             console.error('Timeline items NOT found!');
         }
