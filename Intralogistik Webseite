@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderne Intralogistik-Lösungen | Ihre Partner für effiziente Lagerverwaltung</title>
+    <meta name="description" content="Zukunftssichere Intralogistik: Vertikallift-Systeme, intelligente Lagerverwaltung, FTS/AGV und automatische Werkzeugausgabe. Jetzt Audit starten!">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #E31E24;
+            --secondary-red: #C41E3A;
+            --silver: #C0C0C0;
+            --dark-silver: #8B8B8B;
+            --charcoal: #2C2C2C;
+            --dark-bg: #1A1A1A;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--charcoal);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* =========================
+           1. HERO SECTION WITH PARALLAX
+           ========================= */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--charcoal) 50%, var(--secondary-red) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(227, 30, 36, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(192, 192, 192, 0.2) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            color: var(--white);
+        }
+
+        .hero-label {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--silver);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 84px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.4s;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(90deg, var(--primary-red), var(--silver));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--silver);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.6s;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        .btn {
+            padding: 18px 48px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(227, 30, 36, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(227, 30, 36, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--silver);
+        }
+
+        .btn-secondary:hover {
+            background: var(--silver);
+            color: var(--dark-bg);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(30px);
+            }
+        }
+
+        /* =========================
+           2. LOGO MARQUEE
+           ========================= */
+        .logo-marquee {
+            padding: 80px 0;
+            background: var(--white);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-marquee::before,
+        .logo-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .logo-marquee::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--white) 0%, transparent 100%);
+        }
+
+        .logo-marquee::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--white) 0%, transparent 100%);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 80px;
+            animation: marquee 15s linear infinite;
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            width: 200px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .logo-item:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .logo-item img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        /* =========================
+           3. RESULTS/DIAGRAM SECTION
+           ========================= */
+        .results-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--light-gray) 0%, var(--white) 100%);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-red);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--dark-silver);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .results-diagram {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(227, 30, 36, 0.1);
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .diagram-item {
+            text-align: center;
+            padding: 32px;
+            background: var(--white);
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .diagram-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-red), var(--silver));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .diagram-item:hover::before {
+            opacity: 1;
+        }
+
+        .diagram-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(227, 30, 36, 0.15);
+        }
+
+        .diagram-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .diagram-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .diagram-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .diagram-text {
+            font-size: 15px;
+            color: var(--dark-silver);
+            line-height: 1.6;
+        }
+
+        /* =========================
+           4. PRODUCT CLUSTERS
+           ========================= */
+        .product-cluster {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .product-cluster:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        .cluster-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .cluster-visual {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--charcoal), var(--dark-bg));
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cluster-visual::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(227, 30, 36, 0.2) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cluster-visual-content {
+            position: relative;
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cluster-visual-content svg {
+            width: 120px;
+            height: 120px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .cluster-text h3 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+        }
+
+        .cluster-text p {
+            font-size: 18px;
+            color: var(--dark-silver);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .cluster-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .cluster-features li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 16px;
+            color: var(--charcoal);
+        }
+
+        .cluster-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        /* =========================
+           5. MODULAR APPROACH (Steps 1-3)
+           ========================= */
+        .modular-section {
+            padding: 120px 0;
+            background: var(--dark-bg);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modular-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(227, 30, 36, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-box {
+            padding: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-red), var(--silver));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .step-box:hover {
+            transform: translateY(-12px) rotateX(5deg);
+            box-shadow: 0 30px 80px rgba(227, 30, 36, 0.3);
+        }
+
+        .step-box:hover::before {
+            opacity: 1;
+        }
+
+        .step-number {
+            font-size: 72px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-red), var(--silver));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: var(--silver);
+            line-height: 1.8;
+        }
+
+        /* =========================
+           6. PROCESS SECTION (Steps 1-5)
+           ========================= */
+        .process-section {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .process-timeline {
+            max-width: 1000px;
+            margin: 60px auto 0;
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-red) 0%, var(--silver) 100%);
+        }
+
+        .process-step {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .process-step:nth-child(1) { animation-delay: 0.1s; }
+        .process-step:nth-child(2) { animation-delay: 0.2s; }
+        .process-step:nth-child(3) { animation-delay: 0.3s; }
+        .process-step:nth-child(4) { animation-delay: 0.4s; }
+        .process-step:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .process-number {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(227, 30, 36, 0.3);
+        }
+
+        .process-content h4 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .process-content p {
+            font-size: 16px;
+            color: var(--dark-silver);
+            line-height: 1.8;
+        }
+
+        /* =========================
+           7. TESTIMONIALS
+           ========================= */
+        .testimonials-section {
+            padding: 120px 0;
+            background: var(--light-gray);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 120px;
+            color: rgba(227, 30, 36, 0.05);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: rotateY(5deg) translateY(-10px);
+            box-shadow: 0 20px 60px rgba(227, 30, 36, 0.15);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: var(--charcoal);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-red), var(--silver));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .author-info h5 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--dark-silver);
+        }
+
+        /* =========================
+           8. VIDEO MARQUEE
+           ========================= */
+        .video-section {
+            padding: 120px 0;
+            background: var(--dark-bg);
+            overflow: hidden;
+        }
+
+        .video-section .section-header {
+            color: var(--white);
+        }
+
+        .video-section .section-label {
+            color: var(--primary-red);
+        }
+
+        .video-section .section-description {
+            color: var(--silver);
+        }
+
+        .video-marquee {
+            margin-top: 60px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-track {
+            display: flex;
+            gap: 40px;
+            animation: marquee 20s linear infinite;
+        }
+
+        .video-track:hover {
+            animation-play-state: paused;
+        }
+
+        .video-item {
+            flex-shrink: 0;
+            width: 560px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 80px rgba(227, 30, 36, 0.3);
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        /* =========================
+           9. AUDIT CTA SECTION
+           ========================= */
+        .audit-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--dark-bg) 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audit-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(227, 30, 36, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .audit-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .audit-content h2 {
+            font-size: clamp(40px, 5vw, 64px);
+            margin-bottom: 24px;
+        }
+
+        .audit-content p {
+            font-size: 20px;
+            color: var(--silver);
+            margin-bottom: 48px;
+        }
+
+        /* =========================
+           10. AUDIT QUIZ FORM
+           ========================= */
+        .quiz-container {
+            max-width: 900px;
+            margin: 60px auto 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quiz-step {
+            display: none;
+        }
+
+        .quiz-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-question {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .quiz-option {
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(227, 30, 36, 0.1);
+            border-color: var(--primary-red);
+            transform: translateX(8px);
+        }
+
+        .quiz-option.selected {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.completed {
+            background: var(--primary-red);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+        }
+
+        /* =========================
+           11. CONTACT FORM
+           ========================= */
+        .contact-section {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .contact-form {
+            max-width: 800px;
+            margin: 60px auto 0;
+            display: grid;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 16px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* =========================
+           STICKY CTA BUTTON
+           ========================= */
+        .sticky-cta {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.4s ease;
+        }
+
+        .sticky-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sticky-cta .btn-primary {
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(227, 30, 36, 0.4);
+            animation: pulse-shadow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-shadow {
+            0%, 100% { box-shadow: 0 10px 40px rgba(227, 30, 36, 0.4); }
+            50% { box-shadow: 0 10px 60px rgba(227, 30, 36, 0.6); }
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .cluster-content,
+            .steps-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .diagram-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .sticky-cta {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+            }
+
+            .sticky-cta .btn-primary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">Intralogistik 4.0</div>
+                <h1>
+                    Die Zukunft der <span class="gradient-text">Lagerverwaltung</span> beginnt heute
+                </h1>
+                <p class="hero-description">
+                    Maximale Effizienz durch intelligente Automatisierung. Vertikallift-Systeme, cloudbasiertes WMS und fahrerlose Transportsysteme – alles aus einer Hand.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="document.getElementById('audit').scrollIntoView({behavior: 'smooth'})">Jetzt Audit starten</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Beratung anfragen</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGO MARQUEE -->
+    <section class="logo-marquee">
+        <div class="marquee-track">
+            <!-- First set of logos -->
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#E31E24"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">MODULA</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#003087"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">WALTER TOOLS</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#C41E3A"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="24" font-weight="700">E/D/E</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#1A1A1A"/>
+                    <text x="90" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="700">ACHTERNBERG</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#E31E24"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">PRECITOOL</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#005A9C"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">KARDEX</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#8B0000"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">HÄNEL</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#2C2C2C"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">GEBHARDT</text>
+                </svg>
+            </div>
+            <!-- Duplicate set for seamless loop -->
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#E31E24"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">MODULA</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#003087"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">WALTER TOOLS</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#C41E3A"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="24" font-weight="700">E/D/E</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#1A1A1A"/>
+                    <text x="90" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="700">ACHTERNBERG</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#E31E24"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">PRECITOOL</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#005A9C"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">KARDEX</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#8B0000"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="20" font-weight="700">HÄNEL</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
+                    <rect width="180" height="60" fill="#2C2C2C"/>
+                    <text x="90" y="35" text-anchor="middle" fill="white" font-size="18" font-weight="700">GEBHARDT</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS DIAGRAM -->
+    <section class="results-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nachweisbare Ergebnisse</div>
+                <h2 class="section-title">Cloudbasierte Lagerverwaltung der nächsten Generation</h2>
+                <p class="section-description">
+                    Unsere intelligenten Systeme reduzieren Ihre Prozesskosten um bis zu 40% und steigern die Produktivität messbar.
+                </p>
+            </div>
+            <div class="results-diagram">
+                <div class="diagram-grid">
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                        </div>
+                        <h4 class="diagram-title">-40% Prozesskosten</h4>
+                        <p class="diagram-text">Durch automatisierte Workflows und intelligente Bestandsverwaltung</p>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h4 class="diagram-title">+90% Raumeffizienz</h4>
+                        <p class="diagram-text">Vertikale Lagersysteme nutzen die Höhe optimal aus</p>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <h4 class="diagram-title">99,9% Verfügbarkeit</h4>
+                        <p class="diagram-text">24/7 Zugriff auf alle Materialien und Werkzeuge</p>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h4 class="diagram-title">100% Transparenz</h4>
+                        <p class="diagram-text">Lückenlose Nachverfolgbarkeit aller Bewegungen</p>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                        </div>
+                        <h4 class="diagram-title">48h Integration</h4>
+                        <p class="diagram-text">Schnelle Anbindung an bestehende ERP-Systeme</p>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon">
+                            <svg viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h4 class="diagram-title">ROI in 18 Monaten</h4>
+                        <p class="diagram-text">Schnelle Amortisation durch Einsparungen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CLUSTER 1: VERTIKALLIFT-SYSTEME -->
+    <section class="product-cluster">
+        <div class="container">
+            <div class="cluster-content">
+                <div class="cluster-visual">
+                    <div class="cluster-visual-content">
+                        <svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                    </div>
+                </div>
+                <div class="cluster-text">
+                    <h3>Vertikallift-Systeme</h3>
+                    <p>
+                        Unsere automatisierten Vertikallift-Systeme von Modula revolutionieren die Lagerhaltung. 
+                        Das "Ware-zum-Mann-Prinzip" minimiert Laufwege und maximiert die Produktivität.
+                    </p>
+                    <ul class="cluster-features">
+                        <li>Bis zu 990 kg Tragkraft pro Schublade</li>
+                        <li>Einsparung von bis zu 90% Lagerfläche</li>
+                        <li>Integration mit allen gängigen ERP-Systemen</li>
+                        <li>Modelle: Modula Lift, Modula Slim, Modula Next</li>
+                        <li>Schnelle Installation und Inbetriebnahme</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                        Mehr erfahren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CLUSTER 2: AUSGABESCHRÄNKE -->
+    <section class="product-cluster">
+        <div class="container">
+            <div class="cluster-content">
+                <div class="cluster-text">
+                    <h3>Intelligente Ausgabeschränke</h3>
+                    <p>
+                        Toolbase Werkzeugausgabesysteme sorgen für maximale Kontrolle und Effizienz. 
+                        Elektronische Verwaltung eliminiert Suchzeiten und verhindert Werkzeugverlust.
+                    </p>
+                    <ul class="cluster-features">
+                        <li>24/7 kontrollierter Zugriff auf Werkzeuge</li>
+                        <li>Automatisches Bestellmanagement bei Mindestbestand</li>
+                        <li>Vollständige Rückverfolgbarkeit aller Entnahmen</li>
+                        <li>Integration mit ERP und Warenwirtschaft</li>
+                        <li>Notfallentriegelung bei Stromausfall</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                        Mehr erfahren
+                    </button>
+                </div>
+                <div class="cluster-visual">
+                    <div class="cluster-visual-content">
+                        <svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path d="M12 4v1M17.66 6.34l-.828.828M20 12h-1M17.66 17.66l-.828-.828M12 19v1M7.168 17.66l.828-.828M5 12H4M7.168 6.34l.828.828"/><circle cx="12" cy="12" r="9"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CLUSTER 3: WMS/CLOUD -->
+    <section class="product-cluster">
+        <div class="container">
+            <div class="cluster-content">
+                <div class="cluster-visual">
+                    <div class="cluster-visual-content">
+                        <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M22 12h-4"/><path d="M7 12h14"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
+                    </div>
+                </div>
+                <div class="cluster-text">
+                    <h3>Intelligente Lagerverwaltung</h3>
+                    <p>
+                        Modula WMS Software verbindet alle Lagersysteme zu einer zentralen, cloudbasierten Lösung. 
+                        Echtzeit-Daten ermöglichen optimale Entscheidungen.
+                    </p>
+                    <ul class="cluster-features">
+                        <li>Zentrale Verwaltung aller Lagerstandorte</li>
+                        <li>KI-basierte Bedarfsprognosen</li>
+                        <li>Automatische Inventur per Knopfdruck</li>
+                        <li>Mobile Apps für iOS und Android</li>
+                        <li>Nahtlose ERP-Integration (SAP, MS Dynamics)</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                        Mehr erfahren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CLUSTER 4: FTS/AGV -->
+    <section class="product-cluster">
+        <div class="container">
+            <div class="cluster-content">
+                <div class="cluster-text">
+                    <h3>Fahrerlose Transportsysteme</h3>
+                    <p>
+                        Gebhardt AGV-Systeme automatisieren den innerbetrieblichen Transport vollständig. 
+                        Flexible Routenplanung und autonome Navigation steigern den Durchsatz.
+                    </p>
+                    <ul class="cluster-features">
+                        <li>Autonome Navigation ohne bauliche Veränderungen</li>
+                        <li>Flexible Anpassung an wechselnde Layouts</li>
+                        <li>Kollisionsvermeidung durch Sensorik</li>
+                        <li>Integration in bestehende Intralogistik</li>
+                        <li>Skalierbar von 1 bis 100+ Fahrzeugen</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                        Mehr erfahren
+                    </button>
+                </div>
+                <div class="cluster-visual">
+                    <div class="cluster-visual-content">
+                        <svg viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="8" rx="2"/><path d="M10 8V5c0-.6-.4-1-1-1H6c-.6 0-1 .4-1 1v3"/><path d="M19 8V5c0-.6-.4-1-1-1h-3c-.6 0-1 .4-1 1v3"/><circle cx="8" cy="20" r="2"/><circle cx="16" cy="20" r="2"/><path d="M12 4v4"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULAR APPROACH -->
+    <section class="modular-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Unser Ansatz</div>
+                <h2 class="section-title">Modularer Erfolg in 3 Schritten</h2>
+                <p class="section-description">
+                    Von der Analyse bis zur Umsetzung begleiten wir Sie durch den gesamten Digitalisierungsprozess.
+                </p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-box">
+                    <div class="step-number">01</div>
+                    <h4 class="step-title">Analyse & Audit</h4>
+                    <p class="step-description">
+                        Wir erfassen Ihre aktuellen Prozesse und identifizieren Optimierungspotenziale. 
+                        Unser digitales Audit liefert konkrete Handlungsempfehlungen.
+                    </p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">02</div>
+                    <h4 class="step-title">Konzept & Planung</h4>
+                    <p class="step-description">
+                        Gemeinsam entwickeln wir eine maßgeschneiderte Lösung, die perfekt zu Ihren 
+                        Anforderungen passt – von der Systemauswahl bis zur Integration.
+                    </p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">03</div>
+                    <h4 class="step-title">Umsetzung & Support</h4>
+                    <p class="step-description">
+                        Professionelle Installation, Schulung Ihrer Mitarbeiter und kontinuierlicher Support 
+                        garantieren einen reibungslosen Betrieb ab Tag 1.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS TIMELINE -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Unser Prozess</div>
+                <h2 class="section-title">Vom Erstkontakt zur Inbetriebnahme</h2>
+                <p class="section-description">
+                    Ein strukturierter Ablauf garantiert termingerechte Umsetzung und optimale Ergebnisse.
+                </p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <div class="process-content">
+                        <h4>Erstberatung & Bedarfsanalyse</h4>
+                        <p>
+                            In einem kostenlosen Erstgespräch ermitteln wir Ihre Anforderungen und zeigen 
+                            erste Lösungsansätze auf. Unser Audit liefert eine detaillierte Ist-Analyse.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-content">
+                        <h4>Angebot & Wirtschaftlichkeitsrechnung</h4>
+                        <p>
+                            Sie erhalten ein transparentes Angebot mit detaillierter ROI-Berechnung. 
+                            Wir zeigen konkret, wann sich die Investition amortisiert.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <div class="process-content">
+                        <h4>Detailplanung & Projektstart</h4>
+                        <p>
+                            Gemeinsam erstellen wir einen konkreten Umsetzungsplan mit Meilensteinen. 
+                            Ein dedizierter Projektmanager koordiniert alle Schritte.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <div class="process-content">
+                        <h4>Installation & Integration</h4>
+                        <p>
+                            Unsere Techniker installieren die Systeme professionell und integrieren sie 
+                            nahtlos in Ihre IT-Landschaft – ohne Störung des laufenden Betriebs.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">5</div>
+                    <div class="process-content">
+                        <h4>Schulung & Go-Live</h4>
+                        <p>
+                            Wir schulen Ihre Mitarbeiter umfassend und stehen beim Go-Live an Ihrer Seite. 
+                            Unser Support-Team ist auch danach jederzeit für Sie da.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Kundenstimmen</div>
+                <h2 class="section-title">Was unsere Kunden sagen</h2>
+                <p class="section-description">
+                    Erfolgsgeschichten aus verschiedenen Branchen
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Durch die Modula-Systeme haben wir 85% unserer Lagerfläche eingespart und können 
+                        die frei gewordenen Räume jetzt produktiv nutzen. Die Amortisation erfolgte nach nur 14 Monaten."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h5>Michael Krause</h5>
+                            <p>Produktionsleiter, Maschinenbau</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Die Toolbase-Ausgabesysteme haben unsere Werkzeugverwaltung revolutioniert. 
+                        Kein Suchen mehr, vollständige Transparenz und drastisch reduzierte Wiederbeschaffungskosten."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SB</div>
+                        <div class="author-info">
+                            <h5>Sandra Becker</h5>
+                            <p>Betriebsleiterin, Automobilzulieferer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Die Integration der FTS-Systeme hat unseren innerbetrieblichen Transport komplett 
+                        automatisiert. Die Flexibilität bei Layout-Änderungen ist ein enormer Vorteil."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TR</div>
+                        <div class="author-info">
+                            <h5>Thomas Richter</h5>
+                            <p>Logistikleiter, E-Commerce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO MARQUEE -->
+    <section class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Erfolgsgeschichten</div>
+                <h2 class="section-title">Sehen Sie unsere Lösungen in Aktion</h2>
+                <p class="section-description">
+                    Praxisbeispiele von führenden Unternehmen weltweit
+                </p>
+            </div>
+        </div>
+        <div class="video-marquee">
+            <div class="video-track">
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/xwV0ECJ2dS4" allowfullscreen></iframe>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/Hux1Lmynd-I" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/knncx4o4jeI" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/_1ZJ8lT5yiM" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/xwV0ECJ2dS4" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUDIT SECTION -->
+    <section class="audit-section" id="audit">
+        <div class="container">
+            <div class="audit-content">
+                <h2>Bereit für den nächsten Schritt?</h2>
+                <p>
+                    Unser digitales Audit analysiert Ihre Intralogistik in nur 5 Minuten und liefert 
+                    konkrete Handlungsempfehlungen – kostenlos und unverbindlich.
+                </p>
+                
+                <!-- QUIZ CONTAINER -->
+                <div class="quiz-container">
+                    <div class="quiz-progress">
+                        <div class="progress-dot completed"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                    </div>
+
+                    <div class="quiz-step active" data-step="1">
+                        <h3 class="quiz-question">Wie viele Lagerfläche nutzen Sie aktuell?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this)">Unter 500 m²</div>
+                            <div class="quiz-option" onclick="selectOption(this)">500 - 1.500 m²</div>
+                            <div class="quiz-option" onclick="selectOption(this)">1.500 - 5.000 m²</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Über 5.000 m²</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="2">
+                        <h3 class="quiz-question">Welche Herausforderungen haben Sie aktuell?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this)">Platzmangel im Lager</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Lange Suchzeiten</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Fehlende Transparenz</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Hohe Personalkosten</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="3">
+                        <h3 class="quiz-question">Wie viele Artikel verwalten Sie?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this)">Unter 1.000</div>
+                            <div class="quiz-option" onclick="selectOption(this)">1.000 - 5.000</div>
+                            <div class="quiz-option" onclick="selectOption(this)">5.000 - 20.000</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Über 20.000</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="4">
+                        <h3 class="quiz-question">Haben Sie bereits ein ERP-System?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this)">Ja, SAP</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Ja, Microsoft Dynamics</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Ja, anderes System</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Nein, noch keins</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" data-step="5">
+                        <h3 class="quiz-question">Wann planen Sie die Umsetzung?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this)">Innerhalb 3 Monate</div>
+                            <div class="quiz-option" onclick="selectOption(this)">3-6 Monate</div>
+                            <div class="quiz-option" onclick="selectOption(this)">6-12 Monate</div>
+                            <div class="quiz-option" onclick="selectOption(this)">Noch in Planung</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-navigation">
+                        <button class="btn btn-secondary" onclick="previousStep()" style="display: none;" id="prevBtn">Zurück</button>
+                        <button class="btn btn-primary" onclick="nextStep()" id="nextBtn">Weiter</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 32px; text-align: center;">
+                    <a href="#" onclick="window.history.back(); return false;" style="color: var(--silver); text-decoration: none; font-size: 14px;">
+                        ← Zurück zur Seite
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Kontakt</div>
+                <h2 class="section-title">Lassen Sie uns sprechen</h2>
+                <p class="section-description">
+                    Vereinbaren Sie ein kostenloses Beratungsgespräch mit unseren Intralogistik-Experten
+                </p>
+            </div>
+            <form class="contact-form" onsubmit="submitForm(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Vorname *</label>
+                        <input type="text" required placeholder="Max">
+                    </div>
+                    <div class="form-group">
+                        <label>Nachname *</label>
+                        <input type="text" required placeholder="Mustermann">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>E-Mail *</label>
+                        <input type="email" required placeholder="max.mustermann@firma.de">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" placeholder="+49 123 456789">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Unternehmen *</label>
+                    <input type="text" required placeholder="Mustermann GmbH">
+                </div>
+                <div class="form-group">
+                    <label>Interesse an</label>
+                    <select>
+                        <option>Vertikallift-Systeme</option>
+                        <option>Ausgabeschränke</option>
+                        <option>Lagerverwaltungssoftware</option>
+                        <option>FTS/AGV-Systeme</option>
+                        <option>Gesamtlösung</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ihre Nachricht</label>
+                    <textarea placeholder="Beschreiben Sie kurz Ihre Anforderungen..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Beratungstermin anfragen
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- STICKY CTA BUTTON -->
+    <div class="sticky-cta" id="stickyCta">
+        <button class="btn btn-primary" onclick="document.getElementById('audit').scrollIntoView({behavior: 'smooth'})">
+            <span style="display: inline-flex; align-items: center; gap: 12px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                </svg>
+                Jetzt Audit starten
+            </span>
+        </button>
+    </div>
+
+    <script>
+        // Quiz functionality
+        let currentStep = 1;
+        const totalSteps = 5;
+        const answers = {};
+
+        function selectOption(element) {
+            // Remove previous selection
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection
+            element.classList.add('selected');
+            
+            // Store answer
+            answers[`step${currentStep}`] = element.textContent;
+        }
+
+        function nextStep() {
+            const currentOption = document.querySelector(`.quiz-step[data-step="${currentStep}"] .quiz-option.selected`);
+            
+            if (!currentOption) {
+                alert('Bitte wählen Sie eine Option aus.');
+                return;
+            }
+
+            if (currentStep < totalSteps) {
+                // Hide current step
+                document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+                
+                // Show next step
+                currentStep++;
+                document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+                
+                // Update progress
+                updateProgress();
+                
+                // Show/hide buttons
+                document.getElementById('prevBtn').style.display = 'block';
+                
+                if (currentStep === totalSteps) {
+                    document.getElementById('nextBtn').textContent = 'Ergebnisse erhalten';
+                }
+            } else {
+                // Submit quiz
+                completeQuiz();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep--;
+                document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+                
+                updateProgress();
+                
+                if (currentStep === 1) {
+                    document.getElementById('prevBtn').style.display = 'none';
+                }
+                
+                document.getElementById('nextBtn').textContent = 'Weiter';
+            }
+        }
+
+        function updateProgress() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                if (index < currentStep) {
+                    dot.classList.add('completed');
+                } else {
+                    dot.classList.remove('completed');
+                }
+            });
+        }
+
+        function completeQuiz() {
+            console.log('Quiz Answers:', answers);
+            alert('Vielen Dank! Wir senden Ihnen Ihre persönliche Auswertung per E-Mail zu.\n\nEin Berater wird sich innerhalb von 24 Stunden bei Ihnen melden.');
+            // Here you would normally send the data to your backend
+            document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // Sticky CTA visibility
+        window.addEventListener('scroll', () => {
+            const stickyCta = document.getElementById('stickyCta');
+            const auditSection = document.getElementById('audit');
+            const rect = auditSection.getBoundingClientRect();
+            
+            // Show button when audit section is out of view
+            if (rect.bottom < 0) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        });
+
+        // Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Vielen Dank für Ihre Anfrage! Wir melden uns innerhalb von 24 Stunden bei Ihnen.');
+            // Here you would normally send the form data to your backend
+            event.target.reset();
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.diagram-item, .step-box, .testimonial-card, .cluster-visual');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>

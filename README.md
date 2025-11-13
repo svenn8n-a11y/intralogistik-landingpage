@@ -404,6 +404,7 @@ Per FTP alle Dateien auf Webserver hochladen:
   - Eingebettetes Widget für nahtlose Benutzererfahrung
   - DSGVO-konform und zuverlässig
   - Alle Anfragen landen direkt im Typeform-Dashboard
+  - CTA-Button "Kostenfreie Beratung anfordern" für bessere Conversion
 
 ### Version 2.3.2 (Januar 2025)
 - 🐛 **Scroll-Animation Timing-Fix**: setTimeout-Array verhindert Konflikte bei schnellem Richtungswechsel
