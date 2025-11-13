@@ -43,9 +43,11 @@ Diese moderne Webseite präsentiert die Intralogistik-Lösungen von R. Pöppel G
 
 ### Funktionalität
 - ✅ **Video-Marquee**: Automatisches Scrollen mit Pause-on-Hover
-- ✅ **Produktauswahl**: Interaktive Modula-Produktseite mit Merkliste
-- ✅ **PDF-Generierung**: Automatische PDF-Erstellung für Produktauswahl und Audit
-- ✅ **Interaktives Audit**: Mehrstufiges Intralogistik-Audit mit Ergebnisanalyse
+- ✅ **Produktauswahl**: 2 Produktseiten (Vertikalliftsysteme + Ausgabeschränke)
+- ✅ **Zentrale Merkliste**: LocalStorage-basiert, seitenübergreifend
+- ✅ **PDF-Generierung**: Corporate Design mit Logo, Boxen und allen Specs
+- ✅ **Interaktives Audit**: ROI-Kalkulation mit 8 Komponenten (validiert durch 29 Quellen)
+- ✅ **Scroll-Animationen**: Direkt an Scrollgeschwindigkeit gekoppelt
 - ✅ **Kontaktformular**: Mit Validierung und Datenschutz-Checkbox
 
 ### Technisch
@@ -60,8 +62,10 @@ Diese moderne Webseite präsentiert die Intralogistik-Lösungen von R. Pöppel G
 intralogistik-landingpage/
 │
 ├── index.html                          # Hauptseite (Landingpage)
-├── vertikalliftsysteme.html            # Modula Produktübersicht & Merkliste
-├── index_audit_pro.html                # Intralogistik-Audit Tool
+├── vertikalliftsysteme.html            # Modula Vertikalliftsysteme (5 Produkte)
+├── ausgabeschraenke.html               # Intelligente Ausgabeschränke (13 Systeme)
+├── merkzettel.html                     # Zentrale Merkliste mit PDF-Export
+├── index_audit_pro.html                # Intralogistik-Audit Tool mit ROI-Kalkulation
 │
 ├── logos/                              # Firmenlogos (hell/dunkel)
 │   ├── 100_Poeppel_Logo_HELL.png
@@ -395,7 +399,37 @@ Per FTP alle Dateien auf Webserver hochladen:
 
 ## 📝 Changelog
 
-### Version 2.0 (November 2025)
+### Version 2.3 (Januar 2025)
+- 🎬 **YouTube-Video** auf Ausgabeschränke-Seite eingebunden (fAb2ZtSK3Vs)
+- 🎨 **Merkzettel-PDF** komplett neu mit Corporate Design:
+  - Grüner Header mit PÖPPEL Logo-Text
+  - Hellgrüne Produkt-Boxen mit grünen Nummer-Badges
+  - Alle Spezifikationen mit grünen Bullet-Points
+  - Footer mit grüner Linie und vollständigen Kontaktdaten
+  - Automatische Seitenumbrüche und Text-Wrapping
+- 🎭 **Prozess-Animation** verbessert:
+  - Scroll-gekoppelte Animation (langsamer, direkter)
+  - Umgekehrte Reihenfolge beim Hochscrollen
+  - Karten fliegen nacheinander rein/raus (150ms Stagger)
+- 📱 **Mobile Prozess-Ansicht** optimiert:
+  - Zahlenstrahl entfernt auf Mobile
+  - Grüne Kreise in Karten integriert (wie modular-cards)
+  - Desktop behält externe Kreise mit Verbindungslinie
+
+### Version 2.2 (Januar 2025)
+- 🔧 ROI-Audit Tool mit 8-Komponenten Berechnung
+- 📊 Marktforschung-Integration (29 validierte Quellen)
+- 🛡️ Safety Caps für realistische Einsparungen
+- 📄 Audit-PDF mit Kundenantworten
+- 🎨 UX-Fixes: Button-Zentrierung, Mobile Menu, Orange Merkliste-Buttons
+
+### Version 2.1 (Dezember 2024)
+- 🎯 Ausgabeschränke-Seite mit 13 Systemen
+- 🔗 Merkzettel-Integration über LocalStorage
+- 📱 Responsive Navigation mit Hamburger-Menu
+- 🎨 Glassmorphism-Design für Zurück-Buttons
+
+### Version 2.0 (November 2024)
 - ✨ Video Auto-Scroll Animation implementiert
 - ✨ Merkliste-Funktion mit PDF-Export
 - ✨ Intralogistik-Audit Tool erstellt
@@ -405,7 +439,7 @@ Per FTP alle Dateien auf Webserver hochladen:
 - 🐛 Partnernamen aus Text entfernt
 - 📦 Alle Styles inline für bessere Performance
 
-### Version 1.0 (November 2025)
+### Version 1.0 (November 2024)
 - 🎉 Initial Release
 - ✨ Responsive Landingpage
 - ✨ Produktseite mit Modals
