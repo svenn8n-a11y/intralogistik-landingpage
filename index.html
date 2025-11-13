@@ -1673,11 +1673,16 @@
             }
 
             .video-card {
-                width: 280px;
+                width: 220px;
             }
 
             .video-marquee-container {
                 padding: 1rem;
+                gap: 1rem;
+            }
+
+            .video-marquee-section {
+                padding: 3rem 1rem;
             }
 
             /* Section Padding Mobile */
@@ -3335,9 +3340,14 @@
                                 }, index * 150); // Stagger: jedes Item 150ms verzögert
                             }
                         }
-                        // Hochscrollen: Items fliegen in UMGEKEHRTER Reihenfolge raus
+                        // Hochscrollen: Items bleiben sichtbar bis Zentrum Viewport-Mitte überschreitet
                         else if (scrollDirection === 'up') {
-                            if (itemBottom < triggerPoint || itemTop > windowHeight) {
+                            // Item-Zentrum berechnen
+                            const itemCenter = itemTop + (rect.height / 2);
+                            const viewportCenter = windowHeight * 0.5;
+
+                            // Nur ausblenden wenn Zentrum über Viewport-Mitte ist oder komplett außerhalb
+                            if (itemCenter < viewportCenter || itemTop > windowHeight) {
                                 const reverseIndex = timelineItems.length - 1 - index;
                                 setTimeout(() => {
                                     item.classList.remove('animated');
@@ -3449,8 +3459,10 @@
             if (videoWrapper) {
                 const maxScroll = videoWrapper.scrollWidth - videoWrapper.clientWidth;
 
-                // Scroll smoothly
-                videoScrollPosition += videoScrollDirection * 1;
+                // Scroll smoothly - schneller auf Mobile
+                const isMobile = window.innerWidth <= 768;
+                const scrollSpeed = isMobile ? 2.5 : 1;
+                videoScrollPosition += videoScrollDirection * scrollSpeed;
 
                 // Check boundaries and reverse direction
                 if (videoScrollPosition >= maxScroll) {
@@ -3463,8 +3475,10 @@
             }
         }
 
-        // Start automatic scrolling
-        let videoScrollInterval = setInterval(autoScrollVideos, 30);
+        // Start automatic scrolling - schneller auf Mobile
+        const isMobile = window.innerWidth <= 768;
+        const scrollInterval = isMobile ? 20 : 30;
+        let videoScrollInterval = setInterval(autoScrollVideos, scrollInterval);
 
         // Pause on hover
         if (videoWrapper) {
@@ -3473,7 +3487,9 @@
             });
 
             videoWrapper.addEventListener('mouseleave', () => {
-                videoScrollInterval = setInterval(autoScrollVideos, 30);
+                const isMobile = window.innerWidth <= 768;
+                const scrollInterval = isMobile ? 20 : 30;
+                videoScrollInterval = setInterval(autoScrollVideos, scrollInterval);
             });
         }
 
