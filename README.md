@@ -48,7 +48,7 @@ Diese moderne Webseite präsentiert die Intralogistik-Lösungen von R. Pöppel G
 - ✅ **PDF-Generierung**: Corporate Design mit Logo, Boxen und allen Specs
 - ✅ **Interaktives Audit**: ROI-Kalkulation mit 8 Komponenten (validiert durch 29 Quellen)
 - ✅ **Scroll-Animationen**: Direkt an Scrollgeschwindigkeit gekoppelt
-- ✅ **Kontaktformular**: Mit Validierung und Datenschutz-Checkbox
+- ✅ **Typeform Kontaktformular**: Professionell, DSGVO-konform mit E-Mail-Integration
 
 ### Technisch
 - ✅ **Zero Dependencies**: Kein jQuery, keine Frameworks
@@ -61,40 +61,48 @@ Diese moderne Webseite präsentiert die Intralogistik-Lösungen von R. Pöppel G
 ```
 intralogistik-landingpage/
 │
-├── index.html                          # Hauptseite (Landingpage)
+├── index.html                          # Hauptseite mit Typeform-Integration
 ├── vertikalliftsysteme.html            # Modula Vertikalliftsysteme (5 Produkte)
 ├── ausgabeschraenke.html               # Intelligente Ausgabeschränke (13 Systeme)
 ├── merkzettel.html                     # Zentrale Merkliste mit PDF-Export
 ├── index_audit_pro.html                # Intralogistik-Audit Tool mit ROI-Kalkulation
+├── index_backup_working.html           # Backup der funktionierenden Index-Version
 │
 ├── logos/                              # Firmenlogos (hell/dunkel)
 │   ├── 100_Poeppel_Logo_HELL.png
 │   ├── 100_Poeppel_Logo_DARK.png
 │   └── ... (weitere Logo-Varianten)
 │
-├── Produkte/                           # Modula Produktbilder
+├── Produkte/                           # Produktbilder (WebP-Format)
 │   ├── modula-lift.webp
 │   ├── modula-slim.webp
 │   ├── modula-next.webp
 │   ├── modula-pallet.webp
-│   └── modula-climatecontrol.webp
+│   ├── modula-climatecontrol.webp
+│   ├── *.csv (Produktdaten)
+│   └── ... (weitere Produkt-Assets - nicht in Git)
 │
-├── Hintergrundbilder Intralogistik/   # Hero-Hintergrundbilder
-│   └── ... (Industriebilder)
-│
-├── Videos /                            # Video-Ressourcen
-│   └── ... (Produktvideos)
+├── Hintergrundbilder Intralogistik/   # Hero-Bilder (nicht in Git - zu groß)
+├── Videos /                            # YouTube-Videos (nicht in Git - extern gehostet)
+├── download PDF/                       # User-generierte PDFs (nicht in Git)
+├── Recherche und Berechnungen /        # Research-Dateien (nicht in Git)
+├── Webbasiertes_ROI_TOOL/              # ROI-Tool Entwicklung (nicht in Git)
+├── progressbar/                        # Test-Dateien (nicht in Git)
 │
 ├── README.md                           # Haupt-Dokumentation (diese Datei)
 ├── SEKTION_DOKUMENTATION.md            # Detaillierte Sektion-Dokumentation
 ├── ANIMATION_EFFECTS.md                # Animation & Effekte Dokumentation
 ├── CHAT_ZUSAMMENFASSUNG.md             # Entwicklungs-Historie
 │
-├── styles.css                          # Legacy CSS (nicht mehr verwendet)
-├── script.js                           # Legacy JS (nicht mehr verwendet)
+├── Intralogistik Landingpage.code-workspace  # VS Code Workspace-Datei
 │
-└── .gitignore                          # Git Ignore Datei
+└── .gitignore                          # Große Binärdateien ausgeschlossen
 ```
+
+**Hinweis**: Große Binärdateien (Videos, PDFs, Bilder >2MB) sind in `.gitignore` ausgeschlossen, da:
+- Videos auf YouTube gehostet werden (iframe-Einbettung)
+- PDFs extern gehostet werden sollten (CDN oder separater Server)
+- GitHub ein 100MB-Limit pro Datei hat
 
 ## 🌐 Seitenübersicht
 
