@@ -399,6 +399,12 @@ Per FTP alle Dateien auf Webserver hochladen:
 
 ## 📝 Changelog
 
+### Version 2.3.1 (Januar 2025)
+- 🐛 **Scroll-Animation Fix**: Rückwärts-Schleife beim Hochscrollen - letzte Kachel verschwindet zuerst
+- 📄 **PDF-Layout**: Leerzeile zwischen Produktname und Kategorie (keine Überschneidung mehr)
+- 🎬 **YouTube-Video**: Autoplay, Mute und Loop aktiviert auf Ausgabeschränke-Seite
+- 📱 **Mobile Video-Marquee**: 2.5x schneller, Karten verkleinert auf 220px
+
 ### Version 2.3 (Januar 2025)
 - 🎬 **YouTube-Video** auf Ausgabeschränke-Seite eingebunden (fAb2ZtSK3Vs)
 - 🎨 **Merkzettel-PDF** komplett neu mit Corporate Design:
