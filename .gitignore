@@ -30,9 +30,15 @@ Produkte/*.zip
 # Test/Download PDFs (user-generated)
 download PDF/
 
-# Research files (not for production)
-Recherche und Berechnungen /
+# Research files (not for production) - aber Dokumentation erlauben
+Recherche und Berechnungen /*.json
+Recherche und Berechnungen /*.csv
+Recherche und Berechnungen /VOLLSTAENDIGE_TRAININGSDATEN.pdf
 Webbasiertes_ROI_TOOL/
+
+# Aber diese Dateien MÜSSEN committet werden:
+!Recherche und Berechnungen /AUDIT_BERECHNUNGSGRUNDLAGEN_ERKLAERUNG.md
+!Recherche und Berechnungen /generate_berechnungsgrundlagen_pdf.html
 
 # Test/Progress files
 progressbar/
